@@ -159,7 +159,7 @@
 				<!-- Access data -->
 				<!-- Default values for testing and development -->
 				<!-- Override them for production -->
-				<database.url>jdbc:mysql://localhost:3306/scrollad</database.url>
+				<database.url>jdbc:mysql://localhost:3306/scrollad?serverTimezone=Europe/Madrid</database.url>
 				<database.username>root</database.username>
 				<database.password></database.password>
 				<!-- Spring context -->
@@ -218,6 +218,11 @@
 						<groupId>org.eclipse.jetty</groupId>
 						<artifactId>jetty-maven-plugin</artifactId>
 						<version>${plugin.jetty.version}</version>
+						
+						
+						
+						
+						
 						<configuration>
 							<stopKey>STOP</stopKey>
 							<stopPort>9999</stopPort>
@@ -461,12 +466,12 @@
 		<liquibase.version>3.6.2</liquibase.version>
 		<log4j.version>2.11.1</log4j.version>
 		<mockito.version>2.21.0</mockito.version>
-		<mysql.version>5.1.39</mysql.version>
+		<mysql.version>8.0.21</mysql.version>
 		<postgresql.version>42.1.4</postgresql.version>
 		<servlet.version>4.0.1</servlet.version>
 		<slf4j.version>1.8.0-alpha2</slf4j.version>
 		<spring.data.train.version>Lovelace-RELEASE</spring.data.train.version>
-		<spring.version>5.1.5.RELEASE</spring.version>
+		<spring.version>5.1.5.RELEASE</spring.version>	
 		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
 		<webjars.bootstrap.version>3.4.1</webjars.bootstrap.version>
 		<webjars.bootswatch.version>3.3.7</webjars.bootswatch.version>
