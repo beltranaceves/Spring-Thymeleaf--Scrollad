@@ -26,6 +26,10 @@
 -- ****************************************
 -- This SQL script populates the initial data.
 -- ****************************************
+INSERT INTO users (login, name, city) VALUES
+   ('login1' ,'name1', 'city1'),
+   ('login2' ,'name2', 'city2'),
+   ('login3' ,'name3', 'city3');
 
 INSERT INTO example_entities (name) VALUES
    ('entity_01'),
