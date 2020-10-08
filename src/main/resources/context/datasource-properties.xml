@@ -19,4 +19,18 @@
 		<property name="poolName" value="${jpa.pool.name}" />
 	</bean>
 
+	<!-- Necesario para hacer publico el contenido de la in-memory H2-->
+	<!-- REMOVE IN PROD -->
+	<bean id="h2Server" class="org.h2.tools.Server"
+		factory-method="createTcpServer" init-method="start"
+		destroy-method="stop" depends-on="h2WebServer">
+		<constructor-arg
+			value="-tcp,-tcpAllowOthers,-tcpPort,9092" />
+	</bean>
+	<bean id="h2WebServer" class="org.h2.tools.Server"
+		factory-method="createWebServer" init-method="start"
+		destroy-method="stop">
+		<constructor-arg
+			value="-web,-webAllowOthers,-webPort,8082" />
+	</bean>
 </beans>
