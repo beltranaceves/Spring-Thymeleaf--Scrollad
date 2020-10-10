@@ -22,43 +22,48 @@
  * SOFTWARE.
  */
 
-package es.udc.fi.dc.fd.controller;
+package es.udc.fi.dc.fd.model;
 
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.io.Serializable;
 
 /**
- * Controller for home view.
- * 
+ * A simple entity to be used as an example.
+ *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-@Controller
-@RequestMapping("/")
-public class HomeController {
+public interface Ad extends Serializable {
 
     /**
-     * Name for the welcome view.
+     * Returns the identifier assigned to this entity.
+     * <p>
+     * If no identifier has been assigned yet, then the value is expected to be
+     * {@code null} or lower than zero.
+     *
+     * @return the entity's identifier
      */
-    private static final String VIEW_WELCOME = "welcome";
+    public Integer getId();
 
     /**
-     * Default constructor.
+     * Returns the name of the entity.
+     *
+     * @return the entity's name
      */
-    public HomeController() {
-        super();
-    }
+    public String getName();
 
     /**
-     * Shows the welcome view.
-     * 
-     * @return the welcome view
+     * Sets the identifier assigned to this entity.
+     *
+     * @param identifier
+     *            the identifier for the entity
      */
-    @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
-    public String showWelcome() {
-        return VIEW_WELCOME;
-    }
+    public void setId(final Integer identifier);
+
+    /**
+     * Changes the name of the entity.
+     *
+     * @param name
+     *            the name to set on the entity
+     */
+    public void setName(final String name);
 
 }

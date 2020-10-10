@@ -31,6 +31,13 @@ INSERT INTO users (login, name, city) VALUES
    ('login2' ,'name2', 'city2'),
    ('login3' ,'name3', 'city3');
 
+INSERT INTO ads (name) VALUES 
+   ('entity_01'),
+   ('entity_02'),
+   ('entity_03'),
+   ('entity_04'),
+   ('entity_05');
+
 INSERT INTO example_entities (name) VALUES
    ('entity_01'),
    ('entity_02'),

@@ -22,43 +22,50 @@
  * SOFTWARE.
  */
 
-package es.udc.fi.dc.fd.controller;
-
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+package es.udc.fi.dc.fd.controller.entity;
 
 /**
- * Controller for home view.
+ * Constants for the example entity view controllers.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
-@Controller
-@RequestMapping("/")
-public class HomeController {
+public final class AdEntityViewConstants {
 
     /**
-     * Name for the welcome view.
+     * Form bean parameter name.
      */
-    private static final String VIEW_WELCOME = "welcome";
+    public static final String BEAN_FORM        = "form";
 
     /**
-     * Default constructor.
+     * Entities parameter name.
      */
-    public HomeController() {
+    public static final String PARAM_ENTITIES   = "ads";
+
+    /**
+     * Name for the entity form.
+     */
+    public static final String VIEW_ENTITY_FORM = "ad/form";
+
+    /**
+     * Name for the entities view using AJAX.
+     */
+    public static final String VIEW_ENTITY_LIST_AJAX = "ad/listAjax";
+
+    /**
+     * Name for the entities view.
+     */
+    public static final String VIEW_ENTITY_LIST = "ad/list";
+
+    /**
+     * Name for the exception view.
+     */
+    public static final String VIEW_EXCEPTION   = "exception";
+
+    /**
+     * Private constructor to avoid initialization.
+     */
+    private AdEntityViewConstants() {
         super();
-    }
-
-    /**
-     * Shows the welcome view.
-     * 
-     * @return the welcome view
-     */
-    @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
-    public String showWelcome() {
-        return VIEW_WELCOME;
     }
 
 }
