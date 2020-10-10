@@ -26,6 +26,11 @@
 -- ****************************************
 -- This SQL script populates the initial data.
 -- ****************************************
+INSERT INTO advertisement (title, description, image, userA) VALUES
+   ('anuncio1' ,'1 anuncio', 'imagen1', 'juan1'),
+   ('anuncio2' ,'2 anuncio', 'imagen2', 'juan2'),
+   ('anuncio3' ,'3 anuncio', 'imagen3', 'juan3');
+
 INSERT INTO users (login, name, city) VALUES
    ('login1' ,'name1', 'city1'),
    ('login2' ,'name2', 'city2'),
