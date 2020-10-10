@@ -31,12 +31,10 @@ INSERT INTO users (login, name, city) VALUES
    ('login2' ,'name2', 'city2'),
    ('login3' ,'name3', 'city3');
 
-INSERT INTO ads (name) VALUES 
-   ('entity_01'),
-   ('entity_02'),
-   ('entity_03'),
-   ('entity_04'),
-   ('entity_05');
+INSERT INTO advertisement (title, description, image, userA) VALUES
+   ('anuncio1' ,'1 anuncio', 'imagen1', 'juan1'),
+   ('anuncio2' ,'2 anuncio', 'imagen2', 'juan2'),
+   ('anuncio3' ,'3 anuncio', 'imagen3', 'juan3');
 
 INSERT INTO example_entities (name) VALUES
    ('entity_01'),

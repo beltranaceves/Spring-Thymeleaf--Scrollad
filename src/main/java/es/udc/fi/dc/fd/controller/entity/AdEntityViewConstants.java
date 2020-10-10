@@ -39,22 +39,22 @@ public final class AdEntityViewConstants {
     /**
      * Entities parameter name.
      */
-    public static final String PARAM_ENTITIES   = "ads";
+    public static final String PARAM_ENTITIES   = "advertisements";
 
     /**
      * Name for the entity form.
      */
-    public static final String VIEW_ENTITY_FORM = "ad/form";
+    public static final String VIEW_ENTITY_FORM = "advertisement/form";
 
     /**
      * Name for the entities view using AJAX.
      */
-    public static final String VIEW_ENTITY_LIST_AJAX = "ad/listAjax";
+    public static final String VIEW_ENTITY_LIST_AJAX = "advertisement/listAjax";
 
     /**
      * Name for the entities view.
      */
-    public static final String VIEW_ENTITY_LIST = "ad/list";
+    public static final String VIEW_ENTITY_LIST = "advertisement/list";
 
     /**
      * Name for the exception view.

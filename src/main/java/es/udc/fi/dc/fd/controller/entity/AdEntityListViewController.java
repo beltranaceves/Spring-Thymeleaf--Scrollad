@@ -43,7 +43,7 @@ import es.udc.fi.dc.fd.service.ExampleEntityService;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 @Controller
-@RequestMapping("/ad")
+@RequestMapping("/advertisement")
 public class AdEntityListViewController {
 
     /**

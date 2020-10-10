@@ -7,19 +7,31 @@
 	<header class="header" th:include="fragments/menu :: menu" />
 
 	<section id="main-section" class="container-fluid">
-		<h1 th:text="#{title.ad.list}">Entity list</h1>
+		<h1 th:text="#{title.advertisement.list}">Advertisement list</h1>
 		<p>This view shows data embedded into the template. There are no
 			additional request for changing pages.</p>
 		<table class="table table-striped display dataTable">
 			<thead>
 				<tr>
-					<th th:text="#{label.name}">Name</th>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Image</th>
+					<th>UserA</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="entity : ${entities}">
 					<td><span th:remove="tag"
-						th:text="${entity?.name}">Name</span></td>
+						th:text="${entity?.title}">Title</span></td>
+				
+					<td><span th:remove="tag"
+						th:text="${entity?.description}">Description</span></td>
+
+					<td><span th:remove="tag"
+						th:text="${entity?.image}">Image</span></td>
+
+					<td><span th:remove="tag"
+						th:text="${entity?.userA}">UserA</span></td>
 				</tr>
 			</tbody>
 		</table>
