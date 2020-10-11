@@ -24,7 +24,7 @@
 
 package es.udc.fi.dc.fd.service;
 
-import es.udc.fi.dc.fd.model.persistence.DefaultExampleEntity;
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import net.sf.jasperreports.engine.JasperPrint;
 
 /**
@@ -33,7 +33,7 @@ import net.sf.jasperreports.engine.JasperPrint;
  * @author Bernardo Mart&iacute;nez Garrido
  *
  */
-public interface ExampleEntityReportService {
+public interface UserReportService {
 
 	/**
 	 * Returns the report for the received data.
@@ -41,6 +41,6 @@ public interface ExampleEntityReportService {
 	 * @param data data to populate the report
 	 * @return the report for the data
 	 */
-	public JasperPrint getReport(final Iterable<DefaultExampleEntity> data);
+	public JasperPrint getReport(final Iterable<UserEntity> data);
 
 }

@@ -26,8 +26,8 @@ package es.udc.fi.dc.fd.service;
 
 import org.springframework.data.domain.Pageable;
 
-import es.udc.fi.dc.fd.model.ExampleEntity;
-import es.udc.fi.dc.fd.model.persistence.DefaultExampleEntity;
+import es.udc.fi.dc.fd.model.User;
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
 
 /**
  * Service for the example entity domain.
@@ -37,7 +37,7 @@ import es.udc.fi.dc.fd.model.persistence.DefaultExampleEntity;
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface ExampleEntityService {
+public interface UserService {
 
 	/**
 	 * Persists an entity.
@@ -45,7 +45,7 @@ public interface ExampleEntityService {
 	 * @param entity entity to persist
 	 * @return the persisted entity
 	 */
-	public ExampleEntity add(final DefaultExampleEntity entity);
+	public User add(final UserEntity entity);
 
 	/**
 	 * Returns an entity with the given id.
@@ -56,14 +56,14 @@ public interface ExampleEntityService {
 	 * @param identifier identifier of the entity to find
 	 * @return the entity for the given id
 	 */
-	public ExampleEntity findById(final Integer identifier);
+	public User findById(final Integer identifier);
 
 	/**
 	 * Returns all the entities from the DB.
 	 * 
 	 * @return the persisted entities
 	 */
-	public Iterable<DefaultExampleEntity> getAllEntities();
+	public Iterable<UserEntity> getAllEntities();
 
 	/**
 	 * Returns a paginated collection of entities.
@@ -71,13 +71,13 @@ public interface ExampleEntityService {
 	 * @param page pagination data
 	 * @return a paginated collection of entities
 	 */
-	public Iterable<DefaultExampleEntity> getEntities(final Pageable page);
+	public Iterable<UserEntity> getEntities(final Pageable page);
 
 	/**
 	 * Removes an entity from persistence.
 	 * 
 	 * @param entity entity to remove
 	 */
-	public void remove(final DefaultExampleEntity entity);
+	public void remove(final UserEntity entity);
 
 }
