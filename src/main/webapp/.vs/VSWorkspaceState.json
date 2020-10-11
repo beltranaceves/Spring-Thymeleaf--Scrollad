@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\WEB-INF",
+    "\\WEB-INF\\templates",
+    "\\WEB-INF\\templates\\ad",
+    "\\WEB-INF\\templates\\entity",
+    "\\WEB-INF\\templates\\fragments"
+  ],
+  "SelectedNode": "\\WEB-INF\\templates\\ad\\list.html",
+  "PreviewInSolutionExplorer": false
+}
