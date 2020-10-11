@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.google.common.base.MoreObjects;
-
 import es.udc.fi.dc.fd.model.User;
 
 @Entity(name = "User")
@@ -41,51 +39,35 @@ public class UserEntity implements User {
 	@Column(name = "login", nullable = false, unique = true)
 	private String login = "";
 
-	@Column(name = "password", nullable = false, unique = true)
+	@Column(name = "password", nullable = false, unique = false)
 	private String password = "";
 
-	@Column(name = "name", nullable = false, unique = true)
+	@Column(name = "name", nullable = false, unique = false)
 	private String name = "";
 
-	@Column(name = "first_surname", nullable = false, unique = true)
+	@Column(name = "first_surname", nullable = false, unique = false)
 	private String firstSurname = "";
 
-	@Column(name = "second_surname", nullable = false, unique = true)
+	@Column(name = "second_surname", nullable = true, unique = false)
 	private String secondSurname = "";
 
 	@Column(name = "city", nullable = false, unique = true)
 	private String city = "";
 
-	public UserEntity() {
+	public UserEntity(Integer id, String login, String password, String name, String firstSurname, String secondSurname,
+			String city) {
 		super();
-	}
-
-	@Override
-	public final boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (obj == null) {
-			return false;
-		}
-
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-
-		final UserEntity other = (UserEntity) obj;
-		return Objects.equals(id, other.id);
+		this.login = login;
+		this.password = password;
+		this.name = name;
+		this.firstSurname = firstSurname;
+		this.secondSurname = secondSurname;
+		this.city = city;
 	}
 
 	@Override
 	public Integer getId() {
 		return id;
-	}
-
-	@Override
-	public final int hashCode() {
-		return Objects.hash(id);
 	}
 
 	@Override
@@ -154,8 +136,32 @@ public class UserEntity implements User {
 	}
 
 	@Override
-	public final String toString() {
-		return MoreObjects.toStringHelper(this).add("entityId", id).toString();
+	public String toString() {
+		return "UserEntity [id=" + id + ", login=" + login + ", name=" + name + ", firstSurname=" + firstSurname
+				+ ", secondSurname=" + secondSurname + ", city=" + city + "]";
+	}
+
+	@Override
+	public final int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public final boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (obj == null) {
+			return false;
+		}
+
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+
+		final UserEntity other = (UserEntity) obj;
+		return Objects.equals(id, other.id);
 	}
 
 }
