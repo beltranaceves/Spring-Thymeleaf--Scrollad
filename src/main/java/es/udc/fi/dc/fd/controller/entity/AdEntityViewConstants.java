@@ -27,6 +27,11 @@ public final class AdEntityViewConstants {
      * Name for the entities view.
      */
     public static final String VIEW_ENTITY_LIST = "advertisement/list";
+    
+    /**
+     * Name for the ad upload success.
+     */
+    public static final String VIEW_AD_SUCCESS = "advertisement/success";
 
     /**
      * Name for the exception view.

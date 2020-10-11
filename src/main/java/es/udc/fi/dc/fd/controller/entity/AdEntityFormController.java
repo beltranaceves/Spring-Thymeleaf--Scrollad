@@ -46,7 +46,7 @@ public class AdEntityFormController {
         final String path;
         final AdEntity entity;
 
-        if (bindingResult.hasErrors()) {
+        if (adEntityService.checkForm(form)) {
             // Invalid form data
 
             // Returns to the form view
@@ -67,7 +67,7 @@ public class AdEntityFormController {
 
             loadViewModel(model);
 
-            path = AdEntityViewConstants.VIEW_ENTITY_LIST;
+            path = AdEntityViewConstants.VIEW_AD_SUCCESS;
         }
 
         return path;

@@ -3,6 +3,7 @@ package es.udc.fi.dc.fd.service;
 import org.springframework.data.domain.Pageable;
 
 import es.udc.fi.dc.fd.model.Ad;
+import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 
 public interface AdEntityService {
@@ -21,5 +22,7 @@ public interface AdEntityService {
 
 
     public void remove(final AdEntity advertisement);
+    
+    public boolean checkForm(final AdForm adForm); 
 
 }
