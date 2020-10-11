@@ -126,7 +126,7 @@ public class UserEntity implements User {
 
 	@Override
 	public void setSecondSurname(final String value) {
-		secondSurname = checkNotNull(value, "Received a null pointer as second surname");
+		secondSurname = value;
 	}
 
 	@Override

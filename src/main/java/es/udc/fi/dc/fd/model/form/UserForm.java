@@ -31,8 +31,6 @@ import java.util.Objects;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.google.common.base.MoreObjects;
-
 /**
  * Represents the form used for the creating and editing example entities.
  * <p>
@@ -135,31 +133,26 @@ public final class UserForm implements Serializable {
 	}
 
 	@Override
-	public final String toString() {
-		return MoreObjects.toStringHelper(this).add("name", name).toString();
+	public String toString() {
+		return "UserForm [login=" + login + ", name=" + name + ", firstSurname=" + firstSurname + ", secondSurname="
+				+ secondSurname + ", city=" + city + "]";
 	}
 
 	@Override
-	public final int hashCode() {
-		return Objects.hash(name);
+	public int hashCode() {
+		return Objects.hash(city, firstSurname, login, name, secondSurname);
 	}
 
 	@Override
-	public final boolean equals(final Object obj) {
-		if (this == obj) {
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		}
-
-		if (obj == null) {
+		if (!(obj instanceof UserForm))
 			return false;
-		}
-
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-
-		final UserForm other = (UserForm) obj;
-		return Objects.equals(name, other.name);
+		UserForm other = (UserForm) obj;
+		return Objects.equals(city, other.city) && Objects.equals(firstSurname, other.firstSurname)
+				&& Objects.equals(login, other.login) && Objects.equals(name, other.name)
+				&& Objects.equals(secondSurname, other.secondSurname);
 	}
 
 }
