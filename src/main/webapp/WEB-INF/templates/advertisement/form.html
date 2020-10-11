@@ -1,0 +1,66 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+	<header class="header" th:include="fragments/menu :: menu" />
+
+	<section id="main-section" class="container-fluid">
+		<h1 th:text="#{title.advertisement.form}">Advertisement form</h1>
+		<p>This view allows you to add banner ads through an HTML form.</p>
+		<section id="form" class="form-well">
+			<form action="#" th:action="@{/advertisement}" th:object="${form}"
+				method="post" role="form" class="form">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading" th:text="#{title.advertisement.form.data}">Advertisement</div>
+						<div class="panel-body">
+							<!-- Name input -->
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('title')} ? 'error'">
+								
+								<label class="control-label" for="title" th:text="#{label.title}">Title</label>
+								<div class="controls">
+									<input type="text" th:field="*{title}" class="form-control"
+										placeholder="Title">
+									<!-- Validation errors -->
+									<p th:if="${#fields.hasErrors('title')}"
+										class="label label-danger" th:errors="*{title}">Error</p>
+								</div>
+								
+								<label class="control-label" for="description" th:text="#{label.description}">Description</label>
+								<div class="controls">
+									<input type="text" th:field="*{description}" class="form-control"
+										placeholder="Description">
+									<!-- Validation errors -->
+									<p th:if="${#fields.hasErrors('description')}"
+										class="label label-danger" th:errors="*{description}">Error</p>
+								</div>
+								
+								<label class="control-label" for="image" th:text="#{label.image}">Image</label>
+								<div class="controls">
+									<input type="text" th:field="*{image}" class="form-control"
+										placeholder="Image">
+									<!-- Validation errors -->
+									<p th:if="${#fields.hasErrors('image')}"
+										class="label label-danger" th:errors="*{image}">Error</p>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="submit" class="row">
+					<div class="col-md-12">
+						<button type="submit" th:text="#{button.submit}">Submit</button>
+					</div>
+				</div>
+			</form>
+		</section>
+	</section>
+
+	<footer>
+		<div th:include="fragments/scripts :: general" />
+	</footer>
+</body>
+
+</html>

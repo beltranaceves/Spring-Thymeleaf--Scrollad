@@ -13,25 +13,25 @@
 		<table class="table table-striped display dataTable">
 			<thead>
 				<tr>
-					<th>Title</th>
-					<th>Description</th>
-					<th>Image</th>
-					<th>UserA</th>
+					<th th:text="#{label.title}">Title</th>
+					<th th:text="#{label.description}">Description</th>
+					<th th:text="#{label.image}">Image</th>
+					<th th:text="#{label.user}">UserA</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="entity : ${entities}">
+				<tr th:each="avertisement : ${entities}">
 					<td><span th:remove="tag"
-						th:text="${entity?.title}">Title</span></td>
+						th:text="${avertisement?.title}">Title</span></td>
 				
 					<td><span th:remove="tag"
-						th:text="${entity?.description}">Description</span></td>
+						th:text="${avertisement?.description}">Description</span></td>
 
 					<td><span th:remove="tag"
-						th:text="${entity?.image}">Image</span></td>
+						th:text="${avertisement?.image}">Image</span></td>
 
 					<td><span th:remove="tag"
-						th:text="${entity?.userA}">UserA</span></td>
+						th:text="${avertisement?.userA}">UserA</span></td>
 				</tr>
 			</tbody>
 		</table>

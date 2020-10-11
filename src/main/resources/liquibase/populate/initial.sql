@@ -32,9 +32,10 @@ INSERT INTO users (login, name, city) VALUES
    ('login3' ,'name3', 'city3');
 
 INSERT INTO advertisement (title, description, image, userA) VALUES
-   ('anuncio1' ,'1 anuncio', 'imagen1', 'juan1'),
-   ('anuncio2' ,'2 anuncio', 'imagen2', 'juan2'),
-   ('anuncio3' ,'3 anuncio', 'imagen3', 'juan3');
+   ('anuncio1' ,'1 anuncio', 'data:image/jpeg;base64,/9j', 'juan1'),
+   ('anuncio2' ,'2 anuncio', 'data:image/jpeg;base64,/9j', 'juan2'),
+   ('anuncio3' ,'3 anuncio', 'data:image/jpeg;base64,/9j', 'juan3');
+
 
 INSERT INTO example_entities (name) VALUES
    ('entity_01'),
