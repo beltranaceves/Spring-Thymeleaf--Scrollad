@@ -34,7 +34,7 @@ public final class AdForm implements Serializable {
     
     @NotEmpty
     private String image;
-
+    
     
     public AdForm() {
         super();
@@ -116,7 +116,7 @@ public final class AdForm implements Serializable {
 	public String getImage() {
 		return image;
 	}
-
+	
 	public String getUser() {
 		return userA;
 	}

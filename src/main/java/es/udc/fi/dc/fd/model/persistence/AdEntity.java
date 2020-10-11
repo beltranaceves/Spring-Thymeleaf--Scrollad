@@ -41,9 +41,10 @@ public class AdEntity implements Ad{
     
     //@Column(name = "image", nullable = false, unique = true)
     //private FileInputStream image;
-
+    
     @Column(name = "image", nullable = false, unique = true)
     private String image;
+
     
     public AdEntity() {
     	super();
@@ -107,7 +108,7 @@ public class AdEntity implements Ad{
 	public String getImage() {
 		return image;
 	}
-
+	
 
 	//public void setImage(final FileInputStream image) {
 	//	this.image = checkNotNull(image, "Received a null pointer as identifier");
@@ -116,7 +117,6 @@ public class AdEntity implements Ad{
 	public void setImage(final String image) {
 		this.image = checkNotNull(image, "Received a null pointer as identifier");
 	}
-
 	
 
 	public String getUserA() {
