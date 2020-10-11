@@ -54,6 +54,10 @@ public class UserEntity implements User {
 	@Column(name = "city", nullable = false, unique = true)
 	private String city = "";
 
+	public UserEntity() {
+
+	}
+
 	public UserEntity(Integer id, String login, String password, String name, String firstSurname, String secondSurname,
 			String city) {
 		super();

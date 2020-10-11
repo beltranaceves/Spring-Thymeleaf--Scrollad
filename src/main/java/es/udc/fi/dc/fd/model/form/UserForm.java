@@ -69,7 +69,6 @@ public final class UserForm implements Serializable {
 	@NotEmpty
 	private String firstSurname;
 
-	@NotEmpty
 	private String secondSurname;
 
 	@NotEmpty
@@ -82,29 +81,6 @@ public final class UserForm implements Serializable {
 		super();
 	}
 
-	@Override
-	public final boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (obj == null) {
-			return false;
-		}
-
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-
-		final UserForm other = (UserForm) obj;
-		return Objects.equals(name, other.name);
-	}
-
-	/**
-	 * Returns the value of the name field.
-	 * 
-	 * @return the value of the name field
-	 */
 	public final String getLogin() {
 		return login;
 	}
@@ -129,11 +105,6 @@ public final class UserForm implements Serializable {
 		return city;
 	}
 
-	@Override
-	public final int hashCode() {
-		return Objects.hash(name);
-	}
-
 	/**
 	 * Sets the value of the name field.
 	 * 
@@ -141,6 +112,10 @@ public final class UserForm implements Serializable {
 	 */
 	public final void setLogin(final String value) {
 		login = checkNotNull(value, "Received a null pointer as login");
+	}
+
+	public final void setPassword(final String value) {
+		password = checkNotNull(value, "Received a null pointer as password");
 	}
 
 	public final void setName(final String value) {
@@ -152,7 +127,7 @@ public final class UserForm implements Serializable {
 	}
 
 	public final void setSecondSurname(final String value) {
-		secondSurname = checkNotNull(value, "Received a null pointer as name");
+		secondSurname = value;
 	}
 
 	public final void setCity(final String value) {
@@ -162,6 +137,29 @@ public final class UserForm implements Serializable {
 	@Override
 	public final String toString() {
 		return MoreObjects.toStringHelper(this).add("name", name).toString();
+	}
+
+	@Override
+	public final int hashCode() {
+		return Objects.hash(name);
+	}
+
+	@Override
+	public final boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (obj == null) {
+			return false;
+		}
+
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+
+		final UserForm other = (UserForm) obj;
+		return Objects.equals(name, other.name);
 	}
 
 }
