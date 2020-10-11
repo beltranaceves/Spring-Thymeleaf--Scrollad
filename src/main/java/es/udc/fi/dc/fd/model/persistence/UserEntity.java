@@ -19,71 +19,79 @@ import es.udc.fi.dc.fd.model.User;
 @Entity(name = "User")
 @Table(name = "users")
 
-public class UserEntity implements User{
+public class UserEntity implements User {
 
 	@Transient
-    private static final long serialVersionUID = 1328776989450853491L;
+	private static final long serialVersionUID = 1328776989450853491L;
 
-    /**
-     * Entity's ID.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    private Integer           id               = -1;
+	/**
+	 * Entity's ID.
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false, unique = true)
+	private Integer id = -1;
 
-    /**
-     * Name of the entity.
-     * <p>
-     * This is to have additional data apart from the id, to be used on the
-     * tests.
-     */
-    
-    @Column(name = "login", nullable = false, unique = true)
-    private String            login             = "";
-    
-    @Column(name = "name", nullable = false, unique = true)
-    private String            name             = "";
-    
-    @Column(name = "city", nullable = false, unique = true)
-    private String            city             = "";
-    
-    public UserEntity() {
-        super();
-    }
-    
-    @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
+	/**
+	 * Name of the entity.
+	 * <p>
+	 * This is to have additional data apart from the id, to be used on the tests.
+	 */
 
-        if (obj == null) {
-            return false;
-        }
+	@Column(name = "login", nullable = false, unique = true)
+	private String login = "";
 
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+	@Column(name = "password", nullable = false, unique = true)
+	private String password = "";
 
-        final UserEntity other = (UserEntity) obj;
-        return Objects.equals(id, other.id);
-    }
+	@Column(name = "name", nullable = false, unique = true)
+	private String name = "";
+
+	@Column(name = "first_surname", nullable = false, unique = true)
+	private String firstSurname = "";
+
+	@Column(name = "second_surname", nullable = false, unique = true)
+	private String secondSurname = "";
+
+	@Column(name = "city", nullable = false, unique = true)
+	private String city = "";
+
+	public UserEntity() {
+		super();
+	}
 
 	@Override
-    public Integer getId() {
+	public final boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (obj == null) {
+			return false;
+		}
+
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+
+		final UserEntity other = (UserEntity) obj;
+		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public Integer getId() {
 		return id;
 	}
-	
+
 	@Override
-    public final int hashCode() {
-        return Objects.hash(id);
-    }
-	
+	public final int hashCode() {
+		return Objects.hash(id);
+	}
+
 	@Override
-    public void setId(final Integer value) {
-        id = checkNotNull(value, "Received a null pointer as identifier");
-    }
+	public void setId(final Integer value) {
+		id = checkNotNull(value, "Received a null pointer as identifier");
+	}
 
 	@Override
 	public String getLogin() {
@@ -91,9 +99,19 @@ public class UserEntity implements User{
 	}
 
 	@Override
-    public void setLogin(final String value) {
-        name = checkNotNull(value, "Received a null pointer as login");
-    }
+	public void setLogin(final String value) {
+		login = checkNotNull(value, "Received a null pointer as login");
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public void setPassword(final String value) {
+		password = checkNotNull(value, "Received a null pointer as password");
+	}
 
 	@Override
 	public String getName() {
@@ -101,9 +119,29 @@ public class UserEntity implements User{
 	}
 
 	@Override
-    public void setName(final String value) {
-        name = checkNotNull(value, "Received a null pointer as name");
-    }
+	public void setName(final String value) {
+		name = checkNotNull(value, "Received a null pointer as name");
+	}
+
+	@Override
+	public String getFirstSurname() {
+		return firstSurname;
+	}
+
+	@Override
+	public void setFirstSurname(final String value) {
+		firstSurname = checkNotNull(value, "Received a null pointer as first surname");
+	}
+
+	@Override
+	public String getSecondSurname() {
+		return secondSurname;
+	}
+
+	@Override
+	public void setSecondSurname(final String value) {
+		secondSurname = checkNotNull(value, "Received a null pointer as second surname");
+	}
 
 	@Override
 	public String getCity() {
@@ -111,13 +149,13 @@ public class UserEntity implements User{
 	}
 
 	@Override
-    public void setCity(final String value) {
-        name = checkNotNull(value, "Received a null pointer as city");
-    }
-    
+	public void setCity(final String value) {
+		city = checkNotNull(value, "Received a null pointer as city");
+	}
+
 	@Override
-    public final String toString() {
-        return MoreObjects.toStringHelper(this).add("entityId", id).toString();
-    }
-	
+	public final String toString() {
+		return MoreObjects.toStringHelper(this).add("entityId", id).toString();
+	}
+
 }

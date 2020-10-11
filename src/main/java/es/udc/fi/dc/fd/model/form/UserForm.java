@@ -47,93 +47,121 @@ import com.google.common.base.MoreObjects;
  */
 public final class UserForm implements Serializable {
 
-    /**
-     * Serialization ID.
-     */
-    private static final long serialVersionUID = 1328776989450853491L;
+	/**
+	 * Serialization ID.
+	 */
+	private static final long serialVersionUID = 1328776989450853491L;
 
-    /**
-     * Name field.
-     * <p>
-     * This is a required field and can't be empty.
-     */
-    @NotEmpty
-    private String            login;
-    
-    @NotEmpty
-    private String            name;
-    
-    @NotEmpty
-    private String            city;
+	/**
+	 * Name field.
+	 * <p>
+	 * This is a required field and can't be empty.
+	 */
+	@NotEmpty
+	private String login;
 
-    /**
-     * Constructs a DTO for the example entity form.
-     */
-    public UserForm() {
-        super();
-    }
+	@NotEmpty
+	private String password;
 
-    @Override
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
+	@NotEmpty
+	private String name;
 
-        if (obj == null) {
-            return false;
-        }
+	@NotEmpty
+	private String firstSurname;
 
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+	@NotEmpty
+	private String secondSurname;
 
-        final UserForm other = (UserForm) obj;
-        return Objects.equals(name, other.name);
-    }
+	@NotEmpty
+	private String city;
 
-    /**
-     * Returns the value of the name field.
-     * 
-     * @return the value of the name field
-     */
-    public final String getLogin() {
-        return login;
-    }
-    
-    public final String getName() {
-        return name;
-    }
-    
-    public final String getCity() {
-        return city;
-    }
+	/**
+	 * Constructs a DTO for the example entity form.
+	 */
+	public UserForm() {
+		super();
+	}
 
-    @Override
-    public final int hashCode() {
-        return Objects.hash(name);
-    }
+	@Override
+	public final boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
 
-    /**
-     * Sets the value of the name field.
-     * 
-     * @param value
-     *            the new value for the name field
-     */
-    public final void setLogin(final String value) {
-        name = checkNotNull(value, "Received a null pointer as name");
-    }
-    
-    public final void setName(final String value) {
-        name = checkNotNull(value, "Received a null pointer as name");
-    }
-    
-    public final void setCity(final String value) {
-        name = checkNotNull(value, "Received a null pointer as name");
-    }
+		if (obj == null) {
+			return false;
+		}
 
-    @Override
-    public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name).toString();
-    }
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+
+		final UserForm other = (UserForm) obj;
+		return Objects.equals(name, other.name);
+	}
+
+	/**
+	 * Returns the value of the name field.
+	 * 
+	 * @return the value of the name field
+	 */
+	public final String getLogin() {
+		return login;
+	}
+
+	public final String getPassword() {
+		return password;
+	}
+
+	public final String getName() {
+		return name;
+	}
+
+	public final String getFirstSurname() {
+		return firstSurname;
+	}
+
+	public final String getSecondSurname() {
+		return secondSurname;
+	}
+
+	public final String getCity() {
+		return city;
+	}
+
+	@Override
+	public final int hashCode() {
+		return Objects.hash(name);
+	}
+
+	/**
+	 * Sets the value of the name field.
+	 * 
+	 * @param value the new value for the name field
+	 */
+	public final void setLogin(final String value) {
+		login = checkNotNull(value, "Received a null pointer as login");
+	}
+
+	public final void setName(final String value) {
+		name = checkNotNull(value, "Received a null pointer as name");
+	}
+
+	public final void setFirstSurname(final String value) {
+		firstSurname = checkNotNull(value, "Received a null pointer as first surname");
+	}
+
+	public final void setSecondSurname(final String value) {
+		secondSurname = checkNotNull(value, "Received a null pointer as name");
+	}
+
+	public final void setCity(final String value) {
+		city = checkNotNull(value, "Received a null pointer as city");
+	}
+
+	@Override
+	public final String toString() {
+		return MoreObjects.toStringHelper(this).add("name", name).toString();
+	}
 
 }
