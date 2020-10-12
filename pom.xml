@@ -616,6 +616,32 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 		</dependency>
+		<dependency>
+			<!-- Spring Security Crypto -->
+    		<groupId>org.springframework.security</groupId>
+    		<artifactId>spring-security-crypto</artifactId>
+    		<version>5.4.0</version>
+		</dependency>
+		<dependency>
+			<!-- Spring Security Web -->
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>5.1.4.RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>5.1.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>1.5.21.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+				
+		
+
 		<!-- ============================================== -->
 		<!-- ================= ASPECTJ ==================== -->
 		<!-- ============================================== -->
@@ -837,6 +863,11 @@
 			<artifactId>el-impl</artifactId>
 			<version>${glassfish.el}</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.2</version>
 		</dependency>
 		<!-- ============================================== -->
 		<!-- =========== VERSION ENFORCEMENT ============== -->

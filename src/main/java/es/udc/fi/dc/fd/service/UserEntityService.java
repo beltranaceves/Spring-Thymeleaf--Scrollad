@@ -26,13 +26,18 @@ package es.udc.fi.dc.fd.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Optional;
+
+import javax.management.InstanceNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.dc.fd.model.User;
-import es.udc.fi.dc.fd.model.persistence.UserEntity;
-import es.udc.fi.dc.fd.repository.UserEntityRepository;
+import es.udc.fi.dc.fd.model.exceptions.IncorrectLoginException;
+import es.udc.fi.dc.fd.repository.UserRepository;
 
 /**
  * Implementation of the user service
@@ -40,67 +45,46 @@ import es.udc.fi.dc.fd.repository.UserEntityRepository;
  *
  */
 @Service
+@Transactional
 public class UserEntityService implements UserService {
 
-	/**
-	 * Repository for the domain entities handled by the service.
-	 */
-	private final UserEntityRepository entityRepository;
-
-	/**
-	 * Constructs an entities service with the specified repository.
-	 *
-	 * @param repository the repository for the entity instances
-	 */
 	@Autowired
-	public UserEntityService(final UserEntityRepository repository) {
+	private PermissionChecker permissionChecker;
+
+	// @Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	private final UserRepository userRepository;
+
+	@Autowired
+	public UserEntityService(final UserRepository repository) {
 		super();
 
-		entityRepository = checkNotNull(repository, "Received a null pointer as repository");
+		userRepository = checkNotNull(repository, "Received a null pointer as repository");
 	}
 
 	@Override
-	public final User add(final UserEntity entity) {
-		return entityRepository.save(entity);
-	}
+	@Transactional(readOnly = true)
+	public User login(String login, String password) throws IncorrectLoginException {
 
-	/**
-	 * Returns an entity with the given id.
-	 * <p>
-	 * If no instance exists with that id then an entity with a negative id is
-	 * returned.
-	 *
-	 * @param identifier identifier of the entity to find
-	 * @return the entity for the given id
-	 */
-	@Override
-	public final User findById(final Integer identifier) {
-		final User entity;
+		Optional<User> user = userRepository.findByLogin(login);
 
-		checkNotNull(identifier, "Received a null pointer as identifier");
-
-		if (entityRepository.existsById(identifier)) {
-			entity = entityRepository.getOne(identifier);
-		} else {
-			entity = new UserEntity();
+		if (!user.isPresent()) {
+			throw new IncorrectLoginException(login, password);
 		}
 
-		return entity;
+		if (!passwordEncoder.matches(password, user.get().getPassword())) {
+			throw new IncorrectLoginException(login, password);
+		}
+
+		return user.get();
+
 	}
 
 	@Override
-	public final Iterable<UserEntity> getAllEntities() {
-		return entityRepository.findAll();
-	}
-
-	@Override
-	public final Iterable<UserEntity> getEntities(final Pageable page) {
-		return entityRepository.findAll(page);
-	}
-
-	@Override
-	public final void remove(final UserEntity entity) {
-		entityRepository.delete(entity);
+	@Transactional(readOnly = true)
+	public User loginFromId(Integer id) throws InstanceNotFoundException {
+		return permissionChecker.checkUser(id);
 	}
 
 }

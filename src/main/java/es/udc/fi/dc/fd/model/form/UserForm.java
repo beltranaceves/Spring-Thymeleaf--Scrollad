@@ -56,6 +56,9 @@ public final class UserForm implements Serializable {
 	 * This is a required field and can't be empty.
 	 */
 	@NotEmpty
+	private Integer id;
+
+	@NotEmpty
 	private String login;
 
 	@NotEmpty
@@ -73,10 +76,31 @@ public final class UserForm implements Serializable {
 	private String city;
 
 	/**
-	 * Constructs a DTO for the example entity form.
+	 * Constructs a DTO for the user form.
 	 */
 	public UserForm() {
 		super();
+	}
+
+	public UserForm(Integer id, String login, String name, String firstSurname, String secondSurname, String city) {
+		super();
+		this.id = id;
+		this.login = login;
+		this.name = name;
+		this.firstSurname = firstSurname;
+		this.secondSurname = secondSurname;
+		this.city = city;
+	}
+
+	public UserForm(String login, String password, String name, String firstSurname, String secondSurname,
+			String city) {
+		super();
+		this.login = login;
+		this.password = password;
+		this.name = name;
+		this.firstSurname = firstSurname;
+		this.secondSurname = secondSurname;
+		this.city = city;
 	}
 
 	public final String getLogin() {

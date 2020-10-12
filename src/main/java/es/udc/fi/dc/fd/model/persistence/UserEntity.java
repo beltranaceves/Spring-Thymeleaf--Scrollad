@@ -58,7 +58,7 @@ public class UserEntity implements User {
 
 	}
 
-	public UserEntity(Integer id, String login, String password, String name, String firstSurname, String secondSurname,
+	public UserEntity(String login, String password, String name, String firstSurname, String secondSurname,
 			String city) {
 		super();
 		this.login = login;
