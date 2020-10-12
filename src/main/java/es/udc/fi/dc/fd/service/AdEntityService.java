@@ -18,10 +18,11 @@ public interface AdEntityService {
     public Iterable<AdEntity> getAllEntities();
 
 
-    public Iterable<AdEntity> getEntities(final Pageable page);
+    public Iterable<AdEntity> getEntities (final Pageable page);
 
 
     public void remove(final AdEntity advertisement);
+    
     
     public boolean checkForm(final AdForm adForm); 
 

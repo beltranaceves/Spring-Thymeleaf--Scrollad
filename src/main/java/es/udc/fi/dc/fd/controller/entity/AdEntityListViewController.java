@@ -94,10 +94,7 @@ public class AdEntityListViewController {
      * @param model
      *            model map
      */
-    private final void loadViewModel(final ModelMap model) {
-    	
-    	//String[] mock_entities = {"Coche usado", "Nintendo Switch ROTA", "Coche 100Km"};
-    	
+    private final void loadViewModel(final ModelMap model) {    	
     	
         model.put(ExampleEntityViewConstants.PARAM_ENTITIES,
         		adEntityService.getAllEntities());

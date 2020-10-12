@@ -39,5 +39,5 @@ import es.udc.fi.dc.fd.model.persistence.DefaultExampleEntity;
  */
 public interface AdEntityRepository
         extends JpaRepository<AdEntity, Integer> {
-
+	
 }
