@@ -98,8 +98,10 @@ public class UserEntitySignupController {
 		if (bindingResult.hasErrors()) {
 			// Invalid form data
 
-			// Returns to the form view
-			path = ExampleEntityViewConstants.VIEW_ENTITY_FORM;
+			// Returns to the form view (TODO: add this to UserViewConstants, change it to
+			// something useful)
+			// TODO: This is not changing the URI in the navbar
+			path = "welcome";
 
 			// Marks the response as a bad request
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -115,14 +117,9 @@ public class UserEntitySignupController {
 
 			userService.add(entity);
 
-			// TODO: Is this needed anymore?
-			// TODO: This flow decision shouldn't be handled by the controller
-			// TODO: This should be a redirection to the list controller
-			// Loads required data into the model
-			//loadViewModel(model);
-
-			// TODO: Redirect this to somewhere it makes sense after signup (welcomepage?)
-			path = ExampleEntityViewConstants.VIEW_ENTITY_LIST;
+			// TODO: Merge this to UserViewConstants once it is merged too.
+			// TODO: This does not change the URI in the address bar
+			path = "welcome";
 		}
 
 		return path;
@@ -138,8 +135,8 @@ public class UserEntitySignupController {
 	@GetMapping
 	public String showSignupForm() {
 
-		// TODO: Show actual signup view and not this!!
-		return ExampleEntityViewConstants.VIEW_ENTITY_FORM;
+		// TODO: Add this to the UserViewConstants once its merged
+		return "user/signup";
 	}
 
 	// TODO: Is this needed anymore?
