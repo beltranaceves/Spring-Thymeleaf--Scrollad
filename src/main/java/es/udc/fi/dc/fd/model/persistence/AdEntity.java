@@ -36,14 +36,14 @@ public class AdEntity implements Ad{
     @Column(name = "description", nullable = false, unique = true)
     private String description = "";
     
-    @Column(name = "userA", nullable = false, unique = true)
+    @Column(name = "userA", nullable = true, unique = false)
     private String userA = "";
     
     //@Column(name = "image", nullable = false, unique = true)
     //private FileInputStream image;
     
     @Column(name = "image", nullable = false, unique = true)
-    private String image;
+    private String image = "";
 
     
     public AdEntity() {
