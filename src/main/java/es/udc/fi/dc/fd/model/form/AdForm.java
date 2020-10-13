@@ -1,15 +1,10 @@
-
 package es.udc.fi.dc.fd.model.form;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.io.FileInputStream;
 import java.io.Serializable;
-import java.util.Objects;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
-import com.google.common.base.MoreObjects;
 
 
 public final class AdForm implements Serializable {
@@ -34,7 +29,7 @@ public final class AdForm implements Serializable {
     
     @NotEmpty
     private String image;
-    
+
     
     public AdForm() {
         super();
@@ -51,8 +46,7 @@ public final class AdForm implements Serializable {
 		result = prime * result + ((userA == null) ? 0 : userA.hashCode());
 		return result;
 	}
-
-
+    
 
 	@Override
 	public boolean equals(Object obj) {
@@ -99,8 +93,6 @@ public final class AdForm implements Serializable {
 	}
 
 
-
-
 	public String getTitle() {
 		return title;
 	}
@@ -116,7 +108,7 @@ public final class AdForm implements Serializable {
 	public String getImage() {
 		return image;
 	}
-	
+
 	public String getUser() {
 		return userA;
 	}
@@ -148,8 +140,5 @@ public final class AdForm implements Serializable {
 		return "AdForm [title=" + title + ", description=" + description + ", user=" + userA + ", image=" + image + "]";
 	}
 
-    
-
-	
 
 }

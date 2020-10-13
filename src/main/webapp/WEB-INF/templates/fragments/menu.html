@@ -31,9 +31,14 @@
 							th:text="#{title.data}">Data</span> <span aria-hidden="true"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a th:href="@{/entity/list}" th:text="#{label.list}">List</a></li>
 							<li><a th:href="@{/entity/edit}" th:text="#{label.add}">Addition</a></li>
+<<<<<<< HEAD
 							<li><a th:href="@{/advertisement/edit}" th:text="#{label.advertisement}">Advertisement</a></li>
+=======
+							<li><a th:href="@{/entity/list}" th:text="#{label.list}">List</a></li>
+                            <li><a th:href="@{/advertisement/edit}" th:text="#{label.advertisement.add}">Advertisement</a></li>
+                            <li><a th:href="@{/advertisement/list}" th:text="#{label.advertisement}"> Ad List</a></li>
+>>>>>>> refs/remotes/origin/BeltranDiegoCasoMostrarAnuncios
 							<li><a th:href="@{/entity/pdf}" th:text="#{label.pdf}">PDF</a></li>
 							<li><a th:href="@{/exception/runtime}"
 								th:text="#{label.exception}">Exception</a></li>

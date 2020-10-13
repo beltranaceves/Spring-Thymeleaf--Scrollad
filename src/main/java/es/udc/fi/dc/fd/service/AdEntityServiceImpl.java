@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.Ad;
+
+import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.repository.AdEntityRepository;
 
 
@@ -63,5 +65,13 @@ public class AdEntityServiceImpl implements AdEntityService {
         adEntityRepository.delete(entity);
     }
 
+    @Override
+    public boolean checkForm(final AdForm adForm) {
+    	checkNotNull(adForm.getTitle(), "Received a null pointer as a title");
+    	checkNotNull(adForm.getImage(), "Received a null pointer as an Image");
+    	checkNotNull(adForm.getDescription(), "Received a null pointer as a Description");
+    	//checkNotNull(adForm.getUser(), "Received a null pointer as an user");
+    	return false;
+    } 
 }
 

@@ -2,7 +2,6 @@ package es.udc.fi.dc.fd.model.persistence;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.io.FileInputStream;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -36,15 +35,14 @@ public class AdEntity implements Ad{
     @Column(name = "description", nullable = false, unique = true)
     private String description = "";
     
-    @Column(name = "userA", nullable = true, unique = false)
+    @Column(name = "userA", nullable = false, unique = true)
     private String userA = "";
     
     //@Column(name = "image", nullable = false, unique = true)
     //private FileInputStream image;
-    
-    @Column(name = "image", nullable = false, unique = true)
-    private String image = "";
 
+    @Column(name = "image", nullable = false, unique = true)
+    private String image;
     
     public AdEntity() {
     	super();
@@ -108,7 +106,7 @@ public class AdEntity implements Ad{
 	public String getImage() {
 		return image;
 	}
-	
+
 
 	//public void setImage(final FileInputStream image) {
 	//	this.image = checkNotNull(image, "Received a null pointer as identifier");
@@ -117,6 +115,7 @@ public class AdEntity implements Ad{
 	public void setImage(final String image) {
 		this.image = checkNotNull(image, "Received a null pointer as identifier");
 	}
+
 	
 
 	public String getUserA() {

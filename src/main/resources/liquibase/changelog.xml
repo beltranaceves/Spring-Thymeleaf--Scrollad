@@ -15,6 +15,7 @@
 			</column>
 		</createTable>
 		
+				
 		<createTable tableName="users">
 			<column autoIncrement="true" name="id" type="BIGINT">
 				<constraints primaryKey="true" />

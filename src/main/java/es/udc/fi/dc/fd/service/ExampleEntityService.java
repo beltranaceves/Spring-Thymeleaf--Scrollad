@@ -58,12 +58,14 @@ public interface ExampleEntityService {
 	 */
 	public ExampleEntity findById(final Integer identifier);
 
-	/**
-	 * Returns all the entities from the DB.
-	 * 
-	 * @return the persisted entities
-	 */
-	public Iterable<DefaultExampleEntity> getAllEntities();
+    /**
+     * Returns all the entities from the DB.
+     * 
+     * @return the persisted entities
+     */
+
+    public Iterable<DefaultExampleEntity> getAllEntities();
+
 
 	/**
 	 * Returns a paginated collection of entities.

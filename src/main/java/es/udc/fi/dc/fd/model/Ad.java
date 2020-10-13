@@ -37,7 +37,7 @@ public interface Ad extends Serializable {
 			final String value);
 	
 	
-	
-	
+
+
 	
 }
