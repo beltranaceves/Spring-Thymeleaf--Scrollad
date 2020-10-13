@@ -22,25 +22,20 @@
  * SOFTWARE.
  */
 
-package es.udc.fi.dc.fd.service;
+package es.udc.fi.dc.fd.repository;
 
-import es.udc.fi.dc.fd.model.persistence.DefaultExampleEntity;
-import net.sf.jasperreports.engine.JasperPrint;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
 
 /**
- * Service for generating reports for the example entities.
- * 
- * @author Bernardo Mart&iacute;nez Garrido
+ * Spring-JPA repository for {@link UserEntity}.
+ * <p>
+ * This is a simple repository just to allow the endpoints querying the entities
+ * they are asked for.
  *
+ * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface ExampleEntityReportService {
-
-	/**
-	 * Returns the report for the received data.
-	 * 
-	 * @param data data to populate the report
-	 * @return the report for the data
-	 */
-	public JasperPrint getReport(final Iterable<DefaultExampleEntity> data);
+public interface UserEntityRepository extends JpaRepository<UserEntity, Integer> {
 
 }

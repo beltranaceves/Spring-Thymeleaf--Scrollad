@@ -26,6 +26,7 @@
 -- ****************************************
 -- This SQL script populates the initial data.
 -- ****************************************
+<<<<<<< HEAD
 INSERT INTO advertisement (title, description, image, userA) VALUES
    ('anuncio1' ,'1 anuncio', 'data:image/jpeg;base64,/9j', 'juan1'),
    ('anuncio2' ,'2 anuncio', 'data:image/jpeg;base64,/9j', 'juan2'),
@@ -35,6 +36,12 @@ INSERT INTO users (login, name, city) VALUES
    ('login1' ,'name1', 'city1'),
    ('login2' ,'name2', 'city2'),
    ('login3' ,'name3', 'city3');
+=======
+INSERT INTO users (login, password, name, first_surname, second_surname, city) VALUES
+   ('login1', 'pass1', 'name1', 'first_surname1', 'second_surname1', 'city1'),
+   ('login2', 'pass2', 'name2', 'first_surname2', 'second_surname2', 'city2'),
+   ('login3', 'pass3', 'name3', 'first_surname3', 'second_surname3', 'city3');
+>>>>>>> refs/remotes/origin/master
 
 INSERT INTO example_entities (name) VALUES
    ('entity_01'),

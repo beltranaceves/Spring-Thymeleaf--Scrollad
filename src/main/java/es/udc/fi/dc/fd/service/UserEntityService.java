@@ -30,23 +30,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.udc.fi.dc.fd.model.ExampleEntity;
-import es.udc.fi.dc.fd.model.persistence.DefaultExampleEntity;
-import es.udc.fi.dc.fd.repository.ExampleEntityRepository;
+import es.udc.fi.dc.fd.model.User;
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
+import es.udc.fi.dc.fd.repository.UserEntityRepository;
 
 /**
- * Default implementation of the example entity service.
+ * Implementation of the user service
  * 
- * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Service
-public class DefaultExampleEntityService implements ExampleEntityService {
+public class UserEntityService implements UserService {
 
 	/**
 	 * Repository for the domain entities handled by the service.
 	 */
-	private final ExampleEntityRepository entityRepository;
+	private final UserEntityRepository entityRepository;
 
 	/**
 	 * Constructs an entities service with the specified repository.
@@ -54,14 +53,14 @@ public class DefaultExampleEntityService implements ExampleEntityService {
 	 * @param repository the repository for the entity instances
 	 */
 	@Autowired
-	public DefaultExampleEntityService(final ExampleEntityRepository repository) {
+	public UserEntityService(final UserEntityRepository repository) {
 		super();
 
 		entityRepository = checkNotNull(repository, "Received a null pointer as repository");
 	}
 
 	@Override
-	public final ExampleEntity add(final DefaultExampleEntity entity) {
+	public final User add(final UserEntity entity) {
 		return entityRepository.save(entity);
 	}
 
@@ -75,32 +74,32 @@ public class DefaultExampleEntityService implements ExampleEntityService {
 	 * @return the entity for the given id
 	 */
 	@Override
-	public final ExampleEntity findById(final Integer identifier) {
-		final ExampleEntity entity;
+	public final User findById(final Integer identifier) {
+		final User entity;
 
 		checkNotNull(identifier, "Received a null pointer as identifier");
 
 		if (entityRepository.existsById(identifier)) {
 			entity = entityRepository.getOne(identifier);
 		} else {
-			entity = new DefaultExampleEntity();
+			entity = new UserEntity();
 		}
 
 		return entity;
 	}
 
 	@Override
-	public final Iterable<DefaultExampleEntity> getAllEntities() {
+	public final Iterable<UserEntity> getAllEntities() {
 		return entityRepository.findAll();
 	}
 
 	@Override
-	public final Iterable<DefaultExampleEntity> getEntities(final Pageable page) {
+	public final Iterable<UserEntity> getEntities(final Pageable page) {
 		return entityRepository.findAll(page);
 	}
 
 	@Override
-	public final void remove(final DefaultExampleEntity entity) {
+	public final void remove(final UserEntity entity) {
 		entityRepository.delete(entity);
 	}
 

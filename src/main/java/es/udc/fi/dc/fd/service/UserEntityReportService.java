@@ -33,7 +33,7 @@ import org.apache.commons.collections.IteratorUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import es.udc.fi.dc.fd.model.persistence.DefaultExampleEntity;
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -42,23 +42,22 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
- * Default implementation of the report service.
+ * Implementation for the report service of User
  * 
- * @author Bernardo Mart&iacute;nez Garrido
  *
  */
 @Service
-public final class DefaultExampleEntityReportService implements ExampleEntityReportService {
+public final class UserEntityReportService implements UserReportService {
 
 	/**
 	 * Default constructor.
 	 */
-	public DefaultExampleEntityReportService() {
+	public UserEntityReportService() {
 		super();
 	}
 
 	@Override
-	public final JasperPrint getReport(final Iterable<DefaultExampleEntity> data) {
+	public final JasperPrint getReport(final Iterable<UserEntity> data) {
 		final File reportFile;
 		final JasperReport jasperReport;
 		final JasperPrint jasperPrint;
