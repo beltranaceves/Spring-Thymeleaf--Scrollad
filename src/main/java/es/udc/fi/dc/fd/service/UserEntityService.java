@@ -28,6 +28,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import es.udc.fi.dc.fd.model.User;
@@ -58,9 +59,13 @@ public class UserEntityService implements UserService {
 
 		entityRepository = checkNotNull(repository, "Received a null pointer as repository");
 	}
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public final User add(final UserEntity entity) {
+		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 		return entityRepository.save(entity);
 	}
 
