@@ -1,60 +1,72 @@
 package es.udc.fi.dc.fd.controller.entity;
 
-import static es.udc.fi.dc.fd.model.form.UserConversor.toAuthenticatedUserForm;
-
-import javax.management.InstanceNotFoundException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import es.udc.fi.dc.fd.model.User;
-import es.udc.fi.dc.fd.model.exceptions.IncorrectLoginException;
-import es.udc.fi.dc.fd.model.form.AuthenticatedUserForm;
-import es.udc.fi.dc.fd.model.form.JwtInfo;
-import es.udc.fi.dc.fd.model.form.LoginParamsForm;
-import es.udc.fi.dc.fd.service.JwtGenerator;
-import es.udc.fi.dc.fd.service.UserService;
-
-@RestController
+@Controller
 @RequestMapping("/users")
 public class UserController {
 
-	@Autowired
-	private JwtGenerator jwtGenerator;
-
-	@Autowired
-	private UserService userService;
-
-	@PostMapping("/login")
-	public AuthenticatedUserForm login(@Validated @RequestBody LoginParamsForm params) throws IncorrectLoginException {
-
-		User user = userService.login(params.getLogin(), params.getPassword());
-
-		return toAuthenticatedUserForm(generateServiceToken(user), user);
-
+	// Login form
+	@GetMapping(path = "/login")
+	public String login() {
+		final String path;
+		path = ExampleEntityViewConstants.USER_LOGIN;
+		return path;
 	}
 
-	@PostMapping("/loginFromServiceToken")
-	public AuthenticatedUserForm loginFromServiceToken(@RequestAttribute Integer login,
-			@RequestAttribute String serviceToken) throws InstanceNotFoundException {
-
-		User user = userService.loginFromId(login);
-
-		return toAuthenticatedUserForm(serviceToken, user);
-
+	@GetMapping(path = "/logged")
+	public String logged() {
+		final String path;
+		path = "user/logged";
+		return path;
 	}
 
-	private String generateServiceToken(User user) {
-
-		JwtInfo jwtInfo = new JwtInfo(user.getId(), user.getLogin());
-
-		return jwtGenerator.generate(jwtInfo);
-
+	// Login form with error
+	@RequestMapping("/login-error.html")
+	public String loginError(ModelMap model) {
+		model.addAttribute("loginError", true);
+		return "login.html";
 	}
+
+//	@PostMapping("/login")
+//	public AuthenticatedUserForm loginUser(final ModelMap model,
+//			@ModelAttribute(ExampleEntityViewConstants.BEAN_FORM) @Valid @RequestBody LoginParamsForm form,
+//			final BindingResult bindingResult, final HttpServletResponse response) throws IncorrectLoginException {
+//
+//		User user = userService.login(form.getLogin(), form.getPassword());
+//
+//		return UserConversor.toAuthenticatedUserForm(generateServiceToken(user), user);
+//	}
+//
+//	@PostMapping("/login")
+//	public AuthenticatedUserForm login(@Validated @RequestBody LoginParamsForm params) throws IncorrectLoginException {
+//
+//		User user = userService.login(params.getLogin(), params.getPassword());
+//
+//		return UserConversor.toAuthenticatedUserForm(generateServiceToken(user), user);
+//
+//	}
+//
+//	@PostMapping("/loginFromServiceToken")
+//	public AuthenticatedUserForm loginFromServiceToken(@RequestAttribute Integer login,
+//
+//			@RequestAttribute String serviceToken) throws InstanceNotFoundException {
+//
+//		User user = userService.loginFromId(login);
+//
+//		return UserConversor.toAuthenticatedUserForm(serviceToken, user);
+//
+//	}
+//
+//	private String generateServiceToken(User user) {
+//
+//		JwtInfo jwtInfo = new JwtInfo(user.getId(), user.getLogin());
+//
+//		return jwtGenerator.generate(jwtInfo);
+//
+//	}
 
 }

@@ -25,48 +25,20 @@
 package es.udc.fi.dc.fd.controller.entity;
 
 /**
- * Constants for the example entity view controllers.
+ * Constants for the user view controllers.
  * 
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public final class ExampleEntityViewConstants {
+public final class UserViewConstants {
 
 	/**
 	 * Form bean parameter name.
 	 */
 	public static final String BEAN_FORM = "form";
 
-	/**
-	 * Entities parameter name.
-	 */
-	public static final String PARAM_ENTITIES = "entities";
+	public static final String VIEW_USER_LOGIN_FORM = "user/login";
 
-	/**
-	 * Name for the entity form.
-	 */
-	public static final String VIEW_ENTITY_FORM = "entity/form";
-
-	/**
-	 * Name for the entities view using AJAX.
-	 */
-	public static final String VIEW_ENTITY_LIST_AJAX = "entity/listAjax";
-
-	/**
-	 * Name for the entities view.
-	 */
-	public static final String VIEW_ENTITY_LIST = "entity/list";
-
-	/**
-	 * Name for the exception view.
-	 */
-	public static final String VIEW_EXCEPTION = "exception";
-
-	public static final String USER_LOGIN = "user/login";
-
-	/**
-	 * Private constructor to avoid initialization.
-	 */
-	private ExampleEntityViewConstants() {
+	private UserViewConstants() {
 		super();
 	}
 

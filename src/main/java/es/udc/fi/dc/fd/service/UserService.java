@@ -24,15 +24,9 @@
 
 package es.udc.fi.dc.fd.service;
 
-import javax.management.InstanceNotFoundException;
-
-import es.udc.fi.dc.fd.model.User;
-import es.udc.fi.dc.fd.model.exceptions.IncorrectLoginException;
-
 public interface UserService {
 
-	User login(final String login, String password) throws IncorrectLoginException;
-
-	User loginFromId(Integer id) throws InstanceNotFoundException;
+	// User login(final String login, String password) throws
+	// IncorrectLoginException;
 
 }
