@@ -27,7 +27,7 @@
 -- This SQL script populates the initial data.
 -- ****************************************
 INSERT INTO users (login, password, name, first_surname, second_surname, city) VALUES
-   ('login1', 'pass1', 'name1', 'first_surname1', 'second_surname1', 'city1'),
+   ('viewer', '$2a$10$UaIX1wXSdM58WtMqcF9LC.kjvNGQHACJdcpttgP9yiA/U6GBganJS', 'name1', 'first_surname1', 'second_surname1', 'city1'),
    ('login2', 'pass2', 'name2', 'first_surname2', 'second_surname2', 'city2'),
    ('login3', 'pass3', 'name3', 'first_surname3', 'second_surname3', 'city3');
 

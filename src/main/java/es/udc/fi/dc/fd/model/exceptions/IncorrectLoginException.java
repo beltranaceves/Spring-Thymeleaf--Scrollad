@@ -6,6 +6,10 @@ public class IncorrectLoginException extends Exception {
 	private String login;
 	private String password;
 
+	public IncorrectLoginException(String message) {
+		super(message);
+	}
+
 	public IncorrectLoginException(String login, String password) {
 
 		this.login = login;

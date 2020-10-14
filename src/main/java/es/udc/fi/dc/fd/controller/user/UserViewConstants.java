@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package es.udc.fi.dc.fd.controller.entity;
+package es.udc.fi.dc.fd.controller.user;
 
 /**
  * Constants for the user view controllers.
@@ -34,9 +34,9 @@ public final class UserViewConstants {
 	/**
 	 * Form bean parameter name.
 	 */
-	public static final String BEAN_FORM = "form";
+	public static final String USER_LOGIN = "user/login";
 
-	public static final String VIEW_USER_LOGIN_FORM = "user/login";
+	public static final String USER_LOGIN_ERROR = "user/login-error";
 
 	private UserViewConstants() {
 		super();

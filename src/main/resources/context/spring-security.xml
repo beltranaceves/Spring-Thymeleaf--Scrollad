@@ -1,0 +1,36 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"  
+    xmlns:beans="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd  
+    http://www.springframework.org/schema/security  
+    http://www.springframework.org/schema/security/spring-security.xsd">  
+    
+    <http use-expressions="true">
+        <intercept-url pattern="/entity/*" access="isAuthenticated()"/>
+ 
+        <form-login login-page='/users/login' 
+        default-target-url="/" 
+        authentication-failure-url="/users/login?error=true" />
+        <logout logout-success-url="/users/login" />
+    </http> 
+    
+    <!--
+    <http auto-config="true">  
+        <intercept-url pattern="/entity/list" access="isAuthenticated()" />  
+    </http> 
+    -->
+    <authentication-manager>  
+      <authentication-provider>  
+        <user-service>  
+        <user name="viewer" password="viewer" authorities="hasRole(ROLE_ADMIN)" /> 
+        </user-service>
+        <password-encoder ref="encoder" />   
+      </authentication-provider>  
+    </authentication-manager>  
+    
+    <beans:bean id="encoder" 
+    class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </beans:bean>
+
+</beans:beans> 

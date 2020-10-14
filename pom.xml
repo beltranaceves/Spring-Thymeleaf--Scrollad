@@ -633,11 +633,15 @@
 		    <artifactId>spring-security-web</artifactId>
 		    <version>5.1.4.RELEASE</version>
 		</dependency>
+		<dependency>  
+        	<groupId>org.springframework.security</groupId>  
+        	<artifactId>spring-security-core</artifactId>  
+        	<version>5.1.4.RELEASE</version>  
+    	</dependency> 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>1.5.21.RELEASE</version>
-			<scope>test</scope>
 		</dependency>
 				
 		
@@ -717,6 +721,12 @@
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf-spring5</artifactId>
 			<version>${thymeleaf.version}</version>
+		</dependency>
+		<dependency>
+		<!-- Security -->
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+			<version>3.0.4.RELEASE</version>
 		</dependency>
 		<!-- ============================================== -->
 		<!-- ============== JASPERREPORTS ================= -->
@@ -869,6 +879,12 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.2</version>
 		</dependency>
+		<dependency>
+    		<groupId>org.eclipse.jetty</groupId>
+    		<artifactId>jetty-security</artifactId>
+    		<version>9.4.23.v20191118</version>
+		</dependency>
+		
 		<!-- ============================================== -->
 		<!-- =========== VERSION ENFORCEMENT ============== -->
 		<!-- ============================================== -->

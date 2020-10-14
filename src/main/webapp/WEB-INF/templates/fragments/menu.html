@@ -31,6 +31,8 @@
 							th:text="#{title.data}">Data</span> <span aria-hidden="true"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
+							<li><a th:href="@{/users/login}" th:text="#{label.login}">Login</a></li>
+							<li><a th:href="@{/users/logout}" th:text="#{label.logout}">Logout</a></li>
 							<li><a th:href="@{/entity/list}" th:text="#{label.list}">List</a></li>
 							<li><a th:href="@{/entity/edit}" th:text="#{label.add}">Addition</a></li>
 							<li><a th:href="@{/entity/pdf}" th:text="#{label.pdf}">PDF</a></li>

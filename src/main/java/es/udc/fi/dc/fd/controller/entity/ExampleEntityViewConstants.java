@@ -61,8 +61,6 @@ public final class ExampleEntityViewConstants {
 	 */
 	public static final String VIEW_EXCEPTION = "exception";
 
-	public static final String USER_LOGIN = "user/login";
-
 	/**
 	 * Private constructor to avoid initialization.
 	 */

@@ -24,9 +24,12 @@
 
 package es.udc.fi.dc.fd.service;
 
+import es.udc.fi.dc.fd.model.User;
+import es.udc.fi.dc.fd.model.exceptions.IncorrectLoginException;
+import es.udc.fi.dc.fd.model.exceptions.IncorrectPasswordException;
+
 public interface UserService {
 
-	// User login(final String login, String password) throws
-	// IncorrectLoginException;
+	User login(final String login, String password) throws IncorrectLoginException, IncorrectPasswordException;
 
 }

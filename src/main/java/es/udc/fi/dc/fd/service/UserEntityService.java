@@ -24,8 +24,19 @@
 
 package es.udc.fi.dc.fd.service;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import es.udc.fi.dc.fd.model.User;
+import es.udc.fi.dc.fd.model.exceptions.IncorrectLoginException;
+import es.udc.fi.dc.fd.model.exceptions.IncorrectPasswordException;
+import es.udc.fi.dc.fd.repository.UserRepository;
 
 /**
  * Implementation of the user service
@@ -35,44 +46,35 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class UserEntityService implements UserService {
-//
-//	@Autowired
-//	private PermissionChecker permissionChecker;
-//
-//	@Autowired
-//	private BCryptPasswordEncoder passwordEncoder;
-//
-//	private final UserRepository userRepository;
-//
-//	@Autowired
-//	public UserEntityService(final UserRepository repository) {
-//		super();
-//
-//		userRepository = checkNotNull(repository, "Received a null pointer as repository");
-//	}
-//
-//	@Override
-//	@Transactional(readOnly = true)
-//	public User login(String login, String password) throws IncorrectLoginException {
-//
-//		Optional<User> user = userRepository.findByLogin(login);
-//
-//		if (!user.isPresent()) {
-//			throw new IncorrectLoginException(login, password);
-//		}
-//
-//		if (!passwordEncoder.matches(password, user.get().getPassword())) {
-//			throw new IncorrectLoginException(login, password);
-//		}
-//
-//		return user.get();
-//
-//	}
-//
-//	@Override
-//	@Transactional(readOnly = true)
-//	public User loginFromId(Integer id) throws InstanceNotFoundException {
-//		return permissionChecker.checkUser(id);
-//	}
+
+	private final UserRepository userRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	@Autowired
+	public UserEntityService(final UserRepository repository) {
+		super();
+
+		userRepository = checkNotNull(repository, "Received a null pointer as repository");
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public User login(String login, String password) throws IncorrectLoginException, IncorrectPasswordException {
+
+		Optional<User> user = userRepository.findByLogin(login);
+
+		if (!user.isPresent()) {
+			throw new IncorrectLoginException("El usuario '" + login + "' no existe");
+		}
+
+		if (!passwordEncoder.matches(password, user.get().getPassword())) {
+			throw new IncorrectPasswordException("La contraseña no es correcta");
+		}
+
+		return user.get();
+
+	}
 
 }

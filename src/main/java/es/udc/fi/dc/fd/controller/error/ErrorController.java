@@ -35,26 +35,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ErrorController {
 
-    /**
-     * Name for the 404 error view.
-     */
-    private static final String VIEW_404 = "404";
+	/**
+	 * Name for the 404 error view.
+	 */
+	private static final String VIEW_404 = "404";
 
-    /**
-     * Default constructor.
-     */
-    public ErrorController() {
-        super();
-    }
+	/**
+	 * Default constructor.
+	 */
+	public ErrorController() {
+		super();
+	}
 
-    /**
-     * Shows the 404 error view.
-     * 
-     * @return the 404 error view
-     */
-    @RequestMapping("/404")
-    public String show404() {
-        return VIEW_404;
-    }
+	/**
+	 * Shows the 404 error view.
+	 * 
+	 * @return the 404 error view
+	 */
+	@RequestMapping("/404")
+	public String show404() {
+		return VIEW_404;
+	}
 
 }
