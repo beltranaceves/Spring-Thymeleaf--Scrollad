@@ -2,6 +2,7 @@ package es.udc.fi.dc.fd.model.form;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.io.FileInputStream;
 import java.io.Serializable;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -24,11 +25,11 @@ public final class AdForm implements Serializable {
     @NotEmpty
     private String userA;
     
-    //@NotEmpty
-    //private FileInputStream image;
-    
     @NotEmpty
-    private String image;
+    private FileInputStream image;
+    
+    //@NotEmpty
+    //private String image;
 
     
     public AdForm() {
@@ -101,13 +102,13 @@ public final class AdForm implements Serializable {
 		return description;
 	}
 
-	//public FileInputStream getImage() {
-	//	return image;
-	//}
-	
-	public String getImage() {
+	public FileInputStream getImage() {
 		return image;
 	}
+	
+	//public String getImage() {
+	//	return image;
+	//}
 
 	public String getUser() {
 		return userA;
@@ -122,13 +123,13 @@ public final class AdForm implements Serializable {
 		this.description = checkNotNull(description, "Received a null pointer as name");
 	}
 	
-	//public void setImage(final FileInputStream image) {
-	//	this.image = checkNotNull(image, "Received a null pointer as name");
-	//}
-	
-	public void setImage(final String image) {
+	public void setImage(final FileInputStream image) {
 		this.image = checkNotNull(image, "Received a null pointer as name");
 	}
+	
+	//public void setImage(final String image) {
+	//	this.image = checkNotNull(image, "Received a null pointer as name");
+	//}
 	
 	public void setUser(final String userA) {
 		this.userA = checkNotNull(userA, "Received a null pointer as name");

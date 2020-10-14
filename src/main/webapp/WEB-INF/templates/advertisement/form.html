@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+
 <!DOCTYPE html>
 
-=======
->>>>>>> refs/remotes/origin/BeltranDiegoCasoMostrarAnuncios
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:include="fragments/header :: header" />
@@ -43,7 +41,7 @@
 								
 								<label class="control-label" for="image" th:text="#{label.image}">Image</label>
 								<div class="controls">
-									<input type="text" th:field="*{image}" class="form-control"
+									<input type="file" th:field="*{image}" class="form-control"
 										placeholder="Image">
 									<!-- Validation errors -->
 									<p th:if="${#fields.hasErrors('image')}"
