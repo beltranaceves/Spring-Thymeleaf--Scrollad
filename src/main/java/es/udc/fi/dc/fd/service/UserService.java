@@ -27,8 +27,11 @@ package es.udc.fi.dc.fd.service;
 import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.exceptions.IncorrectLoginException;
 import es.udc.fi.dc.fd.model.exceptions.IncorrectPasswordException;
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
 
 public interface UserService {
+
+	public User add(final UserEntity entity);
 
 	User login(final String login, String password) throws IncorrectLoginException, IncorrectPasswordException;
 

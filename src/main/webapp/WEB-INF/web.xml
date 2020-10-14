@@ -18,7 +18,6 @@
 		<!-- Spring XML configuration -->
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:context/application-context.xml</param-value>
-		<param-value>classpath:context/spring-security.xml</param-value>
 	</context-param>
 
 	<listener>

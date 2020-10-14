@@ -24,6 +24,8 @@
 
 package es.udc.fi.dc.fd.service;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +51,19 @@ public class UserEntityService implements UserService {
 	private final UserRepository userRepository;
 
 	@Autowired
+	public UserEntityService(final UserRepository repository) {
+		super();
+
+		userRepository = checkNotNull(repository, "Received a null pointer as repository");
+	}
+
+	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public final User add(final UserEntity entity) {
 		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
-		return entityRepository.save(entity);
+		return userRepository.save(entity);
 
 	}
 
