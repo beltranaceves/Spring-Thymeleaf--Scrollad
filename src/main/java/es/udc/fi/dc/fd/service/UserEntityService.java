@@ -24,8 +24,6 @@
 
 package es.udc.fi.dc.fd.service;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.exceptions.IncorrectLoginException;
 import es.udc.fi.dc.fd.model.exceptions.IncorrectPasswordException;
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.repository.UserRepository;
 
 /**
@@ -52,11 +51,11 @@ public class UserEntityService implements UserService {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-	@Autowired
-	public UserEntityService(final UserRepository repository) {
-		super();
+	@Override
+	public final User add(final UserEntity entity) {
+		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+		return entityRepository.save(entity);
 
-		userRepository = checkNotNull(repository, "Received a null pointer as repository");
 	}
 
 	@Override
