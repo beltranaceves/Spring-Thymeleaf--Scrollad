@@ -5,47 +5,69 @@
 <head th:include="fragments/header :: header" />
 <body>
 	<header class="header" th:include="fragments/menu :: menu" />
-
+	
 	<section id="main-section" class="container-fluid">
 		<h1 th:text="#{title.advertisement.list}">Advertisement list</h1>
-		<p>This view shows data embedded into the template. There are no
-			additional request for changing pages.</p>
+		<p>This view allows you to visualize all the advertisements added to this site.</p>
 
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4" th:each="avertisement : ${entities}">
 
-		<div class="carousel-inner">
-			<div class="item active">
-				<div class="row">
-					<div class="col-sm-3" th:each="avertisement : ${entities}">
-						<div class="col-item">
-							<div class="photo">
-								<img src="http://placehold.it/350x260" class="img-responsive"
-									alt="a" />
-								<!--  
-								<img src="${avertisement?.image}" class="img-responsive"
-									alt="a" /> 
-								-->
-							</div>
-							<div class="info">
-								<div class="row">
-									<div class="price col-md-6">
-										<h5>
-											<span th:remove="tag" th:text="${avertisement?.title}">Title</span>
-										</h5>
-										<h5>
-											<span th:remove="tag" th:text="${avertisement?.userA}">User</span>
-										</h5>
-										<h5>
-											<span th:remove="tag" th:text="${avertisement?.description}">Description</span>
-										</h5>
-									</div>
+					<div class="photo">
+						<div id="myCarousel" class="carousel slide" data-interval="false">
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner">
+								<!-- Primera imagen a mostrar -->
+								<div class="carousel-item item active">
+									<img src="http://placehold.it/350x260" class="img-responsive"
+										alt="a" />
+									<!--  
+										<img class="center-block" th:src="@{${advertisement.images}}"
+											alt="Image" style="max-width: 80%; height: auto;">
+										-->
 								</div>
+								<div class="carousel-item item active">
+									<!--  Resto de imagenes a mostrar
+									<div class="carousel-item item" th:each="image : ${images.image}">
+										<img class="center-block" th:src="@{${images.image}}"
+											alt="Image" style="max-width: 80%; height: auto;">
+									</div>
+									-->
+								</div>
+
+								<!-- Left and right controls -->
+								<a class="left carousel-control" href="#myCarousel"
+									data-slide="prev"> <span
+									class="glyphicon glyphicon-chevron-left"></span> <span
+									class="sr-only">Previous</span>
+								</a> <a class="right carousel-control" href="#myCarousel"
+									data-slide="next"> <span
+									class="glyphicon glyphicon-chevron-right"></span> <span
+									class="sr-only">Next</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="info">
+						<div class="row">
+							<div class="price col-md-6">
+								<h5>
+									<span th:remove="tag" th:text="${avertisement?.title}">Title</span>
+								</h5>
+								<p>
+									<span th:remove="tag" th:text="${avertisement?.description}">Description</span>
+								</p>
+								<p>
+									<span th:remove="tag" th:text="${avertisement?.userA}">User</span>
+								</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</section>
 
 	<footer>
