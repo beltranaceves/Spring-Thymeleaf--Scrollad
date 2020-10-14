@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--  TODO: Add Bootstrap syntax here so it doesn't look so terrible -->
-<head>
-<title>Sign Up to Scrollad!</title>
-</head>
+<head th:include="fragments/header :: header" />
 <body>
-	<h1>Sign Up</h1>
-	<form action="#" th:action="@{/signup}" th:object="${form}"
-		method="post" role="form" class="form">
-		<label for="username">Username</label>: <input type="text"
-			th:field="*{login}" id="username" name="username"
-			autofocus="autofocus" /> <br /> <label for="password">Password</label>:
-		<input type="password" th:field="*{password}" id="password"
-			name="password" /> <br /> <label for="name">Name</label>: <input
-			type="text" th:field="*{name}" id="name" name="name"
-			autofocus="autofocus" /> <br /> <label for="firstSurname">First
-			Surname</label>: <input type="text" th:field="*{firstSurname}"
-			id="firstSurname" name="firstSurname" autofocus="autofocus" /> <br />
-		<label for="secondSurname">Second Surname</label>: <input type="text"
-			th:field="*{secondSurname}" id="secondSurname" name="secondSurname"
-			autofocus="autofocus" /> <br /> <label for="city">City</label>: <input
-			type="text" th:field="*{city}" id="city" name="city" f
-			autofocus="autofocus" /> <br /> <input type="submit"
-			value="Sign Up" />
-	</form>
+	<header class="header" th:include="fragments/menu :: menu" />
+	<div class="container d-flex justify-content-center">
+		<form th:action="@{/signup}" th:object="${form}" method="post" role="form">
+			<h1 class="text-center">Sign Up to Scrollad!</h1>
+			<div class="form-group">
+				<input type="text" class="form-control" th:field="*{login}" id="username"
+					name="username" required autofocus placeholder="Username" />
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" th:field="*{password}"
+					id="password" name="password" required autofocus placeholder="password" />
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" th:field="*{name}" id="name"
+					name="name" required autofocus placeholder="Name" />
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" th:field="*{firstSurname}"
+					id="firstSurname" name="firstSurname" required autofocus
+					placeholder="First Surname" />
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" th:field="*{secondSurname}"
+					id="secondSurname" name="secondSurname" autofocus
+					placeholder="Second Surname" />
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" th:field="*{city}" id="city"
+					name="city" autofocus required placeholder="City" />
+			</div>
+			<div class="text-center">
+				<input type="submit" class="btn btn-primary btn-lg" value="Sign Up!" />
+			</div>
+		</form>
+	</div>
 </body>
 </html>
