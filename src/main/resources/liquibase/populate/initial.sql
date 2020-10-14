@@ -31,6 +31,12 @@ INSERT INTO users (login, password, name, first_surname, second_surname, city) V
    ('login2', 'pass2', 'name2', 'first_surname2', 'second_surname2', 'city2'),
    ('login3', 'pass3', 'name3', 'first_surname3', 'second_surname3', 'city3');
 
+INSERT INTO advertisement (title, description, image, userA) VALUES
+   ('anuncio1' ,'1 anuncio', 'data:image/jpeg;base64,/9j', 'juan1'),
+   ('anuncio2' ,'2 anuncio', 'data:image/jpeg;base64,/9j', 'juan2'),
+   ('anuncio3' ,'3 anuncio', 'data:image/jpeg;base64,/9j', 'juan3');
+
+
 INSERT INTO example_entities (name) VALUES
    ('entity_01'),
    ('entity_02'),
