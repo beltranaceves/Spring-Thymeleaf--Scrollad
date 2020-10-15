@@ -10,9 +10,6 @@
 				</button>
 				<a class="navbar-brand" th:href="@{/}" th:text="#{application.title}">Webapp
 					title</a>
-					<p>
-						Hello <b><c:out value="${pageContext.request.remoteUser}"/></b>
-					  </p>
 			</div>
 			<div id="navbar-main-body" class="navbar-body navbar-collapse collapse">
 				<small class="navbar-text">v@project.version@</small>
@@ -31,7 +28,7 @@
 						aria-expanded="false"><span th:remove="tag" th:text="#{title.data}">Data</span>
 							<span aria-hidden="true"></span> </a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a th:href="@{login}" th:text="#{label.login}">Login</a></li>
+							<li><a th:href="@{/login}" th:text="#{label.login}">Login</a></li>
 							<li><a th:href="@{/logout}" th:text="#{label.logout}">Logout</a></li>
 							<li><a th:href="@{/advertisement/edit}"
 								th:text="#{label.advertisement.add}">Advertisement</a></li>

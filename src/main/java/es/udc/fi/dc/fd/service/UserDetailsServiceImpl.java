@@ -33,7 +33,6 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,9 +57,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		userRepository = checkNotNull(repository, "Received a null pointer as repository");
 	}
 
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -77,7 +73,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			builder.password(user.get().getPassword());
 			builder.roles("USER");
 		} else {
-			throw new UsernameNotFoundException("User not found.");
+			throw new UsernameNotFoundException("User " + username + " not found.");
 		}
 
 		return builder.build();

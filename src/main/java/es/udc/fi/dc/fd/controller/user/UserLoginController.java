@@ -1,5 +1,6 @@
 package es.udc.fi.dc.fd.controller.user;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -8,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -20,7 +22,7 @@ import es.udc.fi.dc.fd.model.form.LoginParamsForm;
 
 @Controller
 @RequestMapping("/login")
-public class UserController {
+public class UserLoginController {
 
 	@Autowired
 	public UserDetailsService userDetailsService;
@@ -36,11 +38,8 @@ public class UserController {
 	@PostMapping
 	public String login(final ModelMap model,
 			@ModelAttribute(UserViewConstants.USER_LOGIN) @Valid final LoginParamsForm form,
-			final BindingResult bindingResult, final HttpServletResponse response) {
+			final BindingResult bindingResult, final HttpServletRequest request, final HttpServletResponse response) {
 		final String path;
-
-		UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder
-				.getContext().getAuthentication();
 
 		if (bindingResult.hasErrors()) {
 			// Invalid form data
@@ -53,6 +52,11 @@ public class UserController {
 		} else {
 
 			UserDetails user = userDetailsService.loadUserByUsername(form.getLogin());
+
+			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,
+					user.getAuthorities());
+			authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 
 			path = "welcome";
 

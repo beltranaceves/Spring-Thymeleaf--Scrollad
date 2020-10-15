@@ -22,14 +22,20 @@
  * SOFTWARE.
  */
 
-package es.udc.fi.dc.fd.controller.entity;
+package es.udc.fi.dc.fd.controller.user;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -38,6 +44,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import es.udc.fi.dc.fd.controller.entity.ExampleEntityViewConstants;
 import es.udc.fi.dc.fd.model.form.UserForm;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.service.UserService;
@@ -56,6 +63,9 @@ public class UserEntitySignupController {
 	 * Example entity service.
 	 */
 	private final UserService userService;
+
+	@Autowired
+	public UserDetailsService userDetailsService;
 
 	/**
 	 * Constructs a controller with the specified dependencies.
@@ -91,7 +101,7 @@ public class UserEntitySignupController {
 	@PostMapping
 	public String saveUser(final ModelMap model,
 			@ModelAttribute(ExampleEntityViewConstants.BEAN_FORM) @Valid final UserForm form,
-			final BindingResult bindingResult, final HttpServletResponse response) {
+			final BindingResult bindingResult, final HttpServletRequest request, final HttpServletResponse response) {
 		final String path;
 		final UserEntity entity;
 
@@ -117,8 +127,13 @@ public class UserEntitySignupController {
 
 			userService.add(entity);
 
-			// TODO: Merge this to UserViewConstants once it is merged too.
-			// TODO: This does not change the URI in the address bar
+			UserDetails user = userDetailsService.loadUserByUsername(form.getLogin());
+
+			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,
+					user.getAuthorities());
+			authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+
 			path = "welcome";
 		}
 

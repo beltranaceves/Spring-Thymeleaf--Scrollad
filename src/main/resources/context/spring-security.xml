@@ -3,25 +3,16 @@
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
-<!--
-<http auto-config="true" use-expressions="true">
-        <intercept-url pattern="/login" access="permitAll"></intercept-url>
-        <intercept-url pattern="/user/*" access="hasRole('USER')"></intercept-url>
-        <form-login login-page="/login" default-target-url="/user"></form-login>
-        <logout invalidate-session="true" delete-cookies="JSESSIONID" logout-success-url="/" logout-url="/logout"></logout>
-        </http>
--->
+
 <http auto-config="true">
   <intercept-url pattern="/" access="permitAll"></intercept-url>
   <intercept-url pattern="/advertisement/*" access="isAuthenticated()"></intercept-url>
+  <form-login login-page="/login" authentication-failure-url="/login?error"></form-login>
+  <logout invalidate-session="true" delete-cookies="JSESSIONID" logout-success-url="/" logout-url="/logout"></logout>
 </http>
 
-<authentication-manager>
+<authentication-manager alias="authenticationManager">
     <authentication-provider user-service-ref='userDetailsService'/>
   </authentication-manager>
-
-	<user-service>
-		<user name="viewer" password='$2a$10$UaIX1wXSdM58WtMqcF9LC.kjvNGQHACJdcpttgP9yiA/U6GBganJS' authorities="ROLE_USER" />
-	</user-service>
 
 </b:beans>
