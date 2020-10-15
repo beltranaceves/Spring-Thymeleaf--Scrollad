@@ -6,7 +6,7 @@
   <body>
     <h1>Login page</h1>
     <p th:if="${loginError}" class="error">Wrong user or password</p>
-    <form th:action="@{/users/login}" method="post">
+    <form th:action="@{/login}" method="post">
       <label for="login">Username</label>:
       <input type="text" id="login" name="login" required="required" autofocus="autofocus" /> <br />
       <label for="password">Password</label>:

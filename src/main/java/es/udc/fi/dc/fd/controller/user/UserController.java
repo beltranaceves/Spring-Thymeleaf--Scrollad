@@ -19,21 +19,21 @@ import es.udc.fi.dc.fd.model.form.LoginParamsForm;
 import es.udc.fi.dc.fd.service.UserService;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/login")
 public class UserController {
 
 	@Autowired
 	public UserService userService;
 
 	// Login form
-	@GetMapping(path = "/login")
+	@GetMapping
 	public String login() {
 		final String path;
 		path = UserViewConstants.USER_LOGIN;
 		return path;
 	}
 
-	@PostMapping(path = "/login")
+	@PostMapping
 	public String login(final ModelMap model,
 			@ModelAttribute(UserViewConstants.USER_LOGIN) @Valid final LoginParamsForm form,
 			final BindingResult bindingResult, final HttpServletResponse response)
@@ -55,13 +55,7 @@ public class UserController {
 			path = "welcome";
 
 		}
-		return path;
-	}
 
-	@GetMapping(path = "/logout")
-	public String logout() {
-		final String path;
-		path = "user/logout";
 		return path;
 	}
 

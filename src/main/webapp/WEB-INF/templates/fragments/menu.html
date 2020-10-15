@@ -10,6 +10,9 @@
 				</button>
 				<a class="navbar-brand" th:href="@{/}" th:text="#{application.title}">Webapp
 					title</a>
+					<p>
+						Hello <b><c:out value="${pageContext.request.remoteUser}"/></b>
+					  </p>
 			</div>
 			<div id="navbar-main-body" class="navbar-body navbar-collapse collapse">
 				<small class="navbar-text">v@project.version@</small>
@@ -28,16 +31,12 @@
 						aria-expanded="false"><span th:remove="tag" th:text="#{title.data}">Data</span>
 							<span aria-hidden="true"></span> </a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a th:href="@{/users/login}" th:text="#{label.login}">Login</a></li>
-							<li><a th:href="@{/users/logout}" th:text="#{label.logout}">Logout</a></li>
-							<li><a th:href="@{/entity/edit}" th:text="#{label.add}">Addition</a></li>
-							<li><a th:href="@{/entity/list}" th:text="#{label.list}">List</a></li>
+							<li><a th:href="@{login}" th:text="#{label.login}">Login</a></li>
+							<li><a th:href="@{/logout}" th:text="#{label.logout}">Logout</a></li>
 							<li><a th:href="@{/advertisement/edit}"
 								th:text="#{label.advertisement.add}">Advertisement</a></li>
 							<li><a th:href="@{/advertisement/list}"
 								th:text="#{label.advertisement}"> Ad List</a></li>
-							<li><a th:href="@{/entity/pdf}" th:text="#{label.pdf}">PDF</a></li>
-							<li><a th:href="@{/exception/runtime}" th:text="#{label.exception}">Exception</a></li>
 						</ul></li>
 				</ul>
 			</div>
