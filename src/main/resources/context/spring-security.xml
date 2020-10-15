@@ -16,6 +16,10 @@
   <intercept-url pattern="/advertisement/*" access="isAuthenticated()"></intercept-url>
 </http>
 
+<authentication-manager>
+    <authentication-provider user-service-ref='userDetailsService'/>
+  </authentication-manager>
+
 	<user-service>
 		<user name="viewer" password='$2a$10$UaIX1wXSdM58WtMqcF9LC.kjvNGQHACJdcpttgP9yiA/U6GBganJS' authorities="ROLE_USER" />
 	</user-service>

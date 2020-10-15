@@ -4,6 +4,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -12,18 +16,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import es.udc.fi.dc.fd.model.User;
-import es.udc.fi.dc.fd.model.exceptions.IncorrectLoginException;
-import es.udc.fi.dc.fd.model.exceptions.IncorrectPasswordException;
 import es.udc.fi.dc.fd.model.form.LoginParamsForm;
-import es.udc.fi.dc.fd.service.UserService;
 
 @Controller
 @RequestMapping("/login")
 public class UserController {
 
 	@Autowired
-	public UserService userService;
+	public UserDetailsService userDetailsService;
 
 	// Login form
 	@GetMapping
@@ -36,9 +36,11 @@ public class UserController {
 	@PostMapping
 	public String login(final ModelMap model,
 			@ModelAttribute(UserViewConstants.USER_LOGIN) @Valid final LoginParamsForm form,
-			final BindingResult bindingResult, final HttpServletResponse response)
-			throws IncorrectLoginException, IncorrectPasswordException {
+			final BindingResult bindingResult, final HttpServletResponse response) {
 		final String path;
+
+		UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder
+				.getContext().getAuthentication();
 
 		if (bindingResult.hasErrors()) {
 			// Invalid form data
@@ -50,7 +52,7 @@ public class UserController {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		} else {
 
-			User user = userService.login(form.getLogin(), form.getPassword());
+			UserDetails user = userDetailsService.loadUserByUsername(form.getLogin());
 
 			path = "welcome";
 

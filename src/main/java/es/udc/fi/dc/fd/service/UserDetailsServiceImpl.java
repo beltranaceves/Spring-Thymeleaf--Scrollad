@@ -26,13 +26,18 @@ package es.udc.fi.dc.fd.service;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.dc.fd.model.User;
-import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.repository.UserRepository;
 
 /**
@@ -42,12 +47,12 @@ import es.udc.fi.dc.fd.repository.UserRepository;
  */
 @Service
 @Transactional
-public class UserEntityService implements UserService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	private final UserRepository userRepository;
 
 	@Autowired
-	public UserEntityService(final UserRepository repository) {
+	public UserDetailsServiceImpl(final UserRepository repository) {
 		super();
 
 		userRepository = checkNotNull(repository, "Received a null pointer as repository");
@@ -57,28 +62,25 @@ public class UserEntityService implements UserService {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
-	public final User add(final UserEntity entity) {
-		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
-		return userRepository.save(entity);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+		/*
+		 * Here we are using dummy data, you need to load user data from database or
+		 * other third party application
+		 */
+		Optional<User> user = userRepository.findByLogin(username);
+
+		UserBuilder builder = null;
+
+		if (user.isPresent()) {
+			builder = org.springframework.security.core.userdetails.User.withUsername(username);
+			builder.password(user.get().getPassword());
+			builder.roles("USER");
+		} else {
+			throw new UsernameNotFoundException("User not found.");
+		}
+
+		return builder.build();
 	}
-
-//	@Override
-//	@Transactional(readOnly = true)
-//	public User login(String login, String password) throws IncorrectLoginException, IncorrectPasswordException {
-//
-//		Optional<User> user = userRepository.findByLogin(login);
-//
-//		if (!user.isPresent()) {
-//			throw new IncorrectLoginException("El usuario '" + login + "' no existe");
-//		}
-//
-//		if (!passwordEncoder.matches(password, user.get().getPassword())) {
-//			throw new IncorrectPasswordException("La contraseña no es correcta");
-//		}
-//
-//		return user.get();
-//
-//	}
 
 }
