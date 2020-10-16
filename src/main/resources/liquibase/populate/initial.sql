@@ -30,9 +30,9 @@ INSERT INTO users (login, password, name, first_surname, second_surname, city) V
    ('viewer', '$2a$10$UaIX1wXSdM58WtMqcF9LC.kjvNGQHACJdcpttgP9yiA/U6GBganJS', 'Viewer', 'Viewer1', 'Viewer2', 'city');
 
 INSERT INTO advertisement (title, description, image, userA) VALUES
-   ('anuncio1' ,'1 anuncio', 'data:image/jpeg;base64,/9j', 'juan1'),
-   ('anuncio2' ,'2 anuncio', 'data:image/jpeg;base64,/9j', 'juan2'),
-   ('anuncio3' ,'3 anuncio', 'data:image/jpeg;base64,/9j', 'juan3');
+   ('anuncio1' ,'1 anuncio', 'ffffffff', 'juan1'),
+   ('anuncio2' ,'2 anuncio', 'aaaabbcc', 'juan2'),
+   ('anuncio3' ,'3 anuncio', 'aabbcceedd', 'juan3');
 
 
 INSERT INTO example_entities (name) VALUES

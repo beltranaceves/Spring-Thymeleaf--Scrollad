@@ -9,7 +9,7 @@
 		<p>This view allows you to add banner ads through an HTML form.</p>
 		<section id="form" class="form-well">
 			<form action="#" th:action="@{/advertisement}" th:object="${form}"
-				method="post" role="form" class="form">
+				method="post" role="form" class="form" enctype="multipart/form-data">
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading" th:text="#{title.advertisement.form.data}">Advertisement</div>
@@ -38,11 +38,12 @@
 								
 								<label class="control-label" for="image" th:text="#{label.image}">Image</label>
 								<div class="controls">
-									<input type="file" th:field="*{image}" class="form-control"
-										placeholder="Image">
+									<input type="file" name="file" class="form-control"
+										placeholder="Image" accept=".jpg">
 									<!-- Validation errors -->
-									<p th:if="${#fields.hasErrors('image')}"
-										class="label label-danger" th:errors="*{image}">Error</p>
+									<!-- <p th:if="${#fields.hasErrors('image')}"
+										class="label label-danger" th:errors="*{image}">Error</p>-->
+									
 								</div>
 								
 							</div>
@@ -51,7 +52,7 @@
 				</div>
 				<div id="submit" class="row">
 					<div class="col-md-12">
-						<button type="submit" th:text="#{button.submit}">Submit</button>
+						<button type="submit" value="Upload" th:text="#{button.submit}">Submit</button>
 					</div>
 				</div>
 			</form>
