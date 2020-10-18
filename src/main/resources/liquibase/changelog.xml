@@ -14,7 +14,29 @@
 				<constraints nullable="false" unique="true" />
 			</column>
 		</createTable>
-				<createTable tableName="advertisement">
+		<createTable tableName="user">
+			<column autoIncrement="true" name="id" type="BIGINT">
+			</column>
+			<column name="username" type="VARCHAR(30)">
+				<constraints nullable="false" unique="true" primaryKey="true" />
+			</column>
+			<column name="password" type="VARCHAR(60)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="name" type="VARCHAR(30)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="first_lastname" type="VARCHAR(30)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="second_lastname" type="VARCHAR(30)">
+				<constraints nullable="true" unique="false" />
+			</column>
+			<column name="city" type="VARCHAR(30)">
+				<constraints nullable="false" unique="false" />
+			</column>
+		</createTable>
+		<createTable tableName="advertisement">
 			<column autoIncrement="true" name="id" type="BIGINT">
 				<constraints primaryKey="true" />
 			</column>
@@ -28,30 +50,7 @@
 				<constraints nullable="false" unique="false" />
 			</column>
 			<column name="userA" type="VARCHAR(30)">
-				<constraints nullable="false" unique="false" />
-			</column>
-		</createTable>
-		<createTable tableName="users">
-			<column autoIncrement="true" name="id" type="BIGINT">
-				<constraints primaryKey="true" />
-			</column>
-			<column name="login" type="VARCHAR(30)">
-				<constraints nullable="false" unique="true" />
-			</column>
-			<column name="password" type="VARCHAR(60)">
-				<constraints nullable="false" unique="false" />
-			</column>
-			<column name="name" type="VARCHAR(30)">
-				<constraints nullable="false" unique="false" />
-			</column>
-			<column name="first_surname" type="VARCHAR(30)">
-				<constraints nullable="false" unique="false" />
-			</column>
-			<column name="second_surname" type="VARCHAR(30)">
-				<constraints nullable="true" unique="false" />
-			</column>
-			<column name="city" type="VARCHAR(30)">
-				<constraints nullable="false" unique="false" />
+				<constraints nullable="false" unique="false" foreignKeyName="fk_advertisement_user" references="user(username)"/>
 			</column>
 		</createTable>
 	</changeSet>

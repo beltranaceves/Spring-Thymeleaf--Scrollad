@@ -1,6 +1,9 @@
 package es.udc.fi.dc.fd.model;
 
 import java.io.Serializable;
+import java.util.Set;
+
+import es.udc.fi.dc.fd.model.persistence.AdEntity;
 
 public interface User extends Serializable {
 
@@ -8,9 +11,9 @@ public interface User extends Serializable {
 
 	void setId(final Integer value);
 
-	String getLogin();
+	String getUsername();
 
-	void setLogin(final String value);
+	void setUsername(final String value);
 
 	String getPassword();
 
@@ -20,16 +23,20 @@ public interface User extends Serializable {
 
 	void setName(final String value);
 
-	String getFirstSurname();
+	String getFirstLastname();
 
-	void setFirstSurname(final String value);
+	void setFirstLastname(final String value);
 
-	String getSecondSurname();
+	String getSecondLastname();
 
-	void setSecondSurname(final String value);
+	void setSecondLastname(final String value);
 
 	String getCity();
 
 	void setCity(final String value);
+	
+	Set<AdEntity> getAds();
+	
+	void setAds(Set<AdEntity> ads);
 
 }

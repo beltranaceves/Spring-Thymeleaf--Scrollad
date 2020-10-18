@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package es.udc.fi.dc.fd.service;
+package es.udc.fi.dc.fd.service.user;
 
 import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
@@ -30,8 +30,7 @@ import es.udc.fi.dc.fd.model.persistence.UserEntity;
 public interface UserService {
 
 	public User add(final UserEntity entity);
-
-	// User login(final String login, String password) throws
-	// IncorrectLoginException, IncorrectPasswordException;
+	
+	public UserEntity findByUsername(final String username);
 
 }

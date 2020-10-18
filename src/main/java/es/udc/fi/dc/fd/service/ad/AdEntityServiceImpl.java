@@ -1,4 +1,4 @@
-package es.udc.fi.dc.fd.service;
+package es.udc.fi.dc.fd.service.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

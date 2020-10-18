@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package es.udc.fi.dc.fd.service;
+package es.udc.fi.dc.fd.service.user;
 
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import net.sf.jasperreports.engine.JasperPrint;

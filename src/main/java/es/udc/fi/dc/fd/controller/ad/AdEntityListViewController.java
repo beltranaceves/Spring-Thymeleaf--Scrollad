@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package es.udc.fi.dc.fd.controller.entity;
+package es.udc.fi.dc.fd.controller.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,8 +32,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import es.udc.fi.dc.fd.service.AdEntityService;
+import es.udc.fi.dc.fd.controller.entity.ExampleEntityViewConstants;
 import es.udc.fi.dc.fd.service.ExampleEntityService;
+import es.udc.fi.dc.fd.service.ad.AdEntityService;
 
 /**
  * Controller for the example entities listing view.

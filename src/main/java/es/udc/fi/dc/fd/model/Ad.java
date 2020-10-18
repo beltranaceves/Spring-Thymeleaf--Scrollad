@@ -2,6 +2,8 @@ package es.udc.fi.dc.fd.model;
 
 import java.io.Serializable;
 
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
+
 public interface Ad extends Serializable {
 
 	public Integer getId();
@@ -12,7 +14,7 @@ public interface Ad extends Serializable {
 
 	public byte[] getImage();
 
-	public String getUserA();
+	public UserEntity getUserA();
 
 	public void setId(final Integer value);
 
@@ -22,6 +24,6 @@ public interface Ad extends Serializable {
 
 	public void setImage(final byte[] value);
 
-	public void setUserA(final String value);
+	public void setUserA(final UserEntity value);
 
 }

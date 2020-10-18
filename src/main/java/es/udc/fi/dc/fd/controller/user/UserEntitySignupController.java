@@ -47,7 +47,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import es.udc.fi.dc.fd.controller.entity.ExampleEntityViewConstants;
 import es.udc.fi.dc.fd.model.form.UserForm;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
-import es.udc.fi.dc.fd.service.UserService;
+import es.udc.fi.dc.fd.service.user.UserService;
 
 /**
  * Controller for the User entity signup form view.
@@ -118,16 +118,16 @@ public class UserEntitySignupController {
 		} else {
 
 			entity = new UserEntity();
-			entity.setLogin(form.getLogin());
+			entity.setUsername(form.getUsername());
 			entity.setPassword(form.getPassword());
 			entity.setName(form.getName());
-			entity.setFirstSurname(form.getFirstSurname());
-			entity.setSecondSurname(form.getSecondSurname());
+			entity.setFirstLastname(form.getFirstLastname());
+			entity.setSecondLastname(form.getSecondLastname());
 			entity.setCity(form.getCity());
 
 			userService.add(entity);
 
-			UserDetails user = userDetailsService.loadUserByUsername(form.getLogin());
+			UserDetails user = userDetailsService.loadUserByUsername(form.getUsername());
 
 			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,
 					user.getAuthorities());

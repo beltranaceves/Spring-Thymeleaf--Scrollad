@@ -1,4 +1,4 @@
-package es.udc.fi.dc.fd.service;
+package es.udc.fi.dc.fd.service.ad;
 
 import org.springframework.data.domain.Pageable;
 

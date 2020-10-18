@@ -7,7 +7,7 @@
 		<form th:action="@{/signup}" th:object="${form}" method="post" role="form">
 			<h1 class="text-center">Sign Up to Scrollad!</h1>
 			<div class="form-group">
-				<input type="text" class="form-control" th:field="*{login}" id="username"
+				<input type="text" class="form-control" th:field="*{username}" id="username"
 					name="username" required autofocus placeholder="Username" />
 			</div>
 			<div class="form-group">
@@ -19,14 +19,14 @@
 					name="name" required autofocus placeholder="Name" />
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" th:field="*{firstSurname}"
-					id="firstSurname" name="firstSurname" required autofocus
-					placeholder="First Surname" />
+				<input type="text" class="form-control" th:field="*{firstLastname}"
+					id="firstLastname" name="firstLastname" required autofocus
+					placeholder="First Lastname" />
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" th:field="*{secondSurname}"
-					id="secondSurname" name="secondSurname" autofocus
-					placeholder="Second Surname" />
+				<input type="text" class="form-control" th:field="*{secondLastname}"
+					id="secondLastname" name="secondLastname" autofocus
+					placeholder="Second Lastname" />
 			</div>
 			<div class="form-group">
 				<input type="text" class="form-control" th:field="*{city}" id="city"
@@ -34,6 +34,9 @@
 			</div>
 			<div class="text-center">
 				<input type="submit" class="btn btn-primary btn-lg" value="Sign Up!" />
+			</div>
+			<div class="form-group">
+				<a href="/login" class="signup">Login instead</a>
 			</div>
 		</form>
 	</div>

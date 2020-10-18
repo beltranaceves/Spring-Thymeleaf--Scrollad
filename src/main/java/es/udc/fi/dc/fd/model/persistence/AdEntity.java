@@ -6,9 +6,12 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -24,7 +27,6 @@ public class AdEntity implements Ad {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id = -1;
 
@@ -33,9 +35,10 @@ public class AdEntity implements Ad {
 
 	@Column(name = "description", nullable = false, unique = true)
 	private String description = "";
-
-	@Column(name = "userA", nullable = false, unique = true)
-	private String userA = "";
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "userA", nullable = false)
+	private UserEntity userA;
 
 	@Column(name = "image", nullable = false, unique = true)
 	private byte[] image;
@@ -77,7 +80,7 @@ public class AdEntity implements Ad {
 	}
 
 	public void setTitle(final String title) {
-		this.title = checkNotNull(title, "Received a null pointer as identifier");
+		this.title = checkNotNull(title, "Received a null pointer as title");
 	}
 
 	public String getDescription() {
@@ -85,7 +88,7 @@ public class AdEntity implements Ad {
 	}
 
 	public void setDescription(final String description) {
-		this.description = checkNotNull(description, "Received a null pointer as identifier");
+		this.description = checkNotNull(description, "Received a null pointer as description");
 	}
 
 	public byte[] getImage() {
@@ -93,20 +96,20 @@ public class AdEntity implements Ad {
 	}
 
 	public void setImage(final byte[] image) {
-		this.image = checkNotNull(image, "Received a null pointer as identifier");
+		this.image = checkNotNull(image, "Received a null pointer as image");
 	}
 
-	public String getUserA() {
+	public UserEntity getUserA() {
 		return userA;
 	}
 
-	public void setUserA(final String userA) {
-		this.userA = checkNotNull(userA, "Received a null pointer as identifier");
+	public void setUserA(final UserEntity userA) {
+		this.userA = checkNotNull(userA, "Received a null pointer as username");
 	}
 
 	@Override
 	public String toString() {
-		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", userA=" + userA
+		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", userA=" + userA.getUsername()
 				+ ", image=" + image + "]";
 	}
 

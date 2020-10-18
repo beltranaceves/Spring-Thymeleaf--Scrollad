@@ -56,7 +56,7 @@ public final class UserForm implements Serializable {
 	 * This is a required field and can't be empty.
 	 */
 	@NotEmpty
-	private String login;
+	private String username;
 
 	@NotEmpty
 	private String password;
@@ -65,9 +65,9 @@ public final class UserForm implements Serializable {
 	private String name;
 
 	@NotEmpty
-	private String firstSurname;
+	private String firstLastname;
 
-	private String secondSurname;
+	private String secondLastname;
 
 	@NotEmpty
 	private String city;
@@ -79,8 +79,8 @@ public final class UserForm implements Serializable {
 		super();
 	}
 
-	public final String getLogin() {
-		return login;
+	public final String getUsername() {
+		return username;
 	}
 
 	public final String getPassword() {
@@ -91,12 +91,12 @@ public final class UserForm implements Serializable {
 		return name;
 	}
 
-	public final String getFirstSurname() {
-		return firstSurname;
+	public final String getFirstLastname() {
+		return firstLastname;
 	}
 
-	public final String getSecondSurname() {
-		return secondSurname;
+	public final String getSecondLastname() {
+		return secondLastname;
 	}
 
 	public final String getCity() {
@@ -108,8 +108,8 @@ public final class UserForm implements Serializable {
 	 * 
 	 * @param value the new value for the name field
 	 */
-	public final void setLogin(final String value) {
-		login = checkNotNull(value, "Received a null pointer as login");
+	public final void setUsername(final String value) {
+		username = checkNotNull(value, "Received a null pointer as Username");
 	}
 
 	public final void setPassword(final String value) {
@@ -120,12 +120,12 @@ public final class UserForm implements Serializable {
 		name = checkNotNull(value, "Received a null pointer as name");
 	}
 
-	public final void setFirstSurname(final String value) {
-		firstSurname = checkNotNull(value, "Received a null pointer as first surname");
+	public final void setFirstLastname(final String value) {
+		firstLastname = checkNotNull(value, "Received a null pointer as first Lastname");
 	}
 
-	public final void setSecondSurname(final String value) {
-		secondSurname = value;
+	public final void setSecondLastname(final String value) {
+		secondLastname = value;
 	}
 
 	public final void setCity(final String value) {
@@ -134,13 +134,13 @@ public final class UserForm implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserForm [login=" + login + ", name=" + name + ", firstSurname=" + firstSurname + ", secondSurname="
-				+ secondSurname + ", city=" + city + "]";
+		return "UserForm [Username=" + username + ", name=" + name + ", firstLastname=" + firstLastname + ", secondLastname="
+				+ secondLastname + ", city=" + city + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(city, firstSurname, login, name, secondSurname);
+		return Objects.hash(city, firstLastname, username, name, secondLastname);
 	}
 
 	@Override
@@ -150,9 +150,9 @@ public final class UserForm implements Serializable {
 		if (!(obj instanceof UserForm))
 			return false;
 		UserForm other = (UserForm) obj;
-		return Objects.equals(city, other.city) && Objects.equals(firstSurname, other.firstSurname)
-				&& Objects.equals(login, other.login) && Objects.equals(name, other.name)
-				&& Objects.equals(secondSurname, other.secondSurname);
+		return Objects.equals(city, other.city) && Objects.equals(firstLastname, other.firstLastname)
+				&& Objects.equals(username, other.username) && Objects.equals(name, other.name)
+				&& Objects.equals(secondLastname, other.secondLastname);
 	}
 
 }

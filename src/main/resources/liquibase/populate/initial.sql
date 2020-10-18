@@ -1,4 +1,4 @@
---
+﻿--
 --  The MIT License (MIT)
 --
 --  Copyright (c) 2017-2019 Bernardo Martínez Garrido
@@ -26,13 +26,13 @@
 -- ****************************************
 -- This SQL script populates the initial data.
 -- ****************************************
-INSERT INTO users (login, password, name, first_surname, second_surname, city) VALUES
+INSERT INTO user (username, password, name, first_lastname, second_lastname, city) VALUES
    ('viewer', '$2a$10$UaIX1wXSdM58WtMqcF9LC.kjvNGQHACJdcpttgP9yiA/U6GBganJS', 'Viewer', 'Viewer1', 'Viewer2', 'city');
 
 INSERT INTO advertisement (title, description, image, userA) VALUES
-   ('anuncio1' ,'1 anuncio', 'ffffffff', 'juan1'),
-   ('anuncio2' ,'2 anuncio', 'aaaabbcc', 'juan2'),
-   ('anuncio3' ,'3 anuncio', 'aabbcceedd', 'juan3');
+   ('anuncio1' ,'1 anuncio', 'ffffffff', 'viewer'),
+   ('anuncio2' ,'2 anuncio', 'aaaabbcc', 'viewer'),
+   ('anuncio3' ,'3 anuncio', 'aabbcceedd', 'viewer');
 
 
 INSERT INTO example_entities (name) VALUES

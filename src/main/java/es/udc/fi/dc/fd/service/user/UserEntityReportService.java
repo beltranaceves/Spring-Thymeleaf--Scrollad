@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package es.udc.fi.dc.fd.service;
+package es.udc.fi.dc.fd.service.user;
 
 import java.io.File;
 import java.io.IOException;

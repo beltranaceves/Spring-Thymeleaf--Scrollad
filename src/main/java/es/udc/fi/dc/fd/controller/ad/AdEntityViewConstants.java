@@ -1,4 +1,4 @@
-package es.udc.fi.dc.fd.controller.entity;
+package es.udc.fi.dc.fd.controller.ad;
 
 
 public final class AdEntityViewConstants {

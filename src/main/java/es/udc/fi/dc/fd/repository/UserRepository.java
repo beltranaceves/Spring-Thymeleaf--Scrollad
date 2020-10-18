@@ -41,6 +41,6 @@ import es.udc.fi.dc.fd.model.persistence.UserEntity;
  */
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
-	Optional<User> findByLogin(String login);
+	Optional<UserEntity> findByUsername(String username);
 
 }

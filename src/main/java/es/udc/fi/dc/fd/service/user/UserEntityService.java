@@ -22,21 +22,19 @@
  * SOFTWARE.
  */
 
-package es.udc.fi.dc.fd.service;
+package es.udc.fi.dc.fd.service.user;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User.UserBuilder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.dc.fd.model.User;
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.repository.UserRepository;
 
 /**
@@ -46,37 +44,47 @@ import es.udc.fi.dc.fd.repository.UserRepository;
  */
 @Service
 @Transactional
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserEntityService implements UserService {
 
 	private final UserRepository userRepository;
 
 	@Autowired
-	public UserDetailsServiceImpl(final UserRepository repository) {
+	public UserEntityService(final UserRepository repository) {
 		super();
 
 		userRepository = checkNotNull(repository, "Received a null pointer as repository");
 	}
 
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public final User add(final UserEntity entity) {
+		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+		return userRepository.save(entity);
 
-		/*
-		 * Here we are using dummy data, you need to load user data from database or
-		 * other third party application
-		 */
-		Optional<User> user = userRepository.findByLogin(username);
+	}
+	
+	@Override
+	public final UserEntity findByUsername(final String username) {
 
-		UserBuilder builder = null;
+		final UserEntity user;
+		
+		checkNotNull(username, "Received a null pointer as username");
 
-		if (user.isPresent()) {
-			builder = org.springframework.security.core.userdetails.User.withUsername(username);
-			builder.password(user.get().getPassword());
-			builder.roles("USER");
+		Optional<UserEntity> result = userRepository.findByUsername(username);
+		
+		if (!result.isPresent()) {
+			
+			user = new UserEntity();
+			System.out.println("No se ha encontrado ningun usuario");
+			
 		} else {
-			throw new UsernameNotFoundException("User " + username + " not found.");
+			
+			user = result.get();
 		}
 
-		return builder.build();
+		return user;
 	}
 
 }

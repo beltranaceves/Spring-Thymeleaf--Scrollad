@@ -1,4 +1,4 @@
-package es.udc.fi.dc.fd.controller.entity;
+package es.udc.fi.dc.fd.controller.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -11,6 +11,8 @@ import javax.validation.Valid;
 
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -22,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
-import es.udc.fi.dc.fd.service.AdEntityService;
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
+import es.udc.fi.dc.fd.service.ad.AdEntityService;
+import es.udc.fi.dc.fd.service.user.UserService;
 
 @Controller
 @RequestMapping("/advertisement")
@@ -30,11 +34,15 @@ public class AdEntityFormController {
 
 	private final AdEntityService adEntityService;
 
+	private final UserService userEntityService;
+
 	@Autowired
-	public AdEntityFormController(final AdEntityService service) {
+	public AdEntityFormController(final AdEntityService service, final UserService userService) {
 		super();
 
 		adEntityService = checkNotNull(service, "Received a null pointer as service");
+
+		userEntityService = checkNotNull(userService, "Received a null pointer as service");
 	}
 
 	@ModelAttribute(AdEntityViewConstants.BEAN_FORM)
@@ -70,9 +78,21 @@ public class AdEntityFormController {
 					filecontent = IOUtils.toByteArray(inputStream);
 					entity.setImage(filecontent);
 				} catch (IOException ex) {
-					// TODO: Implement catch
 				}
 			}
+
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+			String username;
+
+			if (principal instanceof UserDetails) {
+				username = ((UserDetails) principal).getUsername();
+			} else {
+				username = principal.toString();
+			}
+
+			UserEntity user = userEntityService.findByUsername(username);
+			entity.setUserA(user);
 			adEntityService.add(entity);
 
 			loadViewModel(model);
