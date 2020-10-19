@@ -1,33 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <title>Login page</title>
-  </head>
-  <body>
-    <div class="row justify-content-center">
-    <div class="card  w-25 text-center">
-      <div class="card-header">Login</div>
-      <div class="card-body">
-          <form th:action="@{/login}" method="post">
-              <div class="form-group">
-                  <input type="text" id="username" name="username" autofocus="autofocus" class="form-control" placeholder="Your Username *" value="" />
-              </div>
-              <div class="form-group">
-                  <input type="password" id="password" name="password" class="form-control" placeholder="Your Password *" value="" />
-              </div>
-              <div class="form-group">
-                  <input type="submit" class="btn btn-primary" value="Login" />
-              </div>
-              <div class="form-group">
-                  <a href="/signup" class="signup">Create an account</a>
-              </div>
-          </form>
-        </div>
+  <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:include="fragments/header :: header"/>
+    <body>
+      <header class="header" th:include="fragments/menu :: menu" />
+      <div class="container justify-content-center text-center">
+        <form th:action="@{/login}" method="post">
+          <h1 class="text-center">Log into Scrollad!</h1>
+          <div th:if="${param.error}" class="alert alert-danger" role="alert">    
+            Invalid username or password.
+          </div>
+          <div class="form-group">
+              <input type="text" id="username" name="username" autofocus="autofocus" class="form-control" placeholder="Username" value="" />
+          </div>
+          <div class="form-group">
+              <input type="password" id="password" name="password" class="form-control" placeholder="Password" value="" />
+          </div>
+          <div class="form-group">
+              <input type="submit" class="btn btn-primary" value="Log in" />
+          </div>
+          <div class="form-group">
+              <a href="/signup" class="signup">Create an account</a>
+          </div>
+          <div sec:authorize="isAuthenticated()">
+            This content is only shown to authenticated users.
+          </div>
+        </form>
       </div>
-    </div>
-  </body>
-</html>
-
+      <footer>
+        <div th:include="fragments/scripts :: general" />
+      </footer>
+    </body>
+  </html>

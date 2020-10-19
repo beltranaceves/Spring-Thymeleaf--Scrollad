@@ -28,6 +28,7 @@ public class UserEntity implements User {
 	/**
 	 * Entity's ID.
 	 */
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id = -1;
@@ -37,7 +38,7 @@ public class UserEntity implements User {
 	 * <p>
 	 * This is to have additional data apart from the id, to be used on the tests.
 	 */
-	@Id
+
 	@Column(name = "username", nullable = false, unique = true)
 	private String username = "";
 
@@ -55,9 +56,9 @@ public class UserEntity implements User {
 
 	@Column(name = "city", nullable = false, unique = true)
 	private String city = "";
-	
-	@OneToMany(mappedBy="userA")   
-    private Set<AdEntity> ads = new HashSet<AdEntity>(0);
+
+	@OneToMany(mappedBy = "userA")
+	private Set<AdEntity> ads = new HashSet<AdEntity>(0);
 
 	public UserEntity() {
 
@@ -74,7 +75,7 @@ public class UserEntity implements User {
 		this.city = city;
 		this.ads = ads;
 	}
-	
+
 	public UserEntity(String username, String password, String name, String firstLastname, String secondLastname,
 			String city) {
 		super();
@@ -155,12 +156,12 @@ public class UserEntity implements User {
 	public void setCity(final String value) {
 		city = checkNotNull(value, "Received a null pointer as city");
 	}
-	
+
 	@Override
 	public Set<AdEntity> getAds() {
 		return ads;
 	}
-	
+
 	@Override
 	public void setAds(Set<AdEntity> ads) {
 		this.ads = ads;

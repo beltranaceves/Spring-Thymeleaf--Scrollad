@@ -60,10 +60,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		/*
-		 * Here we are using dummy data, you need to load user data from database or
-		 * other third party application
-		 */
 		Optional<UserEntity> user = userRepository.findByUsername(username);
 
 		UserBuilder builder = null;

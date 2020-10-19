@@ -20,16 +20,20 @@
 									class="fa fa-github" aria-hidden="true"></span></a></li>
 						</ul>
 					</li>
-					<li class="nav-item active"><a class="nav-link" th:href="@{/signup}"
-						th:text="#{title.signup}">Home <span class="sr-only">(current)</span>
-					</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false"><span th:remove="tag" th:text="#{title.user}">User</span>
+							<span aria-hidden="true"></span> </a>
+						<ul class="dropdown-menu" role="menu">
+							<li sec:authorize="!isAuthenticated()"><a th:href="@{/signup}" th:text="#{title.signup}">Sign up</a></li>
+							<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" th:text="#{title.login}">Log in</a></li>
+							<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" th:text="#{title.logout}">Log out</a></li>
+						</ul></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false"><span th:remove="tag" th:text="#{title.data}">Data</span>
 							<span aria-hidden="true"></span> </a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a th:href="@{/login}" th:text="#{label.login}">Login</a></li>
-							<li><a th:href="@{/logout}" th:text="#{label.logout}">Logout</a></li>
 							<li><a th:href="@{/advertisement/edit}"
 								th:text="#{label.advertisement.add}">Advertisement</a></li>
 							<li><a th:href="@{/advertisement/list}"

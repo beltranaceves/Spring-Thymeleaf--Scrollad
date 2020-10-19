@@ -30,9 +30,9 @@ INSERT INTO user (username, password, name, first_lastname, second_lastname, cit
    ('viewer', '$2a$10$UaIX1wXSdM58WtMqcF9LC.kjvNGQHACJdcpttgP9yiA/U6GBganJS', 'Viewer', 'Viewer1', 'Viewer2', 'city');
 
 INSERT INTO advertisement (title, description, image, userA) VALUES
-   ('anuncio1' ,'1 anuncio', 'ffffffff', 'viewer'),
-   ('anuncio2' ,'2 anuncio', 'aaaabbcc', 'viewer'),
-   ('anuncio3' ,'3 anuncio', 'aabbcceedd', 'viewer');
+   ('anuncio1' ,'1 anuncio', 'ffffffff', 1),
+   ('anuncio2' ,'2 anuncio', 'aaaabbcc', 1),
+   ('anuncio3' ,'3 anuncio', 'aabbcceedd', 1);
 
 
 INSERT INTO example_entities (name) VALUES

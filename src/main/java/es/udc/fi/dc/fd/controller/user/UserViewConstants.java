@@ -38,8 +38,6 @@ public final class UserViewConstants {
 
 	public static final String USER_LOGOUT = "user/logout";
 
-	public static final String USER_LOGIN_ERROR = "user/login-error";
-
 	private UserViewConstants() {
 		super();
 	}
