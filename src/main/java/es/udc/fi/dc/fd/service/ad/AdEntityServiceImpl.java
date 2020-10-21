@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.Ad;
 import es.udc.fi.dc.fd.model.form.AdForm;
+import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.repository.AdEntityRepository;
 
 @Service
@@ -63,7 +63,6 @@ public class AdEntityServiceImpl implements AdEntityService {
 		checkNotNull(adForm.getTitle(), "Received a null pointer as a title");
 		// checkNotNull(adForm.getImage(), "Received a null pointer as an Image");
 		checkNotNull(adForm.getDescription(), "Received a null pointer as a Description");
-		// checkNotNull(adForm.getUser(), "Received a null pointer as an user");
 		return false;
 	}
 }

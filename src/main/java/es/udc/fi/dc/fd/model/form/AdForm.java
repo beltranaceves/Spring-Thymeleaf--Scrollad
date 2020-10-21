@@ -20,9 +20,6 @@ public final class AdForm implements Serializable {
 	@NotEmpty
 	private String description;
 
-	@NotEmpty
-	private String userA;
-
 	public AdForm() {
 		super();
 	}
@@ -35,10 +32,6 @@ public final class AdForm implements Serializable {
 		return description;
 	}
 
-	public String getUser() {
-		return userA;
-	}
-
 	public void setTitle(final String title) {
 		this.title = checkNotNull(title, "Received a null pointer as name");
 	}
@@ -47,13 +40,9 @@ public final class AdForm implements Serializable {
 		this.description = checkNotNull(description, "Received a null pointer as name");
 	}
 
-	public void setUser(final String userA) {
-		this.userA = checkNotNull(userA, "Received a null pointer as name");
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, title, userA);
+		return Objects.hash(description, title);
 	}
 
 	@Override
@@ -63,13 +52,12 @@ public final class AdForm implements Serializable {
 		if (!(obj instanceof AdForm))
 			return false;
 		AdForm other = (AdForm) obj;
-		return Objects.equals(description, other.description) && Objects.equals(title, other.title)
-				&& Objects.equals(userA, other.userA);
+		return Objects.equals(description, other.description) && Objects.equals(title, other.title);
 	}
 
 	@Override
 	public String toString() {
-		return "AdForm [title=" + title + ", description=" + description + ", user=" + userA + ", image=" + "]";
+		return "AdForm [title=" + title + ", description=" + description + ", image=" + "]";
 	}
 
 }

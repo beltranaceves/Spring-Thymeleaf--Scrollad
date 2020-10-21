@@ -35,8 +35,8 @@ public class AdEntity implements Ad {
 
 	@Column(name = "description", nullable = false, unique = true)
 	private String description = "";
-	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "userA", nullable = false)
 	private UserEntity userA;
 
@@ -109,8 +109,8 @@ public class AdEntity implements Ad {
 
 	@Override
 	public String toString() {
-		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", userA=" + userA.getUsername()
-				+ ", image=" + image + "]";
+		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", userA="
+				+ userA.getUsername() + ", image=" + image + "]";
 	}
 
 }
