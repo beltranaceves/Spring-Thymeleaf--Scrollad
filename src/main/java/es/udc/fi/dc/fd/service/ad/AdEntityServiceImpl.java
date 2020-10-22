@@ -45,7 +45,11 @@ public class AdEntityServiceImpl implements AdEntityService {
 
 	@Override
 	public final Iterable<AdEntity> getAllEntities() {
-		return adEntityRepository.findAll();
+		Iterable<AdEntity> adEntities = adEntityRepository.findAll();
+		adEntities.forEach((adEntity) -> {
+			adEntity.convertAndLoadImageBase64();
+		});
+		return adEntities;
 	}
 
 	@Override

@@ -57,7 +57,7 @@ public class UserEntity implements User {
 	@Column(name = "city", nullable = false, unique = true)
 	private String city = "";
 
-	@OneToMany(mappedBy = "userA", targetEntity = AdEntity.class)
+	@OneToMany(mappedBy = "userA")
 	private Set<AdEntity> ads = new HashSet<AdEntity>(0);
 
 	public UserEntity() {

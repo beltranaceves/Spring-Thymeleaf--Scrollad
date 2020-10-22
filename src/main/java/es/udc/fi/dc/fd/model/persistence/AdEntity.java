@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.lowagie.text.pdf.codec.Base64;
+
 import es.udc.fi.dc.fd.model.Ad;
 
 @Entity(name = "Ad")
@@ -42,6 +44,9 @@ public class AdEntity implements Ad {
 
 	@Column(name = "image", nullable = false, unique = true)
 	private byte[] image;
+	
+	@Transient
+	private String imageBase64;
 
 	public AdEntity() {
 		super();
@@ -105,6 +110,18 @@ public class AdEntity implements Ad {
 
 	public void setUserA(final UserEntity userA) {
 		this.userA = checkNotNull(userA, "Received a null pointer as username");
+	}
+	
+	public String getImageBase64() {
+		return imageBase64;
+	}
+
+	public void setImageBase64(String imageBase64) {
+		this.imageBase64 = imageBase64;
+	}
+	
+	public void convertAndLoadImageBase64() {
+		this.setImageBase64(Base64.encodeBytes(this.image));
 	}
 
 	@Override

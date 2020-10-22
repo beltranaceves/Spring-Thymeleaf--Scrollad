@@ -5,7 +5,6 @@
 <head th:include="fragments/header :: header" />
 <body>
 	<header class="header" th:include="fragments/menu :: menu" />
-	
 	<section id="main-section" class="container-fluid">
 		<h1 th:text="#{title.advertisement.list}">Advertisement list</h1>
 		<p>This view allows you to visualize all the advertisements added to this site.</p>
@@ -14,14 +13,20 @@
 			<div class="row">
 				<div class="col-md-4" th:each="avertisement : ${entities}">
 
-					<div class="photo">
+					<div class="photo image-background">
 						<div id="myCarousel" class="carousel slide" data-interval="false">
 							<!-- Wrapper for slides -->
 							<div class="carousel-inner">
 								<!-- Primera imagen a mostrar -->
-								<div class="carousel-item item active">
-									<img src="http://placehold.it/350x260" class="img-responsive"
-										alt="a" />
+								<div class="carousel-item item active" style="
+                                                                        height:350px;
+                                                                        width: 100%;
+                                                                            ">
+									<img th:src="@{'data:image/jpeg;base64,'+${avertisement?.imageBase64}}" class="img-responsive"
+										alt="" style="
+                                                margin:auto;
+                                                max-height: -webkit-fill-available;
+                                            " />
 									<!--  
 										<img class="center-block" th:src="@{${advertisement.images}}"
 											alt="Image" style="max-width: 80%; height: auto;">
@@ -52,17 +57,17 @@
 
 					<div class="info">
 						<div class="row">
-							<div class="price col-md-6">
-								<h5>
-									<span th:remove="tag" th:text="${avertisement?.title}">Title</span>
-								</h5>
-								<p>
-									<span th:remove="tag" th:text="${avertisement?.description}">Description</span>
-								</p>
-								<p>
-									<span th:remove="tag" th:text="${avertisement?.userA.username}">User</span>
-								</p>
-							</div>
+                            <div class="price col-md-6">
+                                <h5>
+                                    <span th:remove="tag" th:text="${avertisement?.title}">Title</span>
+                                </h5>
+                                <p>
+                                    <span th:remove="tag" th:text="${avertisement?.description}">Description</span>
+                                </p>
+                                <p>
+                                    <span th:remove="tag" th:text="${avertisement?.userA.username}">User</span>
+                                </p>
+                            </div>
 						</div>
 					</div>
 				</div>
