@@ -2,6 +2,7 @@ package es.udc.fi.dc.fd.model.persistence;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -37,6 +38,9 @@ public class AdEntity implements Ad {
 
 	@Column(name = "description", nullable = false, unique = true)
 	private String description = "";
+	
+	@Column(name = "date", nullable = false, unique = true)
+	private LocalDateTime date;
 
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "userA", nullable = false)
@@ -94,6 +98,14 @@ public class AdEntity implements Ad {
 
 	public void setDescription(final String description) {
 		this.description = checkNotNull(description, "Received a null pointer as description");
+	}
+	
+	public LocalDateTime getDate() {
+		return date;
+	}
+
+	public void setDate(final LocalDateTime date) {
+		this.date = checkNotNull(date, "Received a null pointer as date");
 	}
 
 	public byte[] getImage() {

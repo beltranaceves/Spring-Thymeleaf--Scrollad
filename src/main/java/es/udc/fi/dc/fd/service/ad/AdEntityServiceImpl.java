@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import es.udc.fi.dc.fd.model.Ad;
@@ -45,7 +46,7 @@ public class AdEntityServiceImpl implements AdEntityService {
 
 	@Override
 	public final Iterable<AdEntity> getAllEntities() {
-		Iterable<AdEntity> adEntities = adEntityRepository.findAll();
+		Iterable<AdEntity> adEntities = adEntityRepository.findAll(Sort.by(Sort.Direction.DESC,"date"));
 		adEntities.forEach((adEntity) -> {
 			adEntity.convertAndLoadImageBase64();
 		});

@@ -1,8 +1,7 @@
 package es.udc.fi.dc.fd.model;
 
 import java.io.Serializable;
-
-import com.lowagie.text.pdf.codec.Base64;
+import java.time.LocalDateTime;
 
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 
@@ -13,6 +12,8 @@ public interface Ad extends Serializable {
 	public String getTitle();
 
 	public String getDescription();
+	
+	public LocalDateTime getDate();
 
 	public byte[] getImage();
 
@@ -25,6 +26,8 @@ public interface Ad extends Serializable {
 	public void setTitle(final String value);
 
 	public void setDescription(final String value);
+	
+	public void setDate(final LocalDateTime value);
 
 	public void setImage(final byte[] value);
 

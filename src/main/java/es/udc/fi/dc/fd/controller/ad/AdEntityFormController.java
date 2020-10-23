@@ -4,6 +4,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -31,7 +33,7 @@ import es.udc.fi.dc.fd.service.user.UserService;
 @Controller
 @RequestMapping("/advertisement")
 public class AdEntityFormController {
-
+	
 	private final AdEntityService adEntityService;
 
 	private final UserService userEntityService;
@@ -71,6 +73,8 @@ public class AdEntityFormController {
 			entity = new AdEntity();
 			entity.setTitle(form.getTitle());
 			entity.setDescription(form.getDescription());
+			entity.setDate(LocalDateTime.now());
+
 			if (file != null) {
 				byte[] filecontent = null;
 				try {

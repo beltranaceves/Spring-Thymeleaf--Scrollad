@@ -29,10 +29,10 @@
 INSERT INTO user (username, password, name, first_lastname, second_lastname, city) VALUES
    ('viewer', '$2a$10$UaIX1wXSdM58WtMqcF9LC.kjvNGQHACJdcpttgP9yiA/U6GBganJS', 'Viewer', 'Viewer1', 'Viewer2', 'city');
 
-INSERT INTO advertisement (title, description, image, userA) VALUES
-   ('anuncio1' ,'1 anuncio', 'ffffffff', 1),
-   ('anuncio2' ,'2 anuncio', 'aaaabbcc', 1),
-   ('anuncio3' ,'3 anuncio', 'aabbcceedd', 1);
+INSERT INTO advertisement (title, description, date, image, userA) VALUES
+   ('anuncio1' ,'1 anuncio', parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'),'ffffffff', 1),
+   ('anuncio2' ,'2 anuncio', parsedatetime('16-09-2020 17:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'),'aaaabbcc', 1),
+   ('anuncio3' ,'3 anuncio', parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'),'aabbcceedd', 1);
 
 
 INSERT INTO example_entities (name) VALUES

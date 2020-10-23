@@ -53,6 +53,9 @@
 			<column name="userA" type="BIGINT">
 				<constraints nullable="false" unique="false" foreignKeyName="fk_advertisement_user" references="user(id)"/>
 			</column>
+			<column name="date" type="DATETIME">
+				<constraints nullable="false" unique="false" />
+			</column>
 		</createTable>
 	</changeSet>
 
