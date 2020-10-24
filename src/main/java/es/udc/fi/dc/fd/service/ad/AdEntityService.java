@@ -12,7 +12,7 @@ public interface AdEntityService {
     public Ad add(final AdEntity entity);
 
 
-    public Ad findById(final Integer identifier);
+    public AdEntity findById(final Integer identifier);
 
     
     public Iterable<AdEntity> getAllEntities();

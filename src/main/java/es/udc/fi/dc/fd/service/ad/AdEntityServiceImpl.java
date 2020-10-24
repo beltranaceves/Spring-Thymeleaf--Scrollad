@@ -2,6 +2,8 @@ package es.udc.fi.dc.fd.service.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import es.udc.fi.dc.fd.model.Ad;
 import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
+import es.udc.fi.dc.fd.model.persistence.ImageEntity;
 import es.udc.fi.dc.fd.repository.AdEntityRepository;
 
 @Service
@@ -30,18 +33,17 @@ public class AdEntityServiceImpl implements AdEntityService {
 	}
 
 	@Override
-	public final Ad findById(final Integer identifier) {
-		final Ad entity;
-
+	public final AdEntity findById(final Integer identifier) {
+		final AdEntity entity;
 		checkNotNull(identifier, "Received a null pointer as identifier");
-
-		if (adEntityRepository.existsById(identifier)) {
-			entity = adEntityRepository.getOne(identifier);
+		Optional<AdEntity> imageEntity = adEntityRepository.findById(identifier);
+		if (imageEntity.isPresent()) {
+			entity = imageEntity.get();
 		} else {
 			entity = new AdEntity();
 		}
 
-		return entity;
+		return entity;	
 	}
 
 	@Override

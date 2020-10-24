@@ -3,15 +3,21 @@ package es.udc.fi.dc.fd.model.persistence;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -19,11 +25,12 @@ import javax.persistence.Transient;
 import com.lowagie.text.pdf.codec.Base64;
 
 import es.udc.fi.dc.fd.model.Ad;
+import es.udc.fi.dc.fd.model.Image;
 
-@Entity(name = "Ad")
-@Table(name = "advertisement")
+@Entity(name = "Image")
+@Table(name = "Images")
 
-public class AdEntity implements Ad {
+public class ImageEntity implements Image {
 
 	@Transient
 	private static final long serialVersionUID = 1328776989450853491L;
@@ -33,26 +40,18 @@ public class AdEntity implements Ad {
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
 
-	@Column(name = "title", nullable = false, unique = true)
-	private String title = "";
-
-	@Column(name = "description", nullable = false, unique = true)
-	private String description = "";
+	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = 
+		    CascadeType.MERGE)
+	@JoinColumn(name = "ad", nullable = false)
+	private AdEntity ad;
 	
-	@Column(name = "date", nullable = false, unique = true)
-	private LocalDateTime date;
-
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "userA", nullable = false)
-	private UserEntity userA;
-
 	@Column(name = "image", nullable = false, unique = true)
 	private byte[] image;
-	
+
 	@Transient
 	private String imageBase64;
 
-	public AdEntity() {
+	public ImageEntity() {
 		super();
 	}
 
@@ -76,7 +75,7 @@ public class AdEntity implements Ad {
 		if (getClass() != obj.getClass())
 			return false;
 
-		final AdEntity other = (AdEntity) obj;
+		final ImageEntity other = (ImageEntity) obj;
 		return Objects.equals(id, other.id);
 	}
 
@@ -84,46 +83,22 @@ public class AdEntity implements Ad {
 		this.id = checkNotNull(id, "Received a null pointer as identifier");
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(final String title) {
-		this.title = checkNotNull(title, "Received a null pointer as title");
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(final String description) {
-		this.description = checkNotNull(description, "Received a null pointer as description");
-	}
-	
-	public LocalDateTime getDate() {
-		return date;
-	}
-
-	public void setDate(final LocalDateTime date) {
-		this.date = checkNotNull(date, "Received a null pointer as date");
-	}
-
 	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(final byte[] image) {
-		this.image = checkNotNull(image, "Received a null pointer as image");
+	public void setImage(byte[] value) {
+		this.image = value;
 	}
 
-	public UserEntity getUserA() {
-		return userA;
+	public AdEntity getAd() {
+		return ad;
 	}
 
-	public void setUserA(final UserEntity userA) {
-		this.userA = checkNotNull(userA, "Received a null pointer as username");
+	public void setAdEntity(final AdEntity adEntity) {
+		this.ad = checkNotNull(adEntity, "Received a null pointer as username");
 	}
-	
+
 	public String getImageBase64() {
 		return imageBase64;
 	}
@@ -135,11 +110,17 @@ public class AdEntity implements Ad {
 	public void convertAndLoadImageBase64() {
 		this.setImageBase64(Base64.encodeBytes(this.image));
 	}
-
+	
+	public void setAd(AdEntity value) {
+		this.ad = value;
+		
+	}
+	
 	@Override
 	public String toString() {
-		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", userA="
-				+ userA.getUsername() + ", image=" + image + "]";
+		return "ImageEntity [id=" + id + ", ad=" + ad + ", image=" + Arrays.toString(image) + ", imageBase64="
+				+ imageBase64 + "]";
 	}
+
 
 }

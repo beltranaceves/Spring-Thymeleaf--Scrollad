@@ -57,6 +57,18 @@
 				<constraints nullable="false" unique="false" />
 			</column>
 		</createTable>
+		<createTable tableName="images">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="image" type="BINARY(12000000)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="ad" type="BIGINT">
+				<constraints nullable="false" unique="false" foreignKeyName="fk_advertisement_ad" references="advertisement(id)"/>
+			</column>
+		</createTable>
+		
 	</changeSet>
 
 	<changeSet author="Bernardo" id="initial_data">
