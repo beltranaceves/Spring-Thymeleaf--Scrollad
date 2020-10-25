@@ -24,12 +24,8 @@
 
 package es.udc.fi.dc.fd.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import es.udc.fi.dc.fd.model.User;
-import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.ImageEntity;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 
@@ -42,8 +38,4 @@ import es.udc.fi.dc.fd.model.persistence.UserEntity;
  * @author Bernardo Mart&iacute;nez Garrido
  */
 public interface ImageEntityRepository extends JpaRepository<ImageEntity, Integer> {
-
-	Optional<ImageEntity> findById(long id);
-
-	Optional<ImageEntity> findByAd(AdEntity adEntity);
 }

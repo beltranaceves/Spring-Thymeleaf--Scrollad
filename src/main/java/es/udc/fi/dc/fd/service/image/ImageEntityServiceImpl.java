@@ -2,30 +2,24 @@ package es.udc.fi.dc.fd.service.image;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
-import es.udc.fi.dc.fd.model.Ad;
 import es.udc.fi.dc.fd.model.Image;
-import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.ImageEntity;
-import es.udc.fi.dc.fd.repository.AdEntityRepository;
 import es.udc.fi.dc.fd.repository.ImageEntityRepository;
 
-public class ImageEntityServiceImpl implements ImageEntityService{
+public class ImageEntityServiceImpl implements ImageEntityService {
 
 	private final ImageEntityRepository imageEntityRepository;
-	
+
 	@Autowired
 	public ImageEntityServiceImpl(final ImageEntityRepository repository) {
 		super();
 
 		imageEntityRepository = checkNotNull(repository, "Received a null pointer as repository");
 	}
-	
+
 	@Override
 	public Image add(ImageEntity entity) {
 		return imageEntityRepository.save(entity);
@@ -46,21 +40,16 @@ public class ImageEntityServiceImpl implements ImageEntityService{
 		return entity;
 	}
 
-	@Override
-	public Image findByAd(AdEntity adEntity) {
-		final Image entity;
-
-		checkNotNull(adEntity, "Received a null pointer as identifier");
-		Optional<ImageEntity> imageEntity = imageEntityRepository.findByAd(adEntity);
-		if (imageEntity.isPresent()) {
-			entity = imageEntity.get();
-		} else {
-			entity = new ImageEntity();
-		}
-
-		return entity;
-	}
-
+	/*
+	 * @Override public Image findByAd(AdEntity adEntity) { final Image entity;
+	 * 
+	 * checkNotNull(adEntity, "Received a null pointer as identifier");
+	 * Optional<ImageEntity> imageEntity = imageEntityRepository.findByAd(adEntity);
+	 * if (imageEntity.isPresent()) { entity = imageEntity.get(); } else { entity =
+	 * new ImageEntity(); }
+	 * 
+	 * return entity; }
+	 */
 	@Override
 	public Iterable<ImageEntity> getAllEntities() {
 		return imageEntityRepository.findAll();
@@ -74,7 +63,7 @@ public class ImageEntityServiceImpl implements ImageEntityService{
 	@Override
 	public void remove(ImageEntity imageEntity) {
 		imageEntityRepository.delete(imageEntity);
-		
+
 	}
 
 }

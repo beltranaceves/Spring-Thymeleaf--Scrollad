@@ -3,6 +3,7 @@ package es.udc.fi.dc.fd.model.persistence;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -13,10 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import com.lowagie.text.pdf.codec.Base64;
 
 import es.udc.fi.dc.fd.model.Ad;
 
@@ -38,7 +38,7 @@ public class AdEntity implements Ad {
 
 	@Column(name = "description", nullable = false, unique = true)
 	private String description = "";
-	
+
 	@Column(name = "date", nullable = false, unique = true)
 	private LocalDateTime date;
 
@@ -46,11 +46,8 @@ public class AdEntity implements Ad {
 	@JoinColumn(name = "userA", nullable = false)
 	private UserEntity userA;
 
-	@Column(name = "image", nullable = false, unique = true)
-	private byte[] image;
-	
-	@Transient
-	private String imageBase64;
+	@OneToMany(mappedBy = "ad", fetch = FetchType.EAGER)
+	private List<ImageEntity> images;
 
 	public AdEntity() {
 		super();
@@ -99,21 +96,13 @@ public class AdEntity implements Ad {
 	public void setDescription(final String description) {
 		this.description = checkNotNull(description, "Received a null pointer as description");
 	}
-	
+
 	public LocalDateTime getDate() {
 		return date;
 	}
 
 	public void setDate(final LocalDateTime date) {
 		this.date = checkNotNull(date, "Received a null pointer as date");
-	}
-
-	public byte[] getImage() {
-		return image;
-	}
-
-	public void setImage(final byte[] image) {
-		this.image = checkNotNull(image, "Received a null pointer as image");
 	}
 
 	public UserEntity getUserA() {
@@ -123,23 +112,19 @@ public class AdEntity implements Ad {
 	public void setUserA(final UserEntity userA) {
 		this.userA = checkNotNull(userA, "Received a null pointer as username");
 	}
-	
-	public String getImageBase64() {
-		return imageBase64;
+
+	public List<ImageEntity> getImages() {
+		return images;
 	}
 
-	public void setImageBase64(String imageBase64) {
-		this.imageBase64 = imageBase64;
-	}
-	
-	public void convertAndLoadImageBase64() {
-		this.setImageBase64(Base64.encodeBytes(this.image));
+	public void setImages(List<ImageEntity> images) {
+		this.images = images;
 	}
 
 	@Override
 	public String toString() {
 		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", userA="
-				+ userA.getUsername() + ", image=" + image + "]";
+				+ userA.getUsername() + "]";
 	}
 
 }

@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,6 @@ import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.ImageEntity;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
-import es.udc.fi.dc.fd.repository.AdEntityRepository;
 import es.udc.fi.dc.fd.service.ad.AdEntityService;
 import es.udc.fi.dc.fd.service.image.ImageEntityService;
 import es.udc.fi.dc.fd.service.user.UserService;
@@ -38,19 +36,20 @@ import es.udc.fi.dc.fd.service.user.UserService;
 @Controller
 @RequestMapping("/advertisement")
 public class AdEntityFormController {
-	
+
 	private final AdEntityService adEntityService;
-	
+
 	private final ImageEntityService imageEntityService;
 
 	private final UserService userEntityService;
 
 	@Autowired
-	public AdEntityFormController(final AdEntityService adService, final ImageEntityService imageService, final UserService userService) {
+	public AdEntityFormController(final AdEntityService adService, final ImageEntityService imageService,
+			final UserService userService) {
 		super();
 
 		adEntityService = checkNotNull(adService, "Received a null pointer as service");
-		
+
 		imageEntityService = checkNotNull(imageService, "Received a null pointer as service");
 
 		userEntityService = checkNotNull(userService, "Received a null pointer as service");
@@ -85,17 +84,17 @@ public class AdEntityFormController {
 			entity.setTitle(form.getTitle());
 			entity.setDescription(form.getDescription());
 			entity.setDate(LocalDateTime.now());
-			
+
 			imageEntityList = new ArrayList<ImageEntity>();
 
 			if (file != null) {
 				byte[] filecontent = null;
-				try {
-					InputStream inputStream = file[0].getInputStream();
-					filecontent = IOUtils.toByteArray(inputStream);
-					entity.setImage(filecontent);
-				} catch (IOException ex) {
-				}
+//				try {
+//					InputStream inputStream = file[0].getInputStream();
+//					filecontent = IOUtils.toByteArray(inputStream);
+//					entity.setImage(filecontent);
+//				} catch (IOException ex) {
+//				}
 				for (int i = 0; i < file.length; i++) {
 					imageEntity = new ImageEntity();
 					filecontent = null;
@@ -121,16 +120,20 @@ public class AdEntityFormController {
 
 			UserEntity user = userEntityService.findByUsername(username);
 			entity.setUserA(user);
+
 			adEntityService.add(entity);
-			
-			AdEntity ad = adEntityService.findById(entity.getId());
-			imageEntityList.forEach((imageEntityListItem) -> {imageEntityListItem.setAdEntity(ad);});
+
+			imageEntityList.forEach((imageEntityListItem) -> {
+				imageEntityListItem.setAdEntity(entity);
+			});
 			imageEntityList.forEach((imageEntityListItem) -> {
 				imageEntityService.add(imageEntityListItem);
 			});
 
+			adEntityService.findById(entity.getId()).setImages(imageEntityList);
+
 			loadViewModel(model);
-			
+
 			path = AdEntityViewConstants.VIEW_AD_SUCCESS;
 		}
 
