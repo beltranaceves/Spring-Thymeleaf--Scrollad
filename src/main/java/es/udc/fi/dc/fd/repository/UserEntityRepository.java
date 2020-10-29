@@ -28,7 +28,6 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 
 /**
@@ -39,7 +38,7 @@ import es.udc.fi.dc.fd.model.persistence.UserEntity;
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+public interface UserEntityRepository extends JpaRepository<UserEntity, Integer> {
 
 	Optional<UserEntity> findByUsername(String username);
 

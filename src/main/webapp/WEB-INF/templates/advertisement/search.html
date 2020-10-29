@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+	<header class="header" th:include="fragments/menu :: menu" />
+	<section id="main-section" class="container-fluid">
+		<h1 th:text="#{title.advertisement.search}">Advertisement search</h1>
+        
+        <div class="container-fluid">
+            <form class="form-inline my-2 my-lg-0" th:action="@{/advertisement/search}">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <select class="form-control" th:name="city">
+                            <option selected value="" th:text="#{title.advertisement.city}"></option>
+                            <option th:value="#{label.advertisement.city1}" th:text="#{label.advertisement.city1}"></option>
+                            <option th:value="#{label.advertisement.city2}" th:text="#{label.advertisement.city2}"></option>
+                            <option th:value="#{label.advertisement.city3}" th:text="#{label.advertisement.city3}"></option>
+                            <option th:value="#{label.advertisement.city4}" th:text="#{label.advertisement.city4}"></option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2"><input class="form-control mr-sm-2" type="search" th:name="keywords" placeholder="Search" aria-label="Search"></div>
+                    <div class="col-lg-2"><button class="btn btn-primary" type="submit">Search</button></div>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <div class="container">
+			<div class="row">
+				<div class="col-md-4" th:each="advertisement, iter : ${advertisements}">
+
+					<div class="photo image-background">
+						<div th:id="'carousel' + ${iter.index}" class="carousel slide" data-interval="false">
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner">
+								<!-- Resto de imagenes -->
+								<div th:each="image, iterstat : ${advertisement?.images}" style="height:350px; width: 100%;" 
+									th:class="${iterstat.index}== 0  ? 'carousel-item item active':'carousel-item item'">
+									<img th:src="@{'data:image/jpeg;base64,'+${image?.imageBase64}}" class="img-responsive"
+										alt="" style="margin:auto; max-height: -webkit-fill-available;" />
+								</div>
+
+								<!-- Left and right controls -->
+								<a class="left carousel-control" th:href="@{'#carousel' + ${iter.index}}"
+									data-slide="prev"> <span
+									class="glyphicon glyphicon-chevron-left"></span> <span
+									class="sr-only">Previous</span>
+								</a> <a class="right carousel-control" th:href="@{'#carousel' + ${iter.index}}"
+									data-slide="next"> <span
+									class="glyphicon glyphicon-chevron-right"></span> <span
+									class="sr-only">Next</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="info">
+						<div class="row">
+                            <div class="price col-md-6">
+                                <h5>
+                                    <span th:remove="tag" th:text="${advertisement?.title}">Title</span>
+                                </h5>
+                                <p>
+                                    <span th:remove="tag" th:text="${advertisement?.description}">Description</span>
+                                </p>
+                                <p>
+                                    <span th:remove="tag" th:text="${advertisement?.userA.username} + '-' + ${advertisement?.userA.city}">User</span>
+                                </p>
+                                <p>
+                                    <span th:remove="tag" th:text="${advertisement?.date}">User</span>
+                                </p>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<div th:include="fragments/scripts :: general" />
+	</footer>
+</body>
+
+</html>

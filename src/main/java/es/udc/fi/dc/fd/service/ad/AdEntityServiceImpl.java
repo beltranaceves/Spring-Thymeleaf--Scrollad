@@ -29,6 +29,7 @@ public class AdEntityServiceImpl implements AdEntityService {
 		adEntityRepository = checkNotNull(repository, "Received a null pointer as repository");
 
 		imageEntityRepository = checkNotNull(imageRepository, "Received a null pointer as repository");
+
 	}
 
 	@Override
@@ -48,6 +49,21 @@ public class AdEntityServiceImpl implements AdEntityService {
 		}
 
 		return entity;
+	}
+
+	@Override
+	public final Iterable<AdEntity> findAds(String city, String keywords) {
+
+		Iterable<AdEntity> adEntities = adEntityRepository.find(city, keywords);
+
+		adEntities.forEach((adEntity) -> {
+
+			adEntity.getImages().forEach((image) -> {
+				image.convertAndLoadImageBase64();
+			});
+
+		});
+		return adEntities;
 	}
 
 	@Override

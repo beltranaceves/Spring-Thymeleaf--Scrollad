@@ -24,21 +24,14 @@
 
 package es.udc.fi.dc.fd.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
-import es.udc.fi.dc.fd.model.persistence.DefaultExampleEntity;
 
-/**
- * Spring-JPA repository for {@link DefaultExampleEntity}.
- * <p>
- * This is a simple repository just to allow the endpoints querying the entities
- * they are asked for.
- *
- * @author Bernardo Mart&iacute;nez Garrido
- */
-public interface AdEntityRepository
-        extends JpaRepository<AdEntity, Integer> {
-	
-	
+public interface AdEntityRepository extends JpaRepository<AdEntity, Integer>, AdEntityRepositoryCustom {
+
+	List<AdEntity> findByUserACity(String city);
+
 }

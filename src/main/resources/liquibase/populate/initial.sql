@@ -27,7 +27,7 @@
 -- This SQL script populates the initial data.
 -- ****************************************
 INSERT INTO user (username, password, name, first_lastname, second_lastname, city) VALUES
-   ('viewer', '$2a$10$UaIX1wXSdM58WtMqcF9LC.kjvNGQHACJdcpttgP9yiA/U6GBganJS', 'Viewer', 'Viewer1', 'Viewer2', 'city');
+   ('viewer', '$2a$10$UaIX1wXSdM58WtMqcF9LC.kjvNGQHACJdcpttgP9yiA/U6GBganJS', 'Viewer', 'Viewer1', 'Viewer2', 'City1');
 
 INSERT INTO advertisement (title, description, date, userA) VALUES
 
