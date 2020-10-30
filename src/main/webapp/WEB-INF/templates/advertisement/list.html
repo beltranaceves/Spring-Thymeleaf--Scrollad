@@ -47,8 +47,11 @@
                                 <p>
                                     <span th:remove="tag" th:text="${advertisement?.description}">Description</span>
                                 </p>
-                                <p>
+                                <p>	
+                                    <div>
                                     <span th:remove="tag" th:text="${advertisement?.userA.username}">User</span>
+                                	<input type="button" value="follow">
+                                	</div>
                                 </p>
                                 <p>
                                     <span th:remove="tag" th:text="${advertisement?.date}">User</span>
