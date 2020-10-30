@@ -32,8 +32,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import es.udc.fi.dc.fd.controller.entity.ExampleEntityViewConstants;
-import es.udc.fi.dc.fd.service.ExampleEntityService;
 import es.udc.fi.dc.fd.service.ad.AdEntityService;
 
 /**
@@ -47,58 +45,54 @@ import es.udc.fi.dc.fd.service.ad.AdEntityService;
 @RequestMapping("/advertisement")
 public class AdEntityListViewController {
 
-    /**
-     * Example entity service.
-     */
+	/**
+	 * Example entity service.
+	 */
 	private final AdEntityService adEntityService;
-	
-    /**
-     * Constructs a controller with the specified dependencies.
-     * 
-     * @param service
-     *            example entity service
-     */
+
+	/**
+	 * Constructs a controller with the specified dependencies.
+	 * 
+	 * @param service example entity service
+	 */
 	@Autowired
-    public AdEntityListViewController(final AdEntityService service) {
-        super();
+	public AdEntityListViewController(final AdEntityService service) {
+		super();
 
-        adEntityService = checkNotNull(service,
-                "Received a null pointer as service");
-    }
-    /**
-     * Shows the entities listing view.
-     * <p>
-     * Actually it just returns the name of the view. Spring will take care of
-     * the rest.
-     * <p>
-     * Before returning the name the model should be loaded with all the data
-     * required by the view.
-     * 
-     * @param model
-     *            model map
-     * @return the name for the entities listing view
-     */
-    @GetMapping(path = "/list")
-    public String showAdEntityList(final ModelMap model) {
-        // Loads required data into the model
-        loadViewModel(model);
+		adEntityService = checkNotNull(service, "Received a null pointer as service");
+	}
 
-        return AdEntityViewConstants.VIEW_ENTITY_LIST;
-    }
+	/**
+	 * Shows the entities listing view.
+	 * <p>
+	 * Actually it just returns the name of the view. Spring will take care of the
+	 * rest.
+	 * <p>
+	 * Before returning the name the model should be loaded with all the data
+	 * required by the view.
+	 * 
+	 * @param model model map
+	 * @return the name for the entities listing view
+	 */
+	@GetMapping(path = "/list")
+	public String showAdEntityList(final ModelMap model) {
+		// Loads required data into the model
+		loadViewModel(model);
 
-    /**
-     * Loads the model data required for the entities listing view.
-     * <p>
-     * As the view will list all the entities, it requires these entities as one
-     * of the parameters.
-     * 
-     * @param model
-     *            model map
-     */
-    private final void loadViewModel(final ModelMap model) {    	
-    	
-        model.put(ExampleEntityViewConstants.PARAM_ENTITIES,
-        		adEntityService.getAllEntities());
-    }
+		return AdEntityViewConstants.VIEW_ENTITY_LIST;
+	}
+
+	/**
+	 * Loads the model data required for the entities listing view.
+	 * <p>
+	 * As the view will list all the entities, it requires these entities as one of
+	 * the parameters.
+	 * 
+	 * @param model model map
+	 */
+	private final void loadViewModel(final ModelMap model) {
+
+		model.put(AdEntityViewConstants.PARAM_ENTITIES, adEntityService.getAllEntities());
+	}
 
 }

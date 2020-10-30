@@ -32,6 +32,8 @@ INSERT INTO user (username, password, name, first_lastname, second_lastname, cit
 INSERT INTO advertisement (title, description, date, userA) VALUES
 
    ('anuncio1' ,'1 anuncio', parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1),
-
    ('anuncio2' ,'2 anuncio', parsedatetime('16-09-2020 17:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1),
    ('anuncio3' ,'3 anuncio', parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1);
+
+INSERT INTO likes (user, adLiked) VALUES
+	(1,1);

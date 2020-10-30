@@ -86,5 +86,10 @@ public class UserEntityService implements UserService {
 
 		return user;
 	}
+	
+	
+	public UserEntity getfindById(final Integer id) {
+		return userRepository.findById(id).get();
+	}
 
 }

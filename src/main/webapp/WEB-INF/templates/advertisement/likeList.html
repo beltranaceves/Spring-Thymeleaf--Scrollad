@@ -7,10 +7,9 @@
 	<header class="header" th:include="fragments/menu :: menu" />
 	<section id="main-section" class="container-fluid">
 		<h1 th:text="#{title.advertisement.list}">Advertisement list</h1>
-		<p>This view allows you to visualize all the advertisements added
-			to this site.</p>
-
-		<div class="container">
+		<p>This view allows you to visualize all the advertisements you like.</p>
+		
+				<div class="container">
 			<div class="row">
 				<div class="col-md-4"
 					th:each="advertisement, iter : ${advertisements}">
@@ -70,6 +69,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</section>
 
 	<footer>

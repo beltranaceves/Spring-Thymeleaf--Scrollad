@@ -2,42 +2,52 @@
 	<nav id="navbar-main" class="navbar navbar-main navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-					data-target="#navbar-main-body" aria-expanded="false"
-					aria-controls="navbar-main">
-					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
-					<span class="icon-bar"></span> <span class="icon-bar"></span>
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar-main-body"
+					aria-expanded="false" aria-controls="navbar-main">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" th:href="@{/}" th:text="#{application.title}">Webapp
-					title</a>
+				<a class="navbar-brand" th:href="@{/}"
+					th:text="#{application.title}">Webapp title</a>
 			</div>
-			<div id="navbar-main-body" class="navbar-body navbar-collapse collapse">
+			<div id="navbar-main-body"
+				class="navbar-body navbar-collapse collapse">
 				<small class="navbar-text">v@project.version@</small>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
 						<ul class="list-unstyled icons-list">
-							<li><a href="@project.scm.url@" title="Gitlab" aria-label="Gitlab"><span
-									class="fa fa-github" aria-hidden="true"></span></a></li>
+							<li><a href="@project.scm.url@" title="Gitlab"
+								aria-label="Gitlab"><span class="fa fa-github"
+									aria-hidden="true"></span></a></li>
 						</ul>
 					</li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false"><span th:remove="tag" th:text="#{title.user}">User</span>
-							<span aria-hidden="true"></span> </a>
+						aria-expanded="false"><span th:remove="tag"
+							th:text="#{title.user}">User</span> <span aria-hidden="true"></span>
+					</a>
 						<ul class="dropdown-menu" role="menu">
-							<li sec:authorize="!isAuthenticated()"><a th:href="@{/signup}" th:text="#{title.signup}">Sign up</a></li>
-							<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" th:text="#{title.login}">Log in</a></li>
-							<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" th:text="#{title.logout}">Log out</a></li>
+							<li sec:authorize="!isAuthenticated()"><a
+								th:href="@{/signup}" th:text="#{title.signup}">Sign up</a></li>
+							<li sec:authorize="!isAuthenticated()"><a
+								th:href="@{/login}" th:text="#{title.login}">Log in</a></li>
+							<li sec:authorize="isAuthenticated()"><a
+								th:href="@{/logout}" th:text="#{title.logout}">Log out</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false"><span th:remove="tag" th:text="#{title.data}">Data</span>
-							<span aria-hidden="true"></span> </a>
+						aria-expanded="false"><span th:remove="tag"
+							th:text="#{title.data}">Data</span> <span aria-hidden="true"></span>
+					</a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a th:href="@{/advertisement/edit}"
 								th:text="#{label.advertisement.add}">Advertisement</a></li>
 							<li><a th:href="@{/advertisement/list}"
 								th:text="#{label.advertisement}"> Ad List</a></li>
+							<li><a th:href="@{/advertisement/likeList}"
+								th:text="#{label.advertisement.like}"> Liked Ad List</a></li>
 						</ul></li>
 				</ul>
 			</div>
