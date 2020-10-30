@@ -5,8 +5,9 @@
     "\\WEB-INF\\templates",
     "\\WEB-INF\\templates\\advertisement",
     "\\WEB-INF\\templates\\entity",
-    "\\WEB-INF\\templates\\fragments"
+    "\\WEB-INF\\templates\\fragments",
+    "\\WEB-INF\\templates\\user"
   ],
-  "SelectedNode": "\\WEB-INF\\templates\\advertisement\\form.html",
+  "SelectedNode": "\\WEB-INF\\templates\\fragments\\menu.html",
   "PreviewInSolutionExplorer": false
 }
