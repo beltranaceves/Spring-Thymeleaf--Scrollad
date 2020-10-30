@@ -29,6 +29,11 @@ public final class AdEntityViewConstants {
     public static final String VIEW_ENTITY_LIST = "advertisement/list";
     
     /**
+     * Name for the entities view by user.
+     */
+    public static final String VIEW_ENTITY_LIST_BY_USER = "advertisement/listByUser";
+    
+    /**
      * Name for the ad upload success.
      */
     public static final String VIEW_AD_SUCCESS = "advertisement/success";

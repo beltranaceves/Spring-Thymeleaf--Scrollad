@@ -24,8 +24,12 @@
 
 package es.udc.fi.dc.fd.repository;
 
+import java.util.Optional;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.DefaultExampleEntity;
 
@@ -39,6 +43,8 @@ import es.udc.fi.dc.fd.model.persistence.DefaultExampleEntity;
  */
 public interface AdEntityRepository
         extends JpaRepository<AdEntity, Integer> {
+	
+	public Iterable<AdEntity> findByUserA(final User user, Sort sort);
 	
 	
 }

@@ -1,8 +1,11 @@
 package es.udc.fi.dc.fd.service.ad;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Pageable;
 
 import es.udc.fi.dc.fd.model.Ad;
+import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 
@@ -19,7 +22,10 @@ public interface AdEntityService {
 
 
     public Iterable<AdEntity> getEntities (final Pageable page);
-
+    
+    
+    public Iterable<AdEntity> getEntitiesByUser(final User user);
+    
 
     public void remove(final AdEntity advertisement);
     

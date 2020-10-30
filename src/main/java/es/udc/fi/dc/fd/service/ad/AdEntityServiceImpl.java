@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import es.udc.fi.dc.fd.model.Ad;
+import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.repository.AdEntityRepository;
@@ -53,6 +54,19 @@ public class AdEntityServiceImpl implements AdEntityService {
 	@Override
 	public final Iterable<AdEntity> getAllEntities() {
 		Iterable<AdEntity> adEntities = adEntityRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
+		adEntities.forEach((adEntity) -> {
+
+			adEntity.getImages().forEach((image) -> {
+				image.convertAndLoadImageBase64();
+			});
+
+		});
+		return adEntities;
+	}
+	
+	@Override
+	public final Iterable<AdEntity> getEntitiesByUser(final User user) {
+		Iterable<AdEntity> adEntities = adEntityRepository.findByUserA(user, Sort.by(Sort.Direction.DESC, "date"));
 		adEntities.forEach((adEntity) -> {
 
 			adEntity.getImages().forEach((image) -> {
