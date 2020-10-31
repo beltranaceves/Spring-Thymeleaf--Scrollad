@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,7 +47,7 @@ public class AdEntity implements Ad {
 	@JoinColumn(name = "userA", nullable = false)
 	private UserEntity userA;
 
-	@OneToMany(mappedBy = "ad", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "ad", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<ImageEntity> images;
 
 	public AdEntity() {

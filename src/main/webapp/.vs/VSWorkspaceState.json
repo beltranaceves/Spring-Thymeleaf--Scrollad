@@ -8,6 +8,6 @@
     "\\WEB-INF\\templates\\fragments",
     "\\WEB-INF\\templates\\user"
   ],
-  "SelectedNode": "\\WEB-INF\\templates\\fragments\\menu.html",
+  "SelectedNode": "\\WEB-INF\\templates\\advertisement\\listByUser.html",
   "PreviewInSolutionExplorer": false
 }

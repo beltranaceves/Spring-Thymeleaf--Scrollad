@@ -1,7 +1,5 @@
 package es.udc.fi.dc.fd.service.ad;
 
-import java.util.Optional;
-
 import org.springframework.data.domain.Pageable;
 
 import es.udc.fi.dc.fd.model.Ad;
@@ -16,6 +14,9 @@ public interface AdEntityService {
 
 
     public AdEntity findById(final Integer identifier);
+    
+    
+    public void deleteById(final Integer identifier);
 
     
     public Iterable<AdEntity> getAllEntities();

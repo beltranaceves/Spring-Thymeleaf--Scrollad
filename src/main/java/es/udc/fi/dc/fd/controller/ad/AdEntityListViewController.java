@@ -26,14 +26,19 @@ package es.udc.fi.dc.fd.controller.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.service.ad.AdEntityService;
@@ -114,6 +119,12 @@ public class AdEntityListViewController {
 		return AdEntityViewConstants.VIEW_ENTITY_LIST_BY_USER;
     }
 
+    @PostMapping(path = "/delete")
+    public String deleteAdEntity(final ModelMap model, @ModelAttribute(AdEntityViewConstants.PARAM_ENTITY) @Valid final Integer adEntityId) {
+    	adEntityService.deleteById(adEntityId);
+    	return AdEntityViewConstants.DELETE_AD_SUCCESS;
+    }
+    
     /**
      * Loads the model data required for the entities listing view.
      * <p>

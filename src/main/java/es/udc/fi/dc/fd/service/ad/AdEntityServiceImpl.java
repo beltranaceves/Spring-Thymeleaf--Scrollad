@@ -2,6 +2,7 @@ package es.udc.fi.dc.fd.service.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import es.udc.fi.dc.fd.model.Ad;
 import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
+import es.udc.fi.dc.fd.model.persistence.ImageEntity;
 import es.udc.fi.dc.fd.repository.AdEntityRepository;
 import es.udc.fi.dc.fd.repository.ImageEntityRepository;
 
@@ -51,6 +53,10 @@ public class AdEntityServiceImpl implements AdEntityService {
 		return entity;
 	}
 
+	public void deleteById(final Integer identifier) {
+		adEntityRepository.deleteById(identifier);
+	}
+	
 	@Override
 	public final Iterable<AdEntity> getAllEntities() {
 		Iterable<AdEntity> adEntities = adEntityRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
