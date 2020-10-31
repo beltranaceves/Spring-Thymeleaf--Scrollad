@@ -36,8 +36,9 @@
 								</a>
 							</div>
 						</div>
-					</div>
-
+					</div>	
+					
+					
 					<div class="info">
 						<div class="row">
                             <div class="price col-md-6">
@@ -50,9 +51,29 @@
                                 <p>	
                                     <div>
                                     <span th:remove="tag" th:text="${advertisement?.userA.username}">User</span>
-                                	<input type="button" value="follow">
+                                    
+                                	<button id="follow" onClick="seguir()">❤</button>
+                                	
+                                	<button id="unfollow" disabled onClick="noSeguir()">♡</button>
+                                	
                                 	</div>
                                 </p>
+                                
+                                <script type="text/javascript">
+					
+								function seguir(){
+									document.getElementById("follow").disabled = true;
+									document.getElementById("follow").style.backgroundColor= "red";
+									document.getElementById("unfollow").disabled = false;
+								}
+								
+								function noSeguir(){
+									document.getElementById("unfollow").disabled = true;
+									document.getElementById("follow").disabled = false;
+									document.getElementById("follow").style.backgroundColor= "white";
+								}
+								</script>
+								
                                 <p>
                                     <span th:remove="tag" th:text="${advertisement?.date}">User</span>
                                 </p>
