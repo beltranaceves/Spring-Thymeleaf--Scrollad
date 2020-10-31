@@ -26,15 +26,24 @@ package es.udc.fi.dc.fd.controller.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import es.udc.fi.dc.fd.controller.entity.ExampleEntityViewConstants;
-import es.udc.fi.dc.fd.service.ExampleEntityService;
+import es.udc.fi.dc.fd.model.form.AdForm;
+import es.udc.fi.dc.fd.model.persistence.AdEntity;
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.service.ad.AdEntityService;
+import es.udc.fi.dc.fd.service.user.UserEntityService;
+import es.udc.fi.dc.fd.service.user.UserService;
 
 /**
  * Controller for the example entities listing view.
@@ -52,6 +61,8 @@ public class AdEntityListViewController {
      */
 	private final AdEntityService adEntityService;
 	
+	private final UserService userEntityService;
+	
     /**
      * Constructs a controller with the specified dependencies.
      * 
@@ -59,10 +70,13 @@ public class AdEntityListViewController {
      *            example entity service
      */
 	@Autowired
-    public AdEntityListViewController(final AdEntityService service) {
+    public AdEntityListViewController(final AdEntityService service, final UserService userService) {
         super();
 
         adEntityService = checkNotNull(service,
+                "Received a null pointer as service");
+        
+        userEntityService = checkNotNull(userService,
                 "Received a null pointer as service");
     }
     /**
@@ -85,7 +99,32 @@ public class AdEntityListViewController {
 
         return AdEntityViewConstants.VIEW_ENTITY_LIST;
     }
+    
+    @GetMapping(path = "/list/myAdvertisements")
+    public String showAdEntityListByUser(final ModelMap model) {
+    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+		String username;
+
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+
+		UserEntity user = userEntityService.findByUsername(username);
+		
+		loadViewModelByUser(model, user);
+		
+		return AdEntityViewConstants.VIEW_ENTITY_LIST_BY_USER;
+    }
+
+    @PostMapping(path = "/delete")
+    public String deleteAdEntity(final ModelMap model, @ModelAttribute(AdEntityViewConstants.PARAM_ENTITY) @Valid final Integer adEntityId) {
+    	adEntityService.deleteById(adEntityId);
+    	return AdEntityViewConstants.DELETE_AD_SUCCESS;
+    }
+    
     /**
      * Loads the model data required for the entities listing view.
      * <p>
@@ -97,8 +136,17 @@ public class AdEntityListViewController {
      */
     private final void loadViewModel(final ModelMap model) {    	
     	
-        model.put(ExampleEntityViewConstants.PARAM_ENTITIES,
+        model.put(AdEntityViewConstants.PARAM_ENTITIES,
         		adEntityService.getAllEntities());
+    }
+    
+    
+    private final void loadViewModelByUser(final ModelMap model, UserEntity user) {    	
+    	
+    	Iterable<AdEntity> adEntities = adEntityService.getEntitiesByUser(user);
+    	
+        model.put(AdEntityViewConstants.PARAM_ENTITIES,
+        		adEntities);
     }
 
 }

@@ -12,6 +12,11 @@ public final class AdEntityViewConstants {
      * Entities parameter name.
      */
     public static final String PARAM_ENTITIES   = "advertisements";
+    
+    /**
+     * Entity parameter name.
+     */
+    public static final String PARAM_ENTITY   = "advertisement";
 
     /**
      * Name for the entity form.
@@ -29,9 +34,19 @@ public final class AdEntityViewConstants {
     public static final String VIEW_ENTITY_LIST = "advertisement/list";
     
     /**
+     * Name for the entities view by user.
+     */
+    public static final String VIEW_ENTITY_LIST_BY_USER = "advertisement/listByUser";
+    
+    /**
      * Name for the ad upload success.
      */
     public static final String VIEW_AD_SUCCESS = "advertisement/success";
+    
+    /**
+     * Name for the ad deletion success.
+     */
+    public static final String DELETE_AD_SUCCESS = "advertisement/deleteSuccess";
 
     /**
      * Name for the exception view.
