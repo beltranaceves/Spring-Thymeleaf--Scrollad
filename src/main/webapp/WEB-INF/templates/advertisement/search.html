@@ -59,16 +59,16 @@
 						<div class="row">
                             <div class="price col-md-6">
                                 <h5>
-                                    <span th:remove="tag" th:text="${advertisement?.title}">Title</span>
+                                    <span th:remove="tag" th:text="${advertisement?.title}"></span>
                                 </h5>
                                 <p>
-                                    <span th:remove="tag" th:text="${advertisement?.description}">Description</span>
+                                    <span th:remove="tag" th:text="${advertisement?.description}"></span>
                                 </p>
                                 <p>
                                     <span th:remove="tag" th:text="${advertisement?.userA.username} + '-' + ${advertisement?.userA.city}">User</span>
                                 </p>
                                 <p>
-                                    <span th:remove="tag" th:text="${advertisement?.date}">User</span>
+                                    <span th:remove="tag" th:text="${#temporals.format(advertisement?.date,'dd/MMM/yyyy HH:mm')}"></span>
                                 </p>
                             </div>
 						</div>
