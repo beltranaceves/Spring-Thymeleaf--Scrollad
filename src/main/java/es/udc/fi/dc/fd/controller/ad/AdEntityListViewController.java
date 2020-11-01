@@ -127,9 +127,9 @@ public class AdEntityListViewController {
     
     
     @PostMapping(path = "/updateIsOnHold")
-    public String updateAdEntityIsOnHold(final ModelMap model, @ModelAttribute(AdEntityViewConstants.PARAM_ENTITY) @Valid final Integer adEntityId, @ModelAttribute(AdEntityViewConstants.ISONHOLD_VALUE)  @Valid final Boolean isOnHold) {
-    	adEntityService.updateIsOnHoldById(adEntityId, isOnHold);
-    	return AdEntityViewConstants.DELETE_AD_SUCCESS;
+    public String updateAdEntityIsOnHold(final ModelMap model, @ModelAttribute(AdEntityViewConstants.PARAM_ENTITY) @Valid final Integer adEntityId) {
+    	adEntityService.updateIsOnHoldById(adEntityId);
+    	return AdEntityViewConstants.ISONHOLD_CHANGE_SUCCESS;
     }
     /**
      * Loads the model data required for the entities listing view.

@@ -52,12 +52,11 @@ public final class AdEntityViewConstants {
      * Name for the exception view.
      */
     public static final String VIEW_EXCEPTION   = "exception";
-
+    
     /**
-     * Name for the isOnHold parameter.
+     * Name for the isOnHold value change success view.
      */
-    public static final String ISONHOLD_VALUE = "isOnHold";
-
+    public static final String ISONHOLD_CHANGE_SUCCESS= "advertisement/isOnHoldSuccess";
     /**
      * Private constructor to avoid initialization.
      */

@@ -36,6 +36,6 @@ public interface AdEntityService {
     public boolean checkForm(final AdForm adForm); 
     
     
-    public void updateIsOnHoldById(final Integer adEntityId, final Boolean isOnHold);
+    public void updateIsOnHoldById(final Integer adEntityId);
 
 }

@@ -100,10 +100,10 @@ public class AdEntityServiceImpl implements AdEntityService {
 	}
 
 	@Override
-	public final void updateIsOnHoldById(final Integer adEntityId, final Boolean isOnHold) {
+	public final void updateIsOnHoldById(final Integer adEntityId) {
 		Optional<AdEntity> adEntity = adEntityRepository.findById(adEntityId);
 		if(adEntity.isPresent()) {
-			adEntity.get().setIsOnHold(isOnHold);
+			adEntity.get().setIsOnHold(!adEntity.get().getIsOnHold());
 			adEntityRepository.save(adEntity.get());
 		}
 	}
