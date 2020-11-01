@@ -54,6 +54,11 @@ public final class AdEntityViewConstants {
     public static final String VIEW_EXCEPTION   = "exception";
 
     /**
+     * Name for the isOnHold parameter.
+     */
+    public static final String ISONHOLD_VALUE = "isOnHold";
+
+    /**
      * Private constructor to avoid initialization.
      */
     private AdEntityViewConstants() {

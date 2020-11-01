@@ -85,17 +85,12 @@ public class AdEntityFormController {
 			entity.setTitle(form.getTitle());
 			entity.setDescription(form.getDescription());
 			entity.setDate(LocalDateTime.now());
+			entity.setIsOnHold(false);
 
 			imageEntityList = new ArrayList<ImageEntity>();
 
 			if (file != null) {
 				byte[] filecontent = null;
-//				try {
-//					InputStream inputStream = file[0].getInputStream();
-//					filecontent = IOUtils.toByteArray(inputStream);
-//					entity.setImage(filecontent);
-//				} catch (IOException ex) {
-//				}
 				for (int i = 0; i < file.length; i++) {
 					imageEntity = new ImageEntity();
 					filecontent = null;

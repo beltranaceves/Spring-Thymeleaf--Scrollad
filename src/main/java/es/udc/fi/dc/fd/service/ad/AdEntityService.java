@@ -1,5 +1,7 @@
 package es.udc.fi.dc.fd.service.ad;
 
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 
 import es.udc.fi.dc.fd.model.Ad;
@@ -19,10 +21,10 @@ public interface AdEntityService {
     public void deleteById(final Integer identifier);
 
     
-    public Iterable<AdEntity> getAllEntities();
+    public List<AdEntity> getAllEntities();
 
 
-    public Iterable<AdEntity> getEntities (final Pageable page);
+    public List<AdEntity> getEntities (final Pageable page);
     
     
     public Iterable<AdEntity> getEntitiesByUser(final User user);
@@ -32,5 +34,8 @@ public interface AdEntityService {
     
     
     public boolean checkForm(final AdForm adForm); 
+    
+    
+    public void updateIsOnHoldById(final Integer adEntityId, final Boolean isOnHold);
 
 }
