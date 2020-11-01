@@ -58,6 +58,12 @@
                                         <input type="hidden" name="advertisement" th:value="${advertisement?.id}">
                                         <button type="submit">Delete</button>
                                     </form>
+                                    <form th:action="@{/advertisement/updateIsOnHold}" th:object="${advertisement}" method="post">
+                                        <input type="hidden" name="advertisement" th:value="${advertisement?.id}">
+                                        <button type="submit">
+                                            <td th:text="${advertisement?.isOnHold} ? 'Resume' : 'Put on hold'" />
+                                        </button>
+                                    </form>
                                 </p>
                             </div>
 						</div>
