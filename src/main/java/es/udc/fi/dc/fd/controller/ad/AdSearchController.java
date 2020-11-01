@@ -38,6 +38,8 @@ public class AdSearchController {
 
 		Iterable<AdEntity> adList = adEntityService.findAds(city, keywords != null ? keywords.trim() : null);
 
+		model.addAttribute("cities", adEntityService.getCities());
+
 		model.put(AdEntityViewConstants.PARAM_ENTITIES, adList);
 	}
 }

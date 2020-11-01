@@ -14,6 +14,12 @@
                     <div class="col-lg-2">
                         <select class="form-control" th:name="city">
                             <option selected value="" th:text="#{title.advertisement.city}"></option>
+                            <option th:each="city: ${cities}" th:value="${city}" th:text="${city}"></option>
+                        </select>
+					</div>
+					<div class="col-lg-2">
+                        <select class="form-control" th:name="date">
+                            <option selected value="" th:text="#{title.advertisement.date}"></option>
                             <option th:value="#{label.advertisement.city1}" th:text="#{label.advertisement.city1}"></option>
                             <option th:value="#{label.advertisement.city2}" th:text="#{label.advertisement.city2}"></option>
                             <option th:value="#{label.advertisement.city3}" th:text="#{label.advertisement.city3}"></option>

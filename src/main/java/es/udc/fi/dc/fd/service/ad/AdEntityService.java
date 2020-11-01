@@ -1,5 +1,7 @@
 package es.udc.fi.dc.fd.service.ad;
 
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 
 import es.udc.fi.dc.fd.model.Ad;
@@ -13,6 +15,8 @@ public interface AdEntityService {
 	public AdEntity findById(final Integer identifier);
 
 	public Iterable<AdEntity> findAds(String city, String keywords);
+
+	public List<String> getCities();
 
 	public Iterable<AdEntity> getAllEntities();
 

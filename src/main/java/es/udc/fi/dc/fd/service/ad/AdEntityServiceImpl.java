@@ -2,6 +2,8 @@ package es.udc.fi.dc.fd.service.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,21 @@ public class AdEntityServiceImpl implements AdEntityService {
 
 		});
 		return adEntities;
+	}
+
+	@Override
+	public final List<String> getCities() {
+		Iterable<AdEntity> ads = adEntityRepository.findAll();
+
+		List<String> cities = new ArrayList<String>();
+
+		ads.forEach(ad -> {
+			String city = ad.getUserA().getCity();
+			if (cities.isEmpty() || (!city.matches(cities.get(cities.size() - 1)))) {
+				cities.add(city);
+			}
+		});
+		return cities;
 	}
 
 	@Override
