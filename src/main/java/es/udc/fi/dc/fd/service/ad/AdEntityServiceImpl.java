@@ -54,9 +54,9 @@ public class AdEntityServiceImpl implements AdEntityService {
 	}
 
 	@Override
-	public final Iterable<AdEntity> findAds(String city, String keywords) {
+	public final Iterable<AdEntity> findAds(String city, String keywords, String interval) {
 
-		Iterable<AdEntity> adEntities = adEntityRepository.find(city, keywords);
+		Iterable<AdEntity> adEntities = adEntityRepository.find(city, keywords, interval);
 
 		adEntities.forEach((adEntity) -> {
 

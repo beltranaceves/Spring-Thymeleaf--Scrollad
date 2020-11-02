@@ -25,7 +25,7 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdEntity> find(String city, String keywords) {
+	public List<AdEntity> find(String city, String keywords, String interval) {
 
 		String[] tokens = getTokens(keywords);
 		String queryString = "SELECT p FROM Ad p";
@@ -36,7 +36,13 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 			}
 		}
 
-		if (city != null || tokens.length > 0) {
+		if (interval != null) {
+			if (interval.matches("")) {
+				interval = null;
+			}
+		}
+
+		if (city != null || tokens.length > 0 || interval != null) {
 			queryString += " WHERE ";
 		}
 
@@ -44,9 +50,24 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 			queryString += "p.userA.city = :city";
 		}
 
+		if (interval != null) {
+			if (interval.matches("day")) {
+				queryString += "EXTRACT(DAY FROM p.date) = EXTRACT(DAY FROM CURRENT_TIMESTAMP)";
+
+			} else if (interval.matches("week")) {
+				queryString += "EXTRACT(WEEK FROM p.date) = EXTRACT(WEEK FROM CURRENT_TIMESTAMP)";
+
+			} else if (interval.matches("month")) {
+				queryString += "EXTRACT(MONTH FROM p.date) = EXTRACT(MONTH FROM CURRENT_TIMESTAMP)";
+
+			} else {
+				queryString += "EXTRACT(YEAR FROM p.date) = EXTRACT(YEAR FROM CURRENT_TIMESTAMP)";
+			}
+		}
+
 		if (tokens.length != 0) {
 
-			if (city != null) {
+			if (city != null || interval != null) {
 				queryString += " AND ";
 			}
 

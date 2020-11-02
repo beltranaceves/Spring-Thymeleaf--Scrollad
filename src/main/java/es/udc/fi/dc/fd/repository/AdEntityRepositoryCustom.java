@@ -6,6 +6,6 @@ import es.udc.fi.dc.fd.model.persistence.AdEntity;
 
 public interface AdEntityRepositoryCustom {
 
-	List<AdEntity> find(String city, String text);
+	List<AdEntity> find(String city, String text, String interval);
 
 }

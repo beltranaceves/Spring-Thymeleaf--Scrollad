@@ -18,12 +18,12 @@
                         </select>
 					</div>
 					<div class="col-lg-2">
-                        <select class="form-control" th:name="date">
+                        <select class="form-control" th:name="interval">
                             <option selected value="" th:text="#{title.advertisement.date}"></option>
-                            <option th:value="#{label.advertisement.city1}" th:text="#{label.advertisement.city1}"></option>
-                            <option th:value="#{label.advertisement.city2}" th:text="#{label.advertisement.city2}"></option>
-                            <option th:value="#{label.advertisement.city3}" th:text="#{label.advertisement.city3}"></option>
-                            <option th:value="#{label.advertisement.city4}" th:text="#{label.advertisement.city4}"></option>
+                            <option value="day" th:text="#{label.advertisement.day}"></option>
+                            <option value="week" th:text="#{label.advertisement.week}"></option>
+                            <option value="month" th:text="#{label.advertisement.month}"></option>
+                            <option value="year" th:text="#{label.advertisement.year}"></option>
                         </select>
                     </div>
                     <div class="col-lg-2"><input class="form-control mr-sm-2" type="search" th:name="keywords" placeholder="Search" aria-label="Search"></div>
