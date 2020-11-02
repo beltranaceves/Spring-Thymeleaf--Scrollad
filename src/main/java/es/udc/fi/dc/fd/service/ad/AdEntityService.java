@@ -14,7 +14,7 @@ public interface AdEntityService {
 
 	public AdEntity findById(final Integer identifier);
 
-	public Iterable<AdEntity> findAds(String city, String keywords, String interval);
+	public Iterable<AdEntity> findAds(String city, String keywords, String interval, Double minPrice, Double maxPrice);
 
 	public List<String> getCities();
 

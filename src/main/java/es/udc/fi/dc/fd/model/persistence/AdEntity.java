@@ -42,6 +42,9 @@ public class AdEntity implements Ad {
 	@Column(name = "date", nullable = false, unique = true)
 	private LocalDateTime date;
 
+	@Column(name = "price", nullable = false, unique = true)
+	private Double price;
+
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "userA", nullable = false)
 	private UserEntity userA;
@@ -55,26 +58,6 @@ public class AdEntity implements Ad {
 
 	public Integer getId() {
 		return id;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj)
-			return true;
-
-		if (obj == null)
-			return false;
-
-		if (getClass() != obj.getClass())
-			return false;
-
-		final AdEntity other = (AdEntity) obj;
-		return Objects.equals(id, other.id);
 	}
 
 	public void setId(final Integer id) {
@@ -105,6 +88,14 @@ public class AdEntity implements Ad {
 		this.date = checkNotNull(date, "Received a null pointer as date");
 	}
 
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
 	public UserEntity getUserA() {
 		return userA;
 	}
@@ -119,6 +110,26 @@ public class AdEntity implements Ad {
 
 	public void setImages(List<ImageEntity> images) {
 		this.images = images;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		final AdEntity other = (AdEntity) obj;
+		return Objects.equals(id, other.id);
 	}
 
 	@Override

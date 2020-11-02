@@ -53,6 +53,9 @@
 			<column name="date" type="DATETIME">
 				<constraints nullable="false" unique="false" />
 			</column>
+			<column name="price" type="DOUBLE">
+				<constraints nullable="false" unique="false" />
+			</column>
 		</createTable>
 		<createTable tableName="images">
 			<column autoIncrement="true" name="id" type="BIGINT">

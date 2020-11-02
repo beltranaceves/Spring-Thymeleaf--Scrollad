@@ -54,9 +54,10 @@ public class AdEntityServiceImpl implements AdEntityService {
 	}
 
 	@Override
-	public final Iterable<AdEntity> findAds(String city, String keywords, String interval) {
+	public final Iterable<AdEntity> findAds(String city, String keywords, String interval, Double minPrice,
+			Double maxPrice) {
 
-		Iterable<AdEntity> adEntities = adEntityRepository.find(city, keywords, interval);
+		Iterable<AdEntity> adEntities = adEntityRepository.find(city, keywords, interval, minPrice, maxPrice);
 
 		adEntities.forEach((adEntity) -> {
 
@@ -109,7 +110,7 @@ public class AdEntityServiceImpl implements AdEntityService {
 	@Override
 	public boolean checkForm(final AdForm adForm) {
 		checkNotNull(adForm.getTitle(), "Received a null pointer as a title");
-		checkNotNull(adForm.getDescription(), "Received a null pointer as a Description");
+		checkNotNull(adForm.getDescription(), "Received a null pointer as description");
 		return false;
 	}
 }

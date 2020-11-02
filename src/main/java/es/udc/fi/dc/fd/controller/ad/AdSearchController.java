@@ -28,19 +28,22 @@ public class AdSearchController {
 	@GetMapping(path = "/search")
 	public String findAds(@RequestParam(required = false, value = "city") String city,
 			@RequestParam(required = false, value = "keywords") String keywords,
-			@RequestParam(required = false, value = "interval") String interval, final ModelMap model) {
+			@RequestParam(required = false, value = "interval") String interval,
+			@RequestParam(required = false, value = "minPrice") Double minPrice,
+			@RequestParam(required = false, value = "maxPrice") Double maxPrice, final ModelMap model) {
 
-		loadViewModel(model, city, keywords, interval);
+		loadViewModel(model, city, keywords, interval, minPrice, maxPrice);
 
 		return AdEntityViewConstants.SEARCH;
 	}
 
-	private final void loadViewModel(final ModelMap model, String city, String keywords, String interval) {
+	private final void loadViewModel(final ModelMap model, String city, String keywords, String interval,
+			Double minPrice, Double maxPrice) {
 
-		Iterable<AdEntity> adList = adEntityService.findAds(city, keywords != null ? keywords.trim() : null, interval);
+		Iterable<AdEntity> adList = adEntityService.findAds(city, keywords != null ? keywords.trim() : null, interval,
+				minPrice, maxPrice);
 
 		model.addAttribute("cities", adEntityService.getCities());
-
 		model.put(AdEntityViewConstants.PARAM_ENTITIES, adList);
 	}
 }

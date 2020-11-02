@@ -57,7 +57,7 @@ public final class AdForm implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AdForm [title=" + title + ", description=" + description + ", image=" + "]";
+		return "AdForm [title=" + title + ", description=" + description + "]";
 	}
 
 }

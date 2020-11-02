@@ -25,7 +25,7 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdEntity> find(String city, String keywords, String interval) {
+	public List<AdEntity> find(String city, String keywords, String interval, Double minPrice, Double maxPrice) {
 
 		String[] tokens = getTokens(keywords);
 		String queryString = "SELECT p FROM Ad p";
@@ -42,7 +42,7 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 			}
 		}
 
-		if (city != null || tokens.length > 0 || interval != null) {
+		if (city != null || tokens.length > 0 || interval != null || minPrice != null || maxPrice != null) {
 			queryString += " WHERE ";
 		}
 
@@ -51,6 +51,11 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 		}
 
 		if (interval != null) {
+
+			if (city != null) {
+				queryString += " AND ";
+			}
+
 			if (interval.matches("day")) {
 				queryString += "EXTRACT(DAY FROM p.date) = EXTRACT(DAY FROM CURRENT_TIMESTAMP)";
 
@@ -65,9 +70,26 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 			}
 		}
 
-		if (tokens.length != 0) {
+		if (minPrice != null || maxPrice != null) {
 
 			if (city != null || interval != null) {
+				queryString += " AND ";
+			}
+
+			if (minPrice != null) {
+				queryString += "p.price >= :minPrice";
+			}
+			if (maxPrice != null) {
+				if (minPrice != null) {
+					queryString += " AND ";
+				}
+				queryString += " p.price <= :maxPrice";
+			}
+		}
+
+		if (tokens.length != 0) {
+
+			if (city != null || interval != null || minPrice != null || maxPrice != null) {
 				queryString += " AND ";
 			}
 
@@ -79,12 +101,20 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 
 		}
 
-		queryString += " ORDER BY p.title";
+		queryString += " ORDER BY p.date";
 
 		Query query = entityManager.createQuery(queryString);
 
 		if (city != null) {
 			query.setParameter("city", city);
+		}
+
+		if (minPrice != null) {
+			query.setParameter("minPrice", minPrice);
+		}
+
+		if (maxPrice != null) {
+			query.setParameter("maxPrice", maxPrice);
 		}
 
 		if (tokens.length != 0) {
