@@ -27,6 +27,7 @@ package es.udc.fi.dc.fd.model.form;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -71,6 +72,8 @@ public final class UserForm implements Serializable {
 
 	@NotEmpty
 	private String city;
+	
+	private List<String> followed;
 
 	/**
 	 * Constructs a DTO for the example entity form.
@@ -102,6 +105,10 @@ public final class UserForm implements Serializable {
 	public final String getCity() {
 		return city;
 	}
+	
+	public final List<String> getFollowed() {
+		return followed;
+	}
 
 	/**
 	 * Sets the value of the name field.
@@ -130,6 +137,10 @@ public final class UserForm implements Serializable {
 
 	public final void setCity(final String value) {
 		city = checkNotNull(value, "Received a null pointer as city");
+	}
+	
+	public final void setFollowed(final List<String> value) {
+		followed = value;
 	}
 
 	@Override

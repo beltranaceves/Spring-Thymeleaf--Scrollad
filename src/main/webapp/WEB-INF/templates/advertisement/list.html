@@ -52,27 +52,13 @@
                                     <div>
                                     <span th:remove="tag" th:text="${advertisement?.userA.username}">User</span>
                                     
-                                	<button id="follow" onClick="seguir()">❤</button>
+                                	<button id="follow" th:onclick="javascript:seguir()">❤</button>
                                 	
-                                	<button id="unfollow" disabled onClick="noSeguir()">♡</button>
+                                	<button id="unfollow" disabled th:onclick="javascript:noSeguir()">♡</button>
                                 	
                                 	</div>
                                 </p>
                                 
-                                <script type="text/javascript">
-					
-								function seguir(){
-									document.getElementById("follow").disabled = true;
-									document.getElementById("follow").style.backgroundColor= "red";
-									document.getElementById("unfollow").disabled = false;
-								}
-								
-								function noSeguir(){
-									document.getElementById("unfollow").disabled = true;
-									document.getElementById("follow").disabled = false;
-									document.getElementById("follow").style.backgroundColor= "white";
-								}
-								</script>
 								
                                 <p>
                                     <span th:remove="tag" th:text="${advertisement?.date}">User</span>
@@ -80,11 +66,35 @@
                             </div>
 						</div>
 					</div>
+					
+					
+					
 				</div>
 			</div>
 		</div>
 	</section>
-
+	
+	<script th:inline="javascript">
+					
+			function seguir(){
+					document.getElementById("follow").disabled = true;
+					document.getElementById("follow").style.backgroundColor= "red";
+					document.getElementById("unfollow").disabled = false;
+			}
+								
+								
+	</script>
+	
+	<script th:inline="javascript">
+			
+			function noSeguir(){
+					document.getElementById("unfollow").disabled = true;
+					document.getElementById("follow").disabled = false;
+					document.getElementById("follow").style.backgroundColor= "white";
+			}
+	
+	</script>
+					
 	<footer>
 		<div th:include="fragments/scripts :: general" />
 	</footer>
