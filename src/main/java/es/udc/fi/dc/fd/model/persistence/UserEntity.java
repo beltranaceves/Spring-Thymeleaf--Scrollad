@@ -2,6 +2,7 @@ package es.udc.fi.dc.fd.model.persistence;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -57,9 +58,9 @@ public class UserEntity implements User {
 
 	@Column(name = "city", nullable = false, unique = true)
 	private String city = "";
-	
-	@Column(name = "followed", nullable = true, unique = true)
-	private List<String> followed;
+
+	@Column(name = "followed", nullable = true, unique = false)
+	private ArrayList<String> followed;
 
 	@OneToMany(mappedBy = "userA")
 	private Set<AdEntity> ads = new HashSet<AdEntity>(0);
@@ -170,7 +171,7 @@ public class UserEntity implements User {
 	public void setFollowed(final List<String> value) {
 		followed = value;
 	}
-	
+
 	@Override
 	public Set<AdEntity> getAds() {
 		return ads;

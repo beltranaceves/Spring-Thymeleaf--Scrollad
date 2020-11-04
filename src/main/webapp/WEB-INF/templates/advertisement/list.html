@@ -1,103 +1,84 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head th:include="fragments/header :: header" />
 <body>
 	<header class="header" th:include="fragments/menu :: menu" />
 	<section id="main-section" class="container-fluid">
 		<h1 th:text="#{title.advertisement.list}">Advertisement list</h1>
-		<p>This view allows you to visualize all the advertisements added to this site.</p>
-
+		<p>This view allows you to visualize all the advertisements added to this
+			site.</p>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4" th:each="advertisement, iter : ${entities}">
-
 					<div class="photo image-background">
-						<div th:id="'carousel' + ${iter.index}" class="carousel slide" data-interval="false">
+						<div th:id="'carousel' + ${iter.index}" class="carousel slide"
+							data-interval="false">
 							<!-- Wrapper for slides -->
 							<div class="carousel-inner">
 								<!-- Resto de imagenes -->
-								<div th:each="image, iterstat : ${advertisement?.images}" style="height:350px; width: 100%;" 
+								<div th:each="image, iterstat : ${advertisement?.images}"
+									style="height: 350px; width: 100%;"
 									th:class="${iterstat.index}== 0  ? 'carousel-item item active':'carousel-item item'">
-									<img th:src="@{'data:image/jpeg;base64,'+${image?.imageBase64}}" class="img-responsive"
-										alt="" style="margin:auto; max-height: -webkit-fill-available;" />
+									<img th:src="@{'data:image/jpeg;base64,'+${image?.imageBase64}}"
+										class="img-responsive" alt=""
+										style="margin: auto; max-height: -webkit-fill-available;" />
 								</div>
-
 								<!-- Left and right controls -->
-								<a class="left carousel-control" th:href="@{'#carousel' + ${iter.index}}"
-									data-slide="prev"> <span
-									class="glyphicon glyphicon-chevron-left"></span> <span
-									class="sr-only">Previous</span>
-								</a> <a class="right carousel-control" th:href="@{'#carousel' + ${iter.index}}"
-									data-slide="next"> <span
-									class="glyphicon glyphicon-chevron-right"></span> <span
-									class="sr-only">Next</span>
+								<a class="left carousel-control"
+									th:href="@{'#carousel' + ${iter.index}}" data-slide="prev"> <span
+									class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Previous</span>
+								</a> <a class="right carousel-control"
+									th:href="@{'#carousel' + ${iter.index}}" data-slide="next"> <span
+									class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span>
 								</a>
 							</div>
 						</div>
-					</div>	
-					
-					
+					</div>
 					<div class="info">
 						<div class="row">
-                            <div class="price col-md-6">
-                                <h5>
-                                    <span th:remove="tag" th:text="${advertisement?.title}">Title</span>
-                                </h5>
-                                <p>
-                                    <span th:remove="tag" th:text="${advertisement?.description}">Description</span>
-                                </p>
-                                <p>	
-                                    <div>
-                                    <span th:remove="tag" th:text="${advertisement?.userA.username}">User</span>
-                                    
-                                	<button id="follow" th:onclick="javascript:seguir()">❤</button>
-                                	
-                                	<button id="unfollow" disabled th:onclick="javascript:noSeguir()">♡</button>
-                                	
-                                	</div>
-                                </p>
-                                
-								
-                                <p>
-                                    <span th:remove="tag" th:text="${advertisement?.date}">User</span>
-                                </p>
-                            </div>
+							<div class="price col-md-6">
+								<h5>
+									<span th:remove="tag" th:text="${advertisement?.title}">Title</span>
+								</h5>
+								<p>
+									<span th:remove="tag" th:text="${advertisement?.description}">Description</span>
+								</p>
+								<p>
+								<div>
+									<span th:remove="tag" th:text="${advertisement?.userA.username}">User</span>
+									<button th:id="${advertisement?.id}+follow"
+										th:onclick="|javascript:seguir('${advertisement?.id}follow', '${advertisement?.id}unfollow')|">❤</button>
+									<button th:id="${advertisement?.id}+unfollow" disabled
+										th:onclick="|javascript:noSeguir('${advertisement?.id}follow', '${advertisement?.id}unfollow')|">♡</button>
+								</div>
+								</p>
+								<p>
+									<span th:remove="tag" th:text="${advertisement?.date}">User</span>
+								</p>
+							</div>
 						</div>
 					</div>
-					
-					
-					
 				</div>
 			</div>
 		</div>
 	</section>
-	
 	<script th:inline="javascript">
-					
-			function seguir(){
-					document.getElementById("follow").disabled = true;
-					document.getElementById("follow").style.backgroundColor= "red";
-					document.getElementById("unfollow").disabled = false;
-			}
-								
-								
+	/*<![CDATA[*/
+		function seguir(idfollow, idunfollow) {
+			document.getElementById(idfollow).disabled = true;
+			document.getElementById(idfollow).style.backgroundColor = "red";
+			document.getElementById(idunfollow).disabled = false;
+		}
+
+		function noSeguir(idfollow, idunfollow) {
+			document.getElementById(idunfollow).disabled = true;
+			document.getElementById(idfollow).disabled = false;
+			document.getElementById(idfollow).style.backgroundColor = "white";
+		}
+		/*]]>*/
 	</script>
-	
-	<script th:inline="javascript">
-			
-			function noSeguir(){
-					document.getElementById("unfollow").disabled = true;
-					document.getElementById("follow").disabled = false;
-					document.getElementById("follow").style.backgroundColor= "white";
-			}
-	
-	</script>
-					
 	<footer>
 		<div th:include="fragments/scripts :: general" />
 	</footer>
 </body>
-
 </html>
