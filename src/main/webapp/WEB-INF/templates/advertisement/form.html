@@ -35,6 +35,12 @@
 									<p th:if="${#fields.hasErrors('description')}"
 										class="label label-danger" th:errors="*{description}">Error</p>
 								</div>
+
+								<label class="control-label" for="price" th:text="#{label.price}">Price</label>
+								<div class="controls">
+									<input id="price" type="number" name="price" class="form-control"
+										placeholder="Price" min="0" max="1000">
+								</div>
 								
 								<label class="control-label" for="image" th:text="#{label.image}">Image</label>
 								<div class="controls">

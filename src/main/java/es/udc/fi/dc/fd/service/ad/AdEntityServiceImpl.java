@@ -15,7 +15,6 @@ import es.udc.fi.dc.fd.model.Ad;
 import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
-import es.udc.fi.dc.fd.model.persistence.ImageEntity;
 import es.udc.fi.dc.fd.repository.AdEntityRepository;
 import es.udc.fi.dc.fd.repository.ImageEntityRepository;
 
@@ -33,6 +32,7 @@ public class AdEntityServiceImpl implements AdEntityService {
 		adEntityRepository = checkNotNull(repository, "Received a null pointer as repository");
 
 		imageEntityRepository = checkNotNull(imageRepository, "Received a null pointer as repository");
+
 	}
 
 	@Override
@@ -57,13 +57,15 @@ public class AdEntityServiceImpl implements AdEntityService {
 	public void deleteById(final Integer identifier) {
 		adEntityRepository.deleteById(identifier);
 	}
-	
-	@Override
-	public final List<AdEntity> getAllEntities() {
-		Iterable<AdEntity> adEntities = adEntityRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
+
+	public final Iterable<AdEntity> findAds(String city, String keywords, String interval, Double minPrice,
+			Double maxPrice) {
+
+		Iterable<AdEntity> adEntities = adEntityRepository.find(city, keywords, interval, minPrice, maxPrice);
 		List<AdEntity> adEntitiesList = new ArrayList<AdEntity>();
+
 		adEntities.forEach((adEntity) -> {
-			if(!adEntity.getIsOnHold()) {
+			if (!adEntity.getIsOnHold()) {
 				adEntity.getImages().forEach((image) -> {
 					image.convertAndLoadImageBase64();
 				});
@@ -72,7 +74,38 @@ public class AdEntityServiceImpl implements AdEntityService {
 		});
 		return adEntitiesList;
 	}
-	
+
+	@Override
+	public final List<String> getCities() {
+		Iterable<AdEntity> ads = adEntityRepository.findAll();
+
+		List<String> cities = new ArrayList<String>();
+
+		ads.forEach(ad -> {
+			String city = ad.getUserA().getCity();
+			if (cities.isEmpty() || (!city.matches(cities.get(cities.size() - 1)))) {
+				cities.add(city);
+			}
+		});
+		return cities;
+	}
+
+	@Override
+	public final List<AdEntity> getAllEntities() {
+
+		Iterable<AdEntity> adEntities = adEntityRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
+		List<AdEntity> adEntitiesList = new ArrayList<AdEntity>();
+		adEntities.forEach((adEntity) -> {
+			if (!adEntity.getIsOnHold()) {
+				adEntity.getImages().forEach((image) -> {
+					image.convertAndLoadImageBase64();
+				});
+				adEntitiesList.add(adEntity);
+			}
+		});
+		return adEntitiesList;
+	}
+
 	@Override
 	public final Iterable<AdEntity> getEntitiesByUser(final User user) {
 		Iterable<AdEntity> adEntities = adEntityRepository.findByUserA(user, Sort.by(Sort.Direction.DESC, "date"));
@@ -89,7 +122,7 @@ public class AdEntityServiceImpl implements AdEntityService {
 		Iterable<AdEntity> adEntities = adEntityRepository.findAll(page);
 		List<AdEntity> adEntitiesList = new ArrayList<AdEntity>();
 		adEntities.forEach((adEntity) -> {
-			if(!adEntity.getIsOnHold()) {
+			if (!adEntity.getIsOnHold()) {
 				adEntity.getImages().forEach((image) -> {
 					image.convertAndLoadImageBase64();
 				});
@@ -102,12 +135,12 @@ public class AdEntityServiceImpl implements AdEntityService {
 	@Override
 	public final void updateIsOnHoldById(final Integer adEntityId) {
 		Optional<AdEntity> adEntity = adEntityRepository.findById(adEntityId);
-		if(adEntity.isPresent()) {
+		if (adEntity.isPresent()) {
 			adEntity.get().setIsOnHold(!adEntity.get().getIsOnHold());
 			adEntityRepository.save(adEntity.get());
 		}
 	}
-	
+
 	@Override
 	public final void remove(final AdEntity entity) {
 		adEntityRepository.delete(entity);
@@ -116,7 +149,7 @@ public class AdEntityServiceImpl implements AdEntityService {
 	@Override
 	public boolean checkForm(final AdForm adForm) {
 		checkNotNull(adForm.getTitle(), "Received a null pointer as a title");
-		checkNotNull(adForm.getDescription(), "Received a null pointer as a Description");
+		checkNotNull(adForm.getDescription(), "Received a null pointer as description");
 		return false;
 	}
 }

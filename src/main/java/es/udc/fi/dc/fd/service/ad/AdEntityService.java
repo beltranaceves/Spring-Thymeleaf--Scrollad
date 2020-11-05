@@ -11,31 +11,26 @@ import es.udc.fi.dc.fd.model.persistence.AdEntity;
 
 public interface AdEntityService {
 
+	public Ad add(final AdEntity entity);
 
-    public Ad add(final AdEntity entity);
+	public AdEntity findById(final Integer identifier);
 
+	public void deleteById(final Integer identifier);
 
-    public AdEntity findById(final Integer identifier);
-    
-    
-    public void deleteById(final Integer identifier);
+	public List<AdEntity> getAllEntities();
 
-    
-    public List<AdEntity> getAllEntities();
+	public List<AdEntity> getEntities(final Pageable page);
 
+	public Iterable<AdEntity> getEntitiesByUser(final User user);
 
-    public List<AdEntity> getEntities (final Pageable page);
-    
-    
-    public Iterable<AdEntity> getEntitiesByUser(final User user);
-    
+	public void remove(final AdEntity advertisement);
 
-    public void remove(final AdEntity advertisement);
-    
-    
-    public boolean checkForm(final AdForm adForm); 
-    
-    
-    public void updateIsOnHoldById(final Integer adEntityId);
+	public boolean checkForm(final AdForm adForm);
+
+	public void updateIsOnHoldById(final Integer adEntityId);
+
+	public Iterable<AdEntity> findAds(String city, String keywords, String interval, Double minPrice, Double maxPrice);
+
+	public List<String> getCities();
 
 }

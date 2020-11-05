@@ -24,7 +24,7 @@
 
 package es.udc.fi.dc.fd.repository;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -41,10 +41,11 @@ import es.udc.fi.dc.fd.model.persistence.DefaultExampleEntity;
  *
  * @author Bernardo Mart&iacute;nez Garrido
  */
-public interface AdEntityRepository
-        extends JpaRepository<AdEntity, Integer> {
-	
+
+public interface AdEntityRepository extends JpaRepository<AdEntity, Integer>, AdEntityRepositoryCustom {
+
 	public Iterable<AdEntity> findByUserA(final User user, Sort sort);
-	
-	
+
+	List<AdEntity> findByUserACity(String city);
+
 }

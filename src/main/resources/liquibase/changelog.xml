@@ -53,8 +53,10 @@
 			<column name="date" type="DATETIME">
 				<constraints nullable="false" unique="false" />
 			</column>
-			<column name="isOnHold" type="BOOLEAN">
+			<column name="price" type="DOUBLE">
 				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="isOnHold" type="BOOLEAN">
 			</column>
 		</createTable>
 		<createTable tableName="images">
