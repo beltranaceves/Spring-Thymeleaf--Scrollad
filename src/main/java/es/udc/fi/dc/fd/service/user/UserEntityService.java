@@ -88,7 +88,7 @@ public class UserEntityService implements UserService {
 	}
 	
 	
-	public UserEntity getfindById(final Integer id) {
+	public UserEntity findById(final Integer id) {
 		return userRepository.findById(id).get();
 	}
 

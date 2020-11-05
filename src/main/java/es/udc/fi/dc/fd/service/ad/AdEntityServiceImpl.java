@@ -50,10 +50,6 @@ public class AdEntityServiceImpl implements AdEntityService {
 		return entity;
 	}
 
-	public AdEntity getfindById(final Integer id) {
-		return adEntityRepository.findById(id).get();
-	}
-
 	@Override
 	public final Iterable<AdEntity> getAllEntities() {
 		Iterable<AdEntity> adEntities = adEntityRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));

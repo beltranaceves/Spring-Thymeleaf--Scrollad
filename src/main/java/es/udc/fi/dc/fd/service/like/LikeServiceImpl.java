@@ -57,9 +57,9 @@ public class LikeServiceImpl implements LikeService {
 	}
 
 	@Override
-	public void delete(LikeEntity like) {
-		likeRepository.delete(like);
-
+	public void deleteById(final Integer id) {
+		likeRepository.deleteById(id);
 	}
+
 
 }

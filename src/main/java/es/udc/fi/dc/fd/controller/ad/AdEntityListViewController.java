@@ -26,13 +26,24 @@ package es.udc.fi.dc.fd.controller.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import es.udc.fi.dc.fd.model.persistence.AdEntity;
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.service.ad.AdEntityService;
+import es.udc.fi.dc.fd.service.like.LikeService;
+import es.udc.fi.dc.fd.service.user.UserService;
 
 /**
  * Controller for the example entities listing view.
@@ -45,21 +56,26 @@ import es.udc.fi.dc.fd.service.ad.AdEntityService;
 @RequestMapping("/advertisement")
 public class AdEntityListViewController {
 
-	/**
-	 * Example entity service.
-	 */
+	private final LikeService likedAdService;
 	private final AdEntityService adEntityService;
+	private final UserService userService;
 
-	/**
-	 * Constructs a controller with the specified dependencies.
-	 * 
-	 * @param service example entity service
-	 */
 	@Autowired
-	public AdEntityListViewController(final AdEntityService service) {
+	public AdEntityListViewController(final LikeService likeService, final UserService userService,
+			final AdEntityService adService) {
 		super();
+		this.likedAdService = checkNotNull(likeService, "Received a null pointer as service");
+		this.adEntityService = checkNotNull(adService, "Received a null pointer as service");
+		this.userService = checkNotNull(userService, "Received a null pointer as service");
+	}
 
-		adEntityService = checkNotNull(service, "Received a null pointer as service");
+	public UserEntity getLoggedUser(final ModelMap model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		UserEntity user = userService.findByUsername(auth.getName());
+
+		return user;
 	}
 
 	/**
@@ -94,5 +110,37 @@ public class AdEntityListViewController {
 
 		model.put(AdEntityViewConstants.PARAM_ENTITIES, adEntityService.getAllEntities());
 	}
+	
+	
+	@GetMapping(path = "/list/likes")
+	public String showLikedAdEntityList(final ModelMap model) {
+
+		loadViewModelByLike(model);
+
+		return AdEntityViewConstants.VIEW_ENTITY_LIST_BY_LIKES;
+	}
+
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	private final void loadViewModelByLike(final ModelMap model) {
+
+		model.put(AdEntityViewConstants.PARAM_ENTITIES, likedAdService.getAdsLikedByUser(getLoggedUser(model)));
+	}
+	
+	@PostMapping(path = "/addLike")
+	public String addRating(final ModelMap model,
+			@ModelAttribute(AdEntityViewConstants.PARAM_ENTITY) @Valid final Integer adId) {
+		UserEntity user = userService.findById(getLoggedUser(model).getId());
+		AdEntity adLiked = adEntityService.findById(adId);
+		likedAdService.addLike(user, adLiked);
+		return AdEntityViewConstants.ADD_LIKED_AD_SUCCESS;
+	}
+
+	@PostMapping(path = "/deleteLike")
+	public String deleteAdEntity(final ModelMap model,
+			@ModelAttribute(AdEntityViewConstants.PARAM_ENTITY) @Valid final Integer adId) {
+		likedAdService.deleteById(adId);
+		return AdEntityViewConstants.DELETE_LIKED_AD_SUCCESS;
+	}
+
 
 }

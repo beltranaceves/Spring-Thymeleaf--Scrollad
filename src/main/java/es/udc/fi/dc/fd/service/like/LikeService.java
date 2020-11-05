@@ -10,6 +10,6 @@ public interface LikeService {
 	
 	public Iterable<AdEntity> getAdsLikedByUser(UserEntity user);
 
-	public void delete(LikeEntity like);
+	public void deleteById(final Integer identifier);
 
 }

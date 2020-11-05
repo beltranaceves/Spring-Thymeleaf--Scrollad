@@ -7,9 +7,10 @@
 	<header class="header" th:include="fragments/menu :: menu" />
 	<section id="main-section" class="container-fluid">
 		<h1 th:text="#{title.advertisement.list}">Advertisement list</h1>
-		<p>This view allows you to visualize all the advertisements you like.</p>
-		
-				<div class="container">
+		<p>This view allows you to visualize all the advertisements added
+			to this site.</p>
+
+		<div class="container">
 			<div class="row">
 				<div class="col-md-4"
 					th:each="advertisement, iter : ${advertisements}">
@@ -59,18 +60,37 @@
 								<p>
 									<span th:remove="tag" th:text="${advertisement?.date}">User</span>
 								</p>
-								<!--
-								<button type="button" th:onclick="addLike()">
-									Like</button>
-								-->
+								<p>
+								<div>
+									<button th:id="${advertisement?.id}+like"
+										th:onclick="|javascript:addLike('${advertisement?.id}like', '${advertisement?.id}removeLike')|">â�¤</button>
+									<button th:id="${advertisement?.id}+removeLike" disabled
+										th:onclick="|javascript:removeLike('${advertisement?.id}like', '${advertisement?.id}removeLike')|">â™¡</button>
+								</div>
+								</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+		</div>
 	</section>
+
+	<script th:inline="javascript">
+		function addLike(idlike, idremoveLike) {
+			document.getElementById(idlike).disabled = true;
+			document.getElementById(idlike).style.backgroundColor = "red";
+			document.getElementById(idremoveLike).disabled = false;
+		}
+
+		function removeLike(idlike, idunfollow) {
+			document.getElementById(idremoveLike).disabled = true;
+			document.getElementById(idlike).disabled = false;
+			document.getElementById(idlike).style.backgroundColor = "white";
+		}
+	</script>
+
 
 	<footer>
 		<div th:include="fragments/scripts :: general" />
