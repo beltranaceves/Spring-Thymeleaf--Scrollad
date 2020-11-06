@@ -6,10 +6,9 @@ import es.udc.fi.dc.fd.model.persistence.UserEntity;
 
 public interface LikeService {
 	
-	public LikeEntity addLike(UserEntity user, AdEntity adLiked);
+	LikeEntity addLike(UserEntity user, AdEntity adLiked);
 	
-	public Iterable<AdEntity> getAdsLikedByUser(UserEntity user);
+	Iterable<AdEntity> getAdsLikedByUser(UserEntity user);
 
-	public void deleteById(final Integer identifier);
-
+	void deleteByAdLikedIdAndUserId(final Integer adId, final Integer userId);
 }

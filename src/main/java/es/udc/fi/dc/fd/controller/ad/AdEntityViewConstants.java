@@ -46,12 +46,12 @@ public final class AdEntityViewConstants {
     /**
      * Name for the liked ad deletion success.
      */
-    public static final String DELETE_LIKED_AD_SUCCESS = "advertisement/likes/deleteSuccess";
+    public static final String DELETE_LIKED_AD_SUCCESS = "advertisement/deleteLikeSuccess";
     
     /**
-     * Name for the liked ad deletion success.
+     * Name for the liked ad addition success.
      */
-    public static final String ADD_LIKED_AD_SUCCESS = "advertisement/likes/success";
+    public static final String ADD_LIKED_AD_SUCCESS = "advertisement/addLikeSuccess";
 
     /**
      * Name for the exception view.

@@ -7,5 +7,7 @@ import es.udc.fi.dc.fd.model.persistence.LikeEntity;
 public interface LikeRepository extends JpaRepository<LikeEntity, Integer> {
 
 	public Iterable<LikeEntity> findByUserId(final Integer id);
+	
+	public LikeEntity findByAdLikedIdAndUserId(final Integer adId, final Integer userId);
 		
 }

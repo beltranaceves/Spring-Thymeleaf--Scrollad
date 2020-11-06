@@ -36,11 +36,11 @@
 							<li sec:authorize="isAuthenticated()"><a
 								th:href="@{/logout}" th:text="#{title.logout}">Log out</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false"><span th:remove="tag"
-							th:text="#{title.data}">Data</span> <span aria-hidden="true"></span>
-					</a>
+					<li sec:authorize="isAuthenticated()" class="dropdown"><a
+						href="#" class="dropdown-toggle" data-toggle="dropdown"
+						role="button" aria-haspopup="true" aria-expanded="false"><span
+							th:remove="tag" th:text="#{title.data}">Data</span> <span
+							aria-hidden="true"></span> </a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a th:href="@{/advertisement/edit}"
 								th:text="#{label.advertisement.add}">Advertisement</a></li>

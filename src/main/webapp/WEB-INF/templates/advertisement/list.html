@@ -62,10 +62,18 @@
 								</p>
 								<p>
 								<div>
+									<form th:action="@{/advertisement/addLike}"
+										th:object="${advertisement}" method="post">
+										<input type="hidden" name="advertisement"
+											th:value="${advertisement?.id}">
+										<button type="submit">Like</button>
+									</form>
+									<!--  
 									<button th:id="${advertisement?.id}+like"
 										th:onclick="|javascript:addLike('${advertisement?.id}like', '${advertisement?.id}removeLike')|">❤</button>
 									<button th:id="${advertisement?.id}+removeLike" disabled
 										th:onclick="|javascript:removeLike('${advertisement?.id}like', '${advertisement?.id}removeLike')|">♡</button>
+									-->
 								</div>
 								</p>
 							</div>

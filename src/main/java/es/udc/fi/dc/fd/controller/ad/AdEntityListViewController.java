@@ -138,7 +138,7 @@ public class AdEntityListViewController {
 	@PostMapping(path = "/deleteLike")
 	public String deleteAdEntity(final ModelMap model,
 			@ModelAttribute(AdEntityViewConstants.PARAM_ENTITY) @Valid final Integer adId) {
-		likedAdService.deleteById(adId);
+		likedAdService.deleteByAdLikedIdAndUserId(adId, getLoggedUser(model).getId());
 		return AdEntityViewConstants.DELETE_LIKED_AD_SUCCESS;
 	}
 
