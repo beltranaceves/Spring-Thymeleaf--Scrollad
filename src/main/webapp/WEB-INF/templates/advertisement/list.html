@@ -63,7 +63,6 @@
 		</div>
 	</section>
 	<script th:inline="javascript">
-	/*<![CDATA[*/
 		function seguir(idfollow, idunfollow) {
 			document.getElementById(idfollow).disabled = true;
 			document.getElementById(idfollow).style.backgroundColor = "red";
@@ -75,7 +74,6 @@
 			document.getElementById(idfollow).disabled = false;
 			document.getElementById(idfollow).style.backgroundColor = "white";
 		}
-		/*]]>*/
 	</script>
 	<footer>
 		<div th:include="fragments/scripts :: general" />

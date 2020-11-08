@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -59,8 +61,8 @@ public class UserEntity implements User {
 	@Column(name = "city", nullable = false, unique = true)
 	private String city = "";
 
-	@Column(name = "followed", nullable = true, unique = false)
-	private ArrayList<String> followed;
+	@ElementCollection
+	private List<String> followed = new ArrayList<String>();
 
 	@OneToMany(mappedBy = "userA")
 	private Set<AdEntity> ads = new HashSet<AdEntity>(0);
@@ -70,7 +72,7 @@ public class UserEntity implements User {
 	}
 
 	public UserEntity(String username, String password, String name, String firstLastname, String secondLastname,
-			String city, Set<AdEntity> ads) {
+			String city, Set<AdEntity> ads, ArrayList<String> followed) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -79,6 +81,7 @@ public class UserEntity implements User {
 		this.secondLastname = secondLastname;
 		this.city = city;
 		this.ads = ads;
+		this.followed = followed;
 	}
 
 	public UserEntity(String username, String password, String name, String firstLastname, String secondLastname,
@@ -168,7 +171,7 @@ public class UserEntity implements User {
 	}
 
 	@Override
-	public void setFollowed(final List<String> value) {
+	public void setFollowed(final ArrayList<String> value) {
 		followed = value;
 	}
 

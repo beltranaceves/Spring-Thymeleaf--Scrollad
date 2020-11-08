@@ -1,6 +1,7 @@
 package es.udc.fi.dc.fd.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -35,13 +36,13 @@ public interface User extends Serializable {
 	String getCity();
 
 	void setCity(final String value);
-	
+
 	List<String> getFollowed();
-	
-	void setFollowed(final List<String> value);
-	
+
+	void setFollowed(final ArrayList<String> value);
+
 	Set<AdEntity> getAds();
-	
+
 	void setAds(Set<AdEntity> ads);
 
 }
