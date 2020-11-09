@@ -34,6 +34,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.dc.fd.model.User;
+import es.udc.fi.dc.fd.model.form.AdForm;
+import es.udc.fi.dc.fd.model.form.UserForm;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.repository.UserRepository;
 
@@ -86,5 +88,6 @@ public class UserEntityService implements UserService {
 
 		return user;
 	}
+	
 
 }

@@ -35,7 +35,7 @@ public final class ExampleEntityViewConstants {
 	 * Form bean parameter name.
 	 */
 	public static final String BEAN_FORM = "form";
-
+	
 	/**
 	 * Entities parameter name.
 	 */

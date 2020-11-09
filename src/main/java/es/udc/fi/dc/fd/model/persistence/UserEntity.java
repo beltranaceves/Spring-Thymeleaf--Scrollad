@@ -68,7 +68,7 @@ public class UserEntity implements User {
 	private Set<AdEntity> ads = new HashSet<AdEntity>(0);
 
 	public UserEntity() {
-
+		super();
 	}
 
 	public UserEntity(String username, String password, String name, String firstLastname, String secondLastname,
@@ -94,7 +94,7 @@ public class UserEntity implements User {
 		this.secondLastname = secondLastname;
 		this.city = city;
 	}
-
+	
 	@Override
 	public Integer getId() {
 		return id;

@@ -32,5 +32,6 @@ public interface UserService {
 	public User add(final UserEntity entity);
 	
 	public UserEntity findByUsername(final String username);
+	
 
 }
