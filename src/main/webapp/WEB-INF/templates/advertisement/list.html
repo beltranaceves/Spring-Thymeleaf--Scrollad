@@ -60,6 +60,10 @@
 					</div>
 				</div>
 			</div>
+			<!-- TODO: remove this after testing get request -->
+			<div th:each="follower, iter : ${user}">
+				<span th:remove="tag" th:text="${follower?.followed}">Follower</span>
+			</div>
 		</div>
 	</section>
 	<script th:inline="javascript">

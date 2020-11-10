@@ -16,7 +16,8 @@
 		</createTable>
 		<createTable tableName="user">
 			<column autoIncrement="true" name="id" type="BIGINT">
-				<constraints nullable="false" unique="true" primaryKey="true" />
+				<constraints nullable="false" unique="true"
+					primaryKey="true" />
 			</column>
 			<column name="username" type="VARCHAR(30)">
 				<constraints nullable="false" unique="true" />
@@ -36,8 +37,17 @@
 			<column name="city" type="VARCHAR(30)">
 				<constraints nullable="false" unique="false" />
 			</column>
-			<column name="followed" type="ARRAY">
-				<constraints nullable="true" unique="false" />
+		</createTable>
+		<createTable tableName="userFollowed">
+			<column name="id" type="BIGINT">
+				<constraints nullable="false" unique="false"
+					primaryKey="true" foreignKeyName="fk_userfollowed_user"
+					references="user(id)" />
+			</column>
+			<column name="followedUser" type="VARCHAR(30)">
+				<constraints nullable="false" unique="false"
+					primaryKey="true" foreignKeyName="fk_userfollowed_followed"
+					references="user(username)" />
 			</column>
 		</createTable>
 		<createTable tableName="advertisement">
@@ -51,7 +61,8 @@
 				<constraints nullable="false" unique="false" />
 			</column>
 			<column name="userA" type="BIGINT">
-				<constraints nullable="false" unique="false" foreignKeyName="fk_advertisement_user" references="user(id)"/>
+				<constraints nullable="false" unique="false"
+					foreignKeyName="fk_advertisement_user" references="user(id)" />
 			</column>
 			<column name="date" type="DATETIME">
 				<constraints nullable="false" unique="false" />
@@ -65,10 +76,11 @@
 				<constraints nullable="false" unique="false" />
 			</column>
 			<column name="ad" type="BIGINT">
-				<constraints nullable="false" unique="false" foreignKeyName="fk_advertisement_ad" references="advertisement(id)"/>
+				<constraints nullable="false" unique="false"
+					foreignKeyName="fk_advertisement_ad" references="advertisement(id)" />
 			</column>
 		</createTable>
-		
+
 	</changeSet>
 
 	<changeSet author="Bernardo" id="initial_data">

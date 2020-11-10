@@ -2,27 +2,31 @@ package es.udc.fi.dc.fd.model.persistence;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.google.common.collect.Sets;
 
 import es.udc.fi.dc.fd.model.User;
 
 @Entity(name = "User")
 @Table(name = "user")
+@SecondaryTable(name = "userFollowed")
 
 public class UserEntity implements User {
 
@@ -61,8 +65,9 @@ public class UserEntity implements User {
 	@Column(name = "city", nullable = false, unique = true)
 	private String city = "";
 
-	@ElementCollection
-	private List<String> followed = new ArrayList<String>();
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "userFollowed", joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"))
+	private Set<String> followedUser = Sets.newHashSet();
 
 	@OneToMany(mappedBy = "userA")
 	private Set<AdEntity> ads = new HashSet<AdEntity>(0);
@@ -72,7 +77,7 @@ public class UserEntity implements User {
 	}
 
 	public UserEntity(String username, String password, String name, String firstLastname, String secondLastname,
-			String city, Set<AdEntity> ads, ArrayList<String> followed) {
+			String city, Set<AdEntity> ads, Set<String> followed) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -81,7 +86,7 @@ public class UserEntity implements User {
 		this.secondLastname = secondLastname;
 		this.city = city;
 		this.ads = ads;
-		this.followed = followed;
+		this.followedUser = followed;
 	}
 
 	public UserEntity(String username, String password, String name, String firstLastname, String secondLastname,
@@ -94,7 +99,7 @@ public class UserEntity implements User {
 		this.secondLastname = secondLastname;
 		this.city = city;
 	}
-	
+
 	@Override
 	public Integer getId() {
 		return id;
@@ -166,13 +171,13 @@ public class UserEntity implements User {
 	}
 
 	@Override
-	public List<String> getFollowed() {
-		return followed;
+	public Set<String> getFollowed() {
+		return followedUser;
 	}
 
 	@Override
-	public void setFollowed(final ArrayList<String> value) {
-		followed = value;
+	public void setFollowed(final Set<String> value) {
+		followedUser = value;
 	}
 
 	@Override

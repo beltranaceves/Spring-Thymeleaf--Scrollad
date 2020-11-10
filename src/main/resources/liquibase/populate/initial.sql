@@ -26,11 +26,19 @@
 -- ****************************************
 -- This SQL script populates the initial data.
 -- ****************************************
-INSERT INTO user (username, password, name, first_lastname, second_lastname, city, followed) VALUES
-   ('viewer', '$2a$10$UaIX1wXSdM58WtMqcF9LC.kjvNGQHACJdcpttgP9yiA/U6GBganJS', 'Viewer', 'Viewer1', 'Viewer2', 'city', ('viewer2', 'viewer3' ));
+INSERT INTO user (username, password, name, first_lastname, second_lastname, city) VALUES
+   ('viewer', '$2a$10$UaIX1wXSdM58WtMqcF9LC.kjvNGQHACJdcpttgP9yiA/U6GBganJS', 'Viewer', 'Viewer1', 'Viewer2', 'city'),
+   ('viewer2', '$2a$10$OazefPSDK0KyGuosq/0PoeFwyuraVQyewMbWNmxYAwU1k25h5gsGe', 'viewer2', 'viewer2', 'viewer2', 'city2'),
+   ('viewer3', '$2a$10$TI0OXicCwUpWeYZ7yrE9AOHZUdAtdVGd97p1z/bcXnnNqPuCm4O5u', 'viewer3', 'viewer3', 'viewer3', 'city3');
 
 INSERT INTO advertisement (title, description, date, userA) VALUES
 
    ('anuncio1' ,'1 anuncio', parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1),
    ('anuncio2' ,'2 anuncio', parsedatetime('16-09-2020 17:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1),
    ('anuncio3' ,'3 anuncio', parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1);
+   
+INSERT INTO userFollowed(id, followedUser) VALUES
+	
+	(1, 'viewer2'),
+	(1, 'viewer3'),
+	(3, 'viewer');

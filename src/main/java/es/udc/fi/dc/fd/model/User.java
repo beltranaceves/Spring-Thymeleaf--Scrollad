@@ -1,8 +1,6 @@
 package es.udc.fi.dc.fd.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
@@ -37,9 +35,9 @@ public interface User extends Serializable {
 
 	void setCity(final String value);
 
-	List<String> getFollowed();
+	Set<String> getFollowed();
 
-	void setFollowed(final ArrayList<String> value);
+	void setFollowed(final Set<String> value);
 
 	Set<AdEntity> getAds();
 
