@@ -66,7 +66,8 @@ public class UserEntity implements User {
 	private String city = "";
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "userFollowed", joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"))
+	@CollectionTable(name = "userFollowed", joinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"))
+	@Column(name = "followedUser", nullable = false)
 	private Set<String> followedUser = Sets.newHashSet();
 
 	@OneToMany(mappedBy = "userA")

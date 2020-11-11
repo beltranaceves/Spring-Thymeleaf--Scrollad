@@ -39,14 +39,16 @@
 			</column>
 		</createTable>
 		<createTable tableName="userFollowed">
-			<column name="id" type="BIGINT">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="userId" type="BIGINT">
 				<constraints nullable="false" unique="false"
-					primaryKey="true" foreignKeyName="fk_userfollowed_user"
-					references="user(id)" />
+					foreignKeyName="fk_userfollowed_user" references="user(id)" />
 			</column>
 			<column name="followedUser" type="VARCHAR(30)">
 				<constraints nullable="false" unique="false"
-					primaryKey="true" foreignKeyName="fk_userfollowed_followed"
+					foreignKeyName="fk_userfollowed_followed"
 					references="user(username)" />
 			</column>
 		</createTable>

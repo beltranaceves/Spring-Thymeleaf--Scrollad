@@ -60,10 +60,23 @@
 					</div>
 				</div>
 			</div>
-			<!-- TODO: remove this after testing get request -->
+			<!-- TODO: remove testing code below 
 			<div th:each="follower, iter : ${user}">
 				<span th:remove="tag" th:text="${follower?.followed}">Follower</span>
 			</div>
+			<form action="#" th:action="@{/followAndUnfollow/unfollow}" method="post"
+				role="form">
+				<input type="text" id="user" name="user"> <input type="text"
+					id="unfollowed" name="unfollowed">
+				<button type="submit">EnviarUnfollow</button>
+			</form>
+			<form action="#" th:action="@{/followAndUnfollow/follow}" method="post"
+				role="form">
+				<input type="text" id="user" name="user"> <input type="text"
+					id="followed" name="followed">
+				<button type="submit">EnviarFollow</button>
+			</form>
+			 TODO: Remove testing code above -->
 		</div>
 	</section>
 	<script th:inline="javascript">

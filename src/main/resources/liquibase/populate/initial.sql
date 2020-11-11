@@ -37,7 +37,7 @@ INSERT INTO advertisement (title, description, date, userA) VALUES
    ('anuncio2' ,'2 anuncio', parsedatetime('16-09-2020 17:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1),
    ('anuncio3' ,'3 anuncio', parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1);
    
-INSERT INTO userFollowed(id, followedUser) VALUES
+INSERT INTO userFollowed(userId, followedUser) VALUES
 	
 	(1, 'viewer2'),
 	(1, 'viewer3'),
