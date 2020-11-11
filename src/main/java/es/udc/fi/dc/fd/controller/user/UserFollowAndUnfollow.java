@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -53,11 +55,17 @@ public class UserFollowAndUnfollow {
 	}
 
 	@PostMapping(path = "/follow")
-	public void saveFollow(final ModelMap model, @RequestParam(value = "user", required = true) String user,
-			@RequestParam(value = "followed", required = true) String followed, final HttpServletRequest request,
-			final HttpServletResponse response) {
+	public void saveFollow(final ModelMap model, @RequestParam(value = "followed", required = true) String followed,
+			final HttpServletRequest request, final HttpServletResponse response) {
 
-		final UserEntity userEntity = userService.findByUsername(user);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		final UserEntity userEntity = userService.findByUsername(username);
 
 		if (userEntity.getName().equals("")) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -70,19 +78,26 @@ public class UserFollowAndUnfollow {
 	}
 
 	@PostMapping(path = "/unfollow")
-	public void deleteFollow(final ModelMap model, @RequestParam(value = "user", required = true) String user,
+	public void deleteFollow(final ModelMap model,
 			@RequestParam(value = "unfollowed", required = true) String unfollowed, final HttpServletRequest request,
 			final HttpServletResponse response) {
 
-		final UserEntity aux = userService.findByUsername(user);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		final UserEntity userEntity = userService.findByUsername(username);
 
-		if (aux.getName().equals("")) {
+		if (userEntity.getName().equals("")) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		} else {
-			Set<String> fol = aux.getFollowed();
+			Set<String> fol = userEntity.getFollowed();
 			fol.remove(unfollowed);
-			aux.setFollowed(fol);
-			userRepository.save(aux);
+			userEntity.setFollowed(fol);
+			userRepository.save(userEntity);
 		}
 	}
 }
