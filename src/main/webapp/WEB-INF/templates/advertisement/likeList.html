@@ -10,7 +10,7 @@
 		<p>This view allows you to visualize all the advertisements you
 			had liked.</p>
 
-		<div class="container">
+		<div class="container" th:fragment="list">
 			<div class="row">
 				<div class="col-md-4"
 					th:each="advertisement, iter : ${advertisements}">
@@ -21,6 +21,12 @@
 							<!-- Wrapper for slides -->
 							<div class="carousel-inner">
 								<!-- Resto de imagenes -->
+								<div th:if="${advertisement?.images.isEmpty()}">
+									<img
+										src="https://safetyaustraliagroup.com.au/wp-content/uploads/2019/05/image-not-found.png"
+										alt=""
+										style="margin: auto; max-height: -webkit-fill-available;" />
+								</div>
 								<div th:each="image, iterstat : ${advertisement?.images}"
 									style="height: 350px; width: 100%;"
 									th:class="${iterstat.index}== 0  ? 'carousel-item item active':'carousel-item item'">
@@ -48,24 +54,33 @@
 						<div class="row">
 							<div class="price col-md-6">
 								<h5>
-									<span th:remove="tag" th:text="${advertisement?.title}">Title</span>
+									<span th:remove="tag" th:text="${advertisement?.title}"></span>
 								</h5>
 								<p>
-									<span th:remove="tag" th:text="${advertisement?.description}">Description</span>
+									<span th:remove="tag" th:text="${advertisement?.description}"></span>
 								</p>
 								<p>
 									<span th:remove="tag"
-										th:text="${advertisement?.userA.username}">User</span>
+										th:text="${advertisement?.userA.username} + '-' + ${advertisement?.userA.city}">User</span>
 								</p>
 								<p>
-									<span th:remove="tag" th:text="${advertisement?.date}">User</span>
+									<span th:remove="tag"
+										th:text="${#temporals.format(advertisement?.date,'dd/MMM/yyyy HH:mm')}"></span>
 								</p>
-								<form th:action="@{/advertisement/deleteLike}"
-									th:object="${advertisement}" method="post">
-									<input type="hidden" name="advertisement"
-										th:value="${advertisement?.id}">
-									<button type="submit">Dislike</button>
-								</form>
+								<p>
+									<span th:remove="tag"
+										th:text="${#numbers.formatCurrency(advertisement?.price)}"></span>
+								</p>
+								<p>
+								<div>
+									<form th:action="@{/advertisement/deleteLike}"
+										th:object="${advertisement}" method="post">
+										<input type="hidden" name="advertisement"
+											th:value="${advertisement?.id}">
+										<button type="submit">Dislike</button>
+									</form>
+								</div>
+								</p>
 							</div>
 						</div>
 					</div>
