@@ -46,6 +46,26 @@ public final class AdEntityViewConstants {
 	 * Name for the ad deletion success.
 	 */
 	public static final String DELETE_AD_SUCCESS = "advertisement/deleteSuccess";
+	
+    /**
+     * Name for the liked ad deletion success.
+     */
+    public static final String DELETE_LIKED_AD_SUCCESS = "advertisement/deleteLikeSuccess";
+    
+    /**
+     * Name for the liked ad addition success.
+     */
+    public static final String ADD_LIKED_AD_SUCCESS = "advertisement/addLikeSuccess";
+    
+    /**
+     * Name for the liked ad addition success.
+     */
+    public static final String ADD_LIKED_AD_UNSUCCESS = "advertisement/addLikeUnsuccess";
+
+    /**
+     * Name for the entities view.
+     */
+    public static final String VIEW_ENTITY_LIST_BY_LIKES = "advertisement/likeList";
 
 	/**
 	 * Name for the exception view.
@@ -68,5 +88,4 @@ public final class AdEntityViewConstants {
 	private AdEntityViewConstants() {
 		super();
 	}
-
 }
