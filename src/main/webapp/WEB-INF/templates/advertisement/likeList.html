@@ -60,22 +60,12 @@
 								<p>
 									<span th:remove="tag" th:text="${advertisement?.date}">User</span>
 								</p>
-								<p>
-								<div>
-									<form th:action="@{/advertisement/deleteLike}"
-										th:object="${advertisement}" method="post">
-										<input type="hidden" name="advertisement"
-											th:value="${advertisement?.id}">
-										<button type="submit">Dislike</button>
-									</form>
-									<!--								
-									<button th:id="${advertisement?.id}+like"
-										th:onclick="|javascript:addLike('${advertisement?.id}like', '${advertisement?.id}removeLike')|">â�¤</button>
-									<button th:id="${advertisement?.id}+removeLike" disabled
-										th:onclick="|javascript:removeLike('${advertisement?.id}like', '${advertisement?.id}removeLike')|">â™¡</button>
-									-->
-								</div>
-								</p>
+								<form th:action="@{/advertisement/deleteLike}"
+									th:object="${advertisement}" method="post">
+									<input type="hidden" name="advertisement"
+										th:value="${advertisement?.id}">
+									<button type="submit">Dislike</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -84,22 +74,6 @@
 		</div>
 		</div>
 	</section>
-
-	<script th:inline="javascript">
-		function addLike(idlike, idremoveLike) {
-			document.getElementById(idlike).disabled = true;
-			document.getElementById(idlike).style.backgroundColor = "red";
-			document.getElementById(idremoveLike).disabled = false;
-		}
-
-		function removeLike(idlike, idunfollow) {
-			document.getElementById(idremoveLike).disabled = true;
-			document.getElementById(idlike).disabled = false;
-			document.getElementById(idlike).style.backgroundColor = "white";
-		}
-	</script>
-
-
 	<footer>
 		<div th:include="fragments/scripts :: general" />
 	</footer>

@@ -21,7 +21,7 @@ import es.udc.fi.dc.fd.service.ad.AdEntityService;
 public class LikeServiceImpl implements LikeService {
 
 	private final LikeRepository likeRepository;
-	
+
 	@Autowired
 	AdEntityService adService;
 
@@ -36,7 +36,10 @@ public class LikeServiceImpl implements LikeService {
 		LikeEntity like = new LikeEntity();
 		like.setUser(user);
 		like.setAdLiked(adLiked);
-		return likeRepository.save(like);
+		if (likeRepository.findByAdLikedIdAndUserId(adLiked.getId(), user.getId()) == null)
+			return likeRepository.save(like);
+		else
+			return null;
 	}
 
 	@Override
@@ -46,12 +49,17 @@ public class LikeServiceImpl implements LikeService {
 		List<AdEntity> ads = new ArrayList<AdEntity>();
 		Iterator<LikeEntity> iterator = likeIds.iterator();
 		while (iterator.hasNext()) {
-			LikeEntity like =  iterator.next();
+			LikeEntity like = iterator.next();
 			if (like.getUser().getId() == user.getId()) {
 				AdEntity ad = adService.findById(like.getAdLiked().getId());
 				ads.add(ad);
 			}
 		}
+		ads.forEach((adEntity) -> {
+			adEntity.getImages().forEach((image) -> {
+				image.convertAndLoadImageBase64();
+			});
+		});
 
 		return ads;
 	}
@@ -61,6 +69,5 @@ public class LikeServiceImpl implements LikeService {
 		LikeEntity like = likeRepository.findByAdLikedIdAndUserId(adId, userId);
 		likeRepository.deleteById(like.getId());
 	}
-
 
 }

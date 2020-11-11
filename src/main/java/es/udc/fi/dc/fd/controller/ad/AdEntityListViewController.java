@@ -131,8 +131,10 @@ public class AdEntityListViewController {
 			@ModelAttribute(AdEntityViewConstants.PARAM_ENTITY) @Valid final Integer adId) {
 		UserEntity user = userService.findById(getLoggedUser(model).getId());
 		AdEntity adLiked = adEntityService.findById(adId);
-		likedAdService.addLike(user, adLiked);
-		return AdEntityViewConstants.ADD_LIKED_AD_SUCCESS;
+		if (likedAdService.addLike(user, adLiked) != null)
+			return AdEntityViewConstants.ADD_LIKED_AD_SUCCESS;
+		else
+			return AdEntityViewConstants.ADD_LIKED_AD_UNSUCCESS;
 	}
 
 	@PostMapping(path = "/deleteLike")

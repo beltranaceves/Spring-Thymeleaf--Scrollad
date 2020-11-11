@@ -52,6 +52,11 @@ public final class AdEntityViewConstants {
      * Name for the liked ad addition success.
      */
     public static final String ADD_LIKED_AD_SUCCESS = "advertisement/addLikeSuccess";
+    
+    /**
+     * Name for the liked ad addition success.
+     */
+    public static final String ADD_LIKED_AD_UNSUCCESS = "advertisement/addLikeUnsuccess";
 
     /**
      * Name for the exception view.
