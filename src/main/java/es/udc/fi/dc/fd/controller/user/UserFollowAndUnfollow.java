@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.udc.fi.dc.fd.controller.ad.AdEntityViewConstants;
+import es.udc.fi.dc.fd.controller.entity.ExampleEntityViewConstants;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.repository.UserRepository;
+import es.udc.fi.dc.fd.service.ad.AdEntityService;
 import es.udc.fi.dc.fd.service.user.UserService;
 
 @Controller
@@ -29,6 +32,9 @@ public class UserFollowAndUnfollow {
 	private final UserService userService;
 
 	private final UserRepository userRepository;
+	
+	private final AdEntityService adEntityService;
+	
 
 	@Autowired
 	public UserDetailsService userDetailsService;
@@ -39,11 +45,12 @@ public class UserFollowAndUnfollow {
 	 * @param service example entity service
 	 */
 	@Autowired
-	public UserFollowAndUnfollow(final UserService service, final UserRepository repo) {
+	public UserFollowAndUnfollow(final UserService service, final UserRepository repo, final AdEntityService adService ) {
 		super();
 
 		userService = checkNotNull(service, "Received a null pointer as service");
 		userRepository = checkNotNull(repo, "received a null pointer as repo");
+		adEntityService = checkNotNull(adService, "received a null pointer as repo");
 	}
 
 	@GetMapping
@@ -55,7 +62,7 @@ public class UserFollowAndUnfollow {
 	}
 
 	@PostMapping(path = "/follow")
-	public void saveFollow(final ModelMap model, @RequestParam(value = "followed", required = true) String followed,
+	public String saveFollow(final ModelMap model, @RequestParam(value = "followed", required = true) String followed,
 			final HttpServletRequest request, final HttpServletResponse response) {
 
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -75,10 +82,13 @@ public class UserFollowAndUnfollow {
 			userEntity.setFollowed(followers);
 			userRepository.save(userEntity);
 		}
+
+		return "fragments/goBack";
+		
 	}
 
 	@PostMapping(path = "/unfollow")
-	public void deleteFollow(final ModelMap model,
+	public String deleteFollow(final ModelMap model,
 			@RequestParam(value = "unfollowed", required = true) String unfollowed, final HttpServletRequest request,
 			final HttpServletResponse response) {
 
@@ -99,5 +109,11 @@ public class UserFollowAndUnfollow {
 			userEntity.setFollowed(fol);
 			userRepository.save(userEntity);
 		}
+		
+		
+		
+		return "fragments/goBack";
 	}
+	
+	
 }
