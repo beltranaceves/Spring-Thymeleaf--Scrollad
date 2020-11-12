@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+	<header class="header" th:include="fragments/menu :: menu" />
+	<section id="main-section" class="container-fluid">
+		<h1 th:text="#{title.advertisement.list}">Advertisement list</h1>
+		<p>This view allows you to visualize all the advertisements added
+			to this site.</p>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4"
+					th:each="advertisement, iter : ${advertisements}">
+
+					<div class="photo image-background">
+						<div th:id="'carousel' + ${iter.index}" class="carousel slide"
+							data-interval="false">
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner">
+								<!-- Resto de imagenes -->
+								<div th:if="${advertisement?.images.isEmpty()}">
+									<img
+										src="https://safetyaustraliagroup.com.au/wp-content/uploads/2019/05/image-not-found.png"
+										alt="" style="margin: auto; max-height: -webkit-fill-available;" />
+								</div>
+								<div th:each="image, iterstat : ${advertisement?.images}"
+									style="height: 350px; width: 100%;"
+									th:class="${iterstat.index}== 0  ? 'carousel-item item active':'carousel-item item'">
+									<img
+										th:src="@{'data:image/jpeg;base64,'+${image?.imageBase64}}"
+										class="img-responsive" alt=""
+										style="margin: auto; max-height: -webkit-fill-available;" />
+								</div>
+
+								<!-- Left and right controls -->
+								<a class="left carousel-control"
+									th:href="@{'#carousel' + ${iter.index}}" data-slide="prev">
+									<span class="glyphicon glyphicon-chevron-left"></span> <span
+									class="sr-only">Previous</span>
+								</a> <a class="right carousel-control"
+									th:href="@{'#carousel' + ${iter.index}}" data-slide="next">
+									<span class="glyphicon glyphicon-chevron-right"></span> <span
+									class="sr-only">Next</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="info">
+						<div class="row">
+							<div class="price col-md-6">
+								<h5>
+									<span th:remove="tag" th:text="${advertisement?.title}">Title</span>
+								</h5>
+								<p>
+									<span th:remove="tag" th:text="${advertisement?.description}">Description</span>
+								</p>
+								<p>
+									<span th:remove="tag"
+										th:text="${advertisement?.userA.username}">User</span>
+								</p>
+								<p>
+									<span th:remove="tag" th:text="${advertisement?.date}">User</span>
+								</p>
+								<p>
+								<form th:action="@{/advertisement/delete}"
+									th:object="${advertisement}" method="post">
+									<input type="hidden" name="advertisement"
+										th:value="${advertisement?.id}">
+									<button type="submit">Delete</button>
+								</form>
+								<form th:action="@{/advertisement/updateIsOnHold}"
+									th:object="${advertisement}" method="post">
+									<input type="hidden" name="advertisement"
+										th:value="${advertisement?.id}">
+									<button type="submit">
+										<td
+											th:text="${advertisement?.isOnHold} ? 'Resume' : 'Put on hold'" />
+									</button>
+								</form>
+								</p>
+								<p>
+								<div>
+									<form th:action="@{/advertisement/addLike}"
+										th:object="${advertisement}" method="post">
+										<input type="hidden" name="advertisement"
+											th:value="${advertisement?.id}">
+										<button type="submit">Like</button>
+									</form>
+								</div>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<div th:include="fragments/scripts :: general" />
+	</footer>
+</body>
+
+</html>

@@ -35,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
-import es.udc.fi.dc.fd.repository.UserRepository;
+import es.udc.fi.dc.fd.repository.UserEntityRepository;
 
 /**
  * Implementation of the user service
@@ -46,10 +46,10 @@ import es.udc.fi.dc.fd.repository.UserRepository;
 @Transactional
 public class UserEntityService implements UserService {
 
-	private final UserRepository userRepository;
+	private final UserEntityRepository userRepository;
 
 	@Autowired
-	public UserEntityService(final UserRepository repository) {
+	public UserEntityService(final UserEntityRepository repository) {
 		super();
 
 		userRepository = checkNotNull(repository, "Received a null pointer as repository");
@@ -64,27 +64,32 @@ public class UserEntityService implements UserService {
 		return userRepository.save(entity);
 
 	}
-	
+
 	@Override
 	public final UserEntity findByUsername(final String username) {
 
 		final UserEntity user;
-		
+
 		checkNotNull(username, "Received a null pointer as username");
 
 		Optional<UserEntity> result = userRepository.findByUsername(username);
-		
+
 		if (!result.isPresent()) {
-			
+
 			user = new UserEntity();
 			System.out.println("No se ha encontrado ningun usuario");
-			
+
 		} else {
-			
+
 			user = result.get();
 		}
 
 		return user;
+	}
+	
+	
+	public UserEntity findById(final Integer id) {
+		return userRepository.findById(id).get();
 	}
 
 }

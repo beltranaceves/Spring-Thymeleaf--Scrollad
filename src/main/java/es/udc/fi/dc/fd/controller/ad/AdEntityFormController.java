@@ -64,7 +64,8 @@ public class AdEntityFormController {
 	public String saveEntity(final ModelMap model,
 			@ModelAttribute(AdEntityViewConstants.BEAN_FORM) @Valid final AdForm form,
 			final BindingResult bindingResult, final HttpServletResponse response,
-			@RequestParam(value = "file", required = true) Part[] file) {
+			@RequestParam(value = "file", required = true) Part[] file,
+			@RequestParam(value = "price", required = true) Double price) {
 		final String path;
 		final AdEntity entity;
 		final List<ImageEntity> imageEntityList;
@@ -84,17 +85,14 @@ public class AdEntityFormController {
 			entity.setTitle(form.getTitle());
 			entity.setDescription(form.getDescription());
 			entity.setDate(LocalDateTime.now());
+			entity.setIsOnHold(false);
+			entity.setPrice(price);
 
 			imageEntityList = new ArrayList<ImageEntity>();
 
-			if (file != null) {
+			if (file[0].getSize() > 0) {
 				byte[] filecontent = null;
-//				try {
-//					InputStream inputStream = file[0].getInputStream();
-//					filecontent = IOUtils.toByteArray(inputStream);
-//					entity.setImage(filecontent);
-//				} catch (IOException ex) {
-//				}
+
 				for (int i = 0; i < file.length; i++) {
 					imageEntity = new ImageEntity();
 					filecontent = null;
@@ -123,14 +121,16 @@ public class AdEntityFormController {
 
 			adEntityService.add(entity);
 
-			imageEntityList.forEach((imageEntityListItem) -> {
-				imageEntityListItem.setAdEntity(entity);
-			});
-			imageEntityList.forEach((imageEntityListItem) -> {
-				imageEntityService.add(imageEntityListItem);
-			});
+			if (!imageEntityList.isEmpty()) {
 
-			adEntityService.findById(entity.getId()).setImages(imageEntityList);
+				imageEntityList.forEach((imageEntityListItem) -> {
+					imageEntityListItem.setAdEntity(entity);
+				});
+				imageEntityList.forEach((imageEntityListItem) -> {
+					imageEntityService.add(imageEntityListItem);
+				});
+				adEntityService.findById(entity.getId()).setImages(imageEntityList);
+			}
 
 			loadViewModel(model);
 

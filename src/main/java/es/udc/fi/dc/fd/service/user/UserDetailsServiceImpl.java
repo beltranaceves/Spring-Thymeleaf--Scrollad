@@ -37,7 +37,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
-import es.udc.fi.dc.fd.repository.UserRepository;
+import es.udc.fi.dc.fd.repository.UserEntityRepository;
 
 /**
  * Implementation of the user service
@@ -48,10 +48,10 @@ import es.udc.fi.dc.fd.repository.UserRepository;
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	private final UserRepository userRepository;
+	private final UserEntityRepository userRepository;
 
 	@Autowired
-	public UserDetailsServiceImpl(final UserRepository repository) {
+	public UserDetailsServiceImpl(final UserEntityRepository repository) {
 		super();
 
 		userRepository = checkNotNull(repository, "Received a null pointer as repository");

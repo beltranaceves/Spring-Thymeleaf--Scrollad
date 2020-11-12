@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+	<header class="header" th:include="fragments/menu :: menu" />
+	<section id="main-section" class="container-fluid">
+		<h1 th:text="#{title.advertisement.search}">Advertisement search</h1>
+        <hr>
+        <div class="container-fluid">
+            <form class="form-inline my-2 my-lg-0" th:action="@{/advertisement/search}">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <select class="form-control" th:name="city">
+                            <option selected value="" th:text="#{title.advertisement.city}"></option>
+                            <option th:each="city: ${cities}" th:value="${city}" th:text="${city}"></option>
+                        </select>
+					</div>
+					<div class="col-lg-2">
+                        <select class="form-control" th:name="interval">
+                            <option selected value="" th:text="#{title.advertisement.date}"></option>
+                            <option value="day" th:text="#{label.advertisement.day}"></option>
+                            <option value="week" th:text="#{label.advertisement.week}"></option>
+                            <option value="month" th:text="#{label.advertisement.month}"></option>
+                            <option value="year" th:text="#{label.advertisement.year}"></option>
+                        </select>
+					</div>
+					<div class="col-lg-2"><input class="form-control mr-sm-2" style="width: 120px"type="number" th:name="minPrice" placeholder="Min. price" aria-label="Min. price" min="0" max="1000"></div>
+					<div class="col-lg-2"><input class="form-control mr-sm-2"style="width: 120px;" type="number" th:name="maxPrice" placeholder="Max. price" aria-label="Max. price" min="0" max="1000"></div>
+                    <div class="col-lg-2"><input class="form-control mr-sm-2" type="search" th:name="keywords" placeholder="Search" aria-label="Search"></div>
+                    <div class="col-lg-1"><button class="btn btn-primary" type="submit">Search</button></div>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <div class="container" th:include="advertisement/list :: list" />
+	</section>
+
+	<footer>
+		<div th:include="fragments/scripts :: general" />
+	</footer>
+</body>
+
+</html>

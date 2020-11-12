@@ -7,6 +7,8 @@
 <http>
   <intercept-url pattern="/" access="permitAll"></intercept-url>
   <intercept-url pattern="/advertisement/*" access="isAuthenticated()"></intercept-url>
+  <intercept-url pattern="/followAndUnfollow/*" access="isAuthenticated()"></intercept-url>
+  <intercept-url pattern="/followAndUnfollow" access="isAuthenticated()"></intercept-url>
   <form-login login-page="/login" authentication-failure-url="/login?error"></form-login>
   <logout invalidate-session="true" delete-cookies="JSESSIONID" logout-success-url="/" logout-url="/logout"></logout>
 </http>
