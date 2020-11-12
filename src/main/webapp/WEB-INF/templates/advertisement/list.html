@@ -43,30 +43,23 @@
 								<p>
 									<span th:remove="tag" th:text="${advertisement?.description}">Description</span>
 								</p>
-								<p>
 								<div>
-									<form action="#" th:action="@{/followAndUnfollow/follow}" method="post" role="form">
-											
-										<input type="hidden" id="followed" name="followed" th:value="${advertisement?.userA.username}"></input>
-										
-										<span th:remove="tag" th:text="${advertisement?.userA.username}">User</span>
-										
+									<form th:id="${advertisement?.id}+followform" action="#"
+										th:action="@{/followAndUnfollow/follow}" method="post" role="form">
+										<input type="hidden" id="followed" name="followed"
+											th:value="${advertisement?.userA.username}"></input> <span
+											th:remove="tag" th:text="${advertisement?.userA.username}">User</span>
 										<button type="submit" th:id="${advertisement?.id}+follow"
-											th:onclick="|javascript:seguir('${advertisement?.id}follow', '${advertisement?.id}unfollow')|">❤</button>
-									
+											th:onclick="|javascript:seguir('${advertisement?.id}follow', '${advertisement?.id}unfollow', '${advertisement?.id}followform')|">❤</button>
 									</form>
-									
-									<form action="#" th:action="@{/followAndUnfollow/unfollow}" method="post" role="form">
-										
-										<input type="hidden" id="unfollowed" name="unfollowed" th:value="${advertisement?.userA.username}"></input>
-										
-										<button th:id="${advertisement?.id}+unfollow" disabled
-											th:onclick="|javascript:noSeguir('${advertisement?.id}follow', '${advertisement?.id}unfollow')|">♡</button>
-									
+									<form th:id="${advertisement?.id}+unfollowform" action="#"
+										th:action="@{/followAndUnfollow/unfollow}" method="post" role="form">
+										<input type="hidden" id="unfollowed" name="unfollowed"
+											th:value="${advertisement?.userA.username}"></input>
+										<button type="submit" th:id="${advertisement?.id}+unfollow" disabled
+											th:onclick="|javascript:noSeguir('${advertisement?.id}follow', '${advertisement?.id}unfollow', '${advertisement?.id}unfollowform')|">♡</button>
 									</form>
-									
 								</div>
-								</p>
 								<p>
 									<span th:remove="tag" th:text="${advertisement?.date}">User</span>
 								</p>
@@ -75,17 +68,18 @@
 					</div>
 				</div>
 			</div>
-			
 		</div>
 	</section>
 	<script th:inline="javascript">
-		function seguir(idfollow, idunfollow) {
+		function seguir(idfollow, idunfollow, form) {
+			document.getElementById(form).submit();
 			document.getElementById(idfollow).disabled = true;
 			document.getElementById(idfollow).style.backgroundColor = "red";
 			document.getElementById(idunfollow).disabled = false;
 		}
 
-		function noSeguir(idfollow, idunfollow) {
+		function noSeguir(idfollow, idunfollow, form) {
+			document.getElementById(form).submit();
 			document.getElementById(idunfollow).disabled = true;
 			document.getElementById(idfollow).disabled = false;
 			document.getElementById(idfollow).style.backgroundColor = "white";

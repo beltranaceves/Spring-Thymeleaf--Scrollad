@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import es.udc.fi.dc.fd.controller.ad.AdEntityViewConstants;
-import es.udc.fi.dc.fd.controller.entity.ExampleEntityViewConstants;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.repository.UserRepository;
 import es.udc.fi.dc.fd.service.ad.AdEntityService;
@@ -32,9 +30,8 @@ public class UserFollowAndUnfollow {
 	private final UserService userService;
 
 	private final UserRepository userRepository;
-	
+
 	private final AdEntityService adEntityService;
-	
 
 	@Autowired
 	public UserDetailsService userDetailsService;
@@ -45,7 +42,8 @@ public class UserFollowAndUnfollow {
 	 * @param service example entity service
 	 */
 	@Autowired
-	public UserFollowAndUnfollow(final UserService service, final UserRepository repo, final AdEntityService adService ) {
+	public UserFollowAndUnfollow(final UserService service, final UserRepository repo,
+			final AdEntityService adService) {
 		super();
 
 		userService = checkNotNull(service, "Received a null pointer as service");
@@ -84,7 +82,7 @@ public class UserFollowAndUnfollow {
 		}
 
 		return "fragments/goBack";
-		
+
 	}
 
 	@PostMapping(path = "/unfollow")
@@ -109,11 +107,8 @@ public class UserFollowAndUnfollow {
 			userEntity.setFollowed(fol);
 			userRepository.save(userEntity);
 		}
-		
-		
-		
+
 		return "fragments/goBack";
 	}
-	
-	
+
 }
