@@ -64,23 +64,23 @@ public class UserEntityService implements UserService {
 		return userRepository.save(entity);
 
 	}
-	
+
 	@Override
 	public final UserEntity findByUsername(final String username) {
 
 		final UserEntity user;
-		
+
 		checkNotNull(username, "Received a null pointer as username");
 
 		Optional<UserEntity> result = userRepository.findByUsername(username);
-		
+
 		if (!result.isPresent()) {
-			
+
 			user = new UserEntity();
 			System.out.println("No se ha encontrado ningun usuario");
-			
+
 		} else {
-			
+
 			user = result.get();
 		}
 

@@ -34,9 +34,13 @@ public interface User extends Serializable {
 	String getCity();
 
 	void setCity(final String value);
-	
+
+	Set<String> getFollowed();
+
+	void setFollowed(final Set<String> value);
+
 	Set<AdEntity> getAds();
-	
+
 	void setAds(Set<AdEntity> ads);
 
 }
