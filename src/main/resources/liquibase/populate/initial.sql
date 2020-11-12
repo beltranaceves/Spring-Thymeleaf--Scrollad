@@ -33,9 +33,13 @@ INSERT INTO user (username, password, name, first_lastname, second_lastname, cit
 
 INSERT INTO advertisement (title, description, date, userA) VALUES
 
-   ('anuncio1' ,'1 anuncio', parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1),
-   ('anuncio2' ,'2 anuncio', parsedatetime('16-09-2020 17:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1),
-   ('anuncio3' ,'3 anuncio', parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1);
+   ('anuncio1' ,'primer anuncio', parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1),
+   ('anuncio2' ,'segundo anuncio', parsedatetime('16-09-2020 17:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1),
+   ('anuncio3' ,'tercer anuncio', parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 1),
+   ('anuncio4' ,'cuarto anuncio', parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 2),
+   ('anuncio5' ,'quinto anuncio', parsedatetime('16-09-2020 17:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 2),
+   ('anuncio6' ,'sexto anuncio', parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 3);
+
    
 INSERT INTO userFollowed(userId, followedUser) VALUES
 	
