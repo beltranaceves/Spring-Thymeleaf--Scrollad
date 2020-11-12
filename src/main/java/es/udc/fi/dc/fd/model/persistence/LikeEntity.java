@@ -26,11 +26,11 @@ public class LikeEntity implements Serializable {
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
 
-	@ManyToOne(targetEntity = UserEntity.class, optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = UserEntity.class, optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user")
 	private UserEntity user;
 
-	@ManyToOne(targetEntity = AdEntity.class, optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = AdEntity.class, optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "adLiked")
 	private AdEntity adLiked;
 
