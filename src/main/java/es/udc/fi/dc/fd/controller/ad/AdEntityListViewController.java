@@ -26,6 +26,9 @@ package es.udc.fi.dc.fd.controller.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,6 +120,9 @@ public class AdEntityListViewController {
 	 */
 	private final void loadViewModel(final ModelMap model) {
 
+		Iterable<AdEntity> likedAds = likedAdService.getAdsLikedByUser(getLoggedUser(model));
+		List<Integer> likesList = new ArrayList<>();
+
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
 		if (principal instanceof UserDetails) {
@@ -125,6 +131,12 @@ public class AdEntityListViewController {
 			username = principal.toString();
 		}
 		final UserEntity userEntity = userService.findByUsername(username);
+
+		likedAds.forEach(likedAd -> {
+			likesList.add(likedAd.getId());
+		});
+		model.addAttribute("likesList", likesList);
+
 		model.put(AdEntityViewConstants.PARAM_ENTITIES, adEntityService.getAllEntities());
 		model.put("user", userEntity);
 		model.put("follows", userEntity.getFollowed());

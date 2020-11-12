@@ -80,6 +80,33 @@
 										</div>
 									</form>
 								</div>
+								<div th:unless="${likesList.isEmpty()}">
+									<div th:if="${likesList.contains(advertisement?.id)}">
+										<form th:action="@{/advertisement/deleteLike}"
+											th:object="${advertisement}" method="post">
+											<input type="hidden" name="advertisement"
+												th:value="${advertisement?.id}">
+											<button type="submit">Dislike</button>
+										</form>
+									</div>
+									<div th:unless="${likesList.contains(advertisement?.id)}">
+										<form th:action="@{/advertisement/addLike}"
+											th:object="${advertisement}" method="post">
+											<input type="hidden" name="advertisement"
+												th:value="${advertisement?.id}">
+											<button type="submit">Like</button>
+										</form>
+									</div>
+								</div>
+								<div th:if="${likesList.isEmpty()}">
+									<div>
+										<form th:action="@{/advertisement/addLike}"
+											th:object="${advertisement}" method="post">
+											<input type="hidden" name="advertisement"
+												th:value="${advertisement?.id}">
+											<button type="submit">Like</button>
+										</form>
+									</div>
 								<div>
 									<form th:action="@{/advertisement/addLike}"
 										th:object="${advertisement}" method="post">

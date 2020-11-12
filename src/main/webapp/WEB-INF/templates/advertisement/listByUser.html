@@ -21,6 +21,11 @@
 							<!-- Wrapper for slides -->
 							<div class="carousel-inner">
 								<!-- Resto de imagenes -->
+								<div th:if="${advertisement?.images.isEmpty()}">
+									<img
+										src="https://safetyaustraliagroup.com.au/wp-content/uploads/2019/05/image-not-found.png"
+										alt="" style="margin: auto; max-height: -webkit-fill-available;" />
+								</div>
 								<div th:each="image, iterstat : ${advertisement?.images}"
 									style="height: 350px; width: 100%;"
 									th:class="${iterstat.index}== 0  ? 'carousel-item item active':'carousel-item item'">

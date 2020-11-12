@@ -2,6 +2,8 @@ package es.udc.fi.dc.fd.controller.user;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.udc.fi.dc.fd.controller.ad.AdEntityViewConstants;
+import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.repository.UserEntityRepository;
 import es.udc.fi.dc.fd.service.ad.AdEntityService;
+import es.udc.fi.dc.fd.service.like.LikeService;
 import es.udc.fi.dc.fd.service.user.UserService;
 
 @Controller
@@ -33,6 +37,8 @@ public class UserFollowAndUnfollowController {
 
 	private final AdEntityService adEntityService;
 
+	private final LikeService likedAdService;
+
 	@Autowired
 	public UserDetailsService userDetailsService;
 
@@ -43,12 +49,13 @@ public class UserFollowAndUnfollowController {
 	 */
 	@Autowired
 	public UserFollowAndUnfollowController(final UserService service, final UserEntityRepository repo,
-			final AdEntityService adService) {
+			final AdEntityService adService, final LikeService likeService) {
 		super();
 
 		userService = checkNotNull(service, "Received a null pointer as service");
 		userRepository = checkNotNull(repo, "received a null pointer as repo");
 		adEntityService = checkNotNull(adService, "received a null pointer as repo");
+		likedAdService = checkNotNull(likeService, "Received a null pointer as service");
 	}
 
 	@PostMapping(path = "/follow")
@@ -81,6 +88,12 @@ public class UserFollowAndUnfollowController {
 				userRepository.save(userEntity);
 			}
 		}
+		Iterable<AdEntity> likedAds = likedAdService.getAdsLikedByUser(userEntity);
+		List<Integer> likesList = new ArrayList<>();
+		likedAds.forEach(likedAd -> {
+			likesList.add(likedAd.getId());
+		});
+		model.addAttribute("likesList", likesList);
 		model.put("user", userEntity);
 		model.put("follows", userEntity.getFollowed());
 		model.put(AdEntityViewConstants.PARAM_ENTITIES, adEntityService.getAllEntities());
