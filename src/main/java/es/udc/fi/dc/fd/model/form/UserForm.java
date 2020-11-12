@@ -28,6 +28,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -72,6 +73,8 @@ public final class UserForm implements Serializable {
 	@NotEmpty
 	private String city;
 
+	private Set<String> followed;
+
 	/**
 	 * Constructs a DTO for the example entity form.
 	 */
@@ -103,6 +106,10 @@ public final class UserForm implements Serializable {
 		return city;
 	}
 
+	public final Set<String> getFollowed() {
+		return followed;
+	}
+
 	/**
 	 * Sets the value of the name field.
 	 * 
@@ -132,10 +139,14 @@ public final class UserForm implements Serializable {
 		city = checkNotNull(value, "Received a null pointer as city");
 	}
 
+	public final void setFollowed(final Set<String> value) {
+		followed = value;
+	}
+
 	@Override
 	public String toString() {
-		return "UserForm [Username=" + username + ", name=" + name + ", firstLastname=" + firstLastname + ", secondLastname="
-				+ secondLastname + ", city=" + city + "]";
+		return "UserForm [Username=" + username + ", name=" + name + ", firstLastname=" + firstLastname
+				+ ", secondLastname=" + secondLastname + ", city=" + city + "]";
 	}
 
 	@Override

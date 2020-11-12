@@ -65,12 +65,12 @@ public class AdEntityListViewController {
 	private final UserService userService;
 
 	@Autowired
-	public AdEntityListViewController(final LikeService likeService, final UserService userService,
+	public AdEntityListViewController(final LikeService likeService, final UserService service,
 			final AdEntityService adService) {
 		super();
-		this.likedAdService = checkNotNull(likeService, "Received a null pointer as service");
-		this.adEntityService = checkNotNull(adService, "Received a null pointer as service");
-		this.userService = checkNotNull(userService, "Received a null pointer as service");
+		likedAdService = checkNotNull(likeService, "Received a null pointer as service");
+		adEntityService = checkNotNull(adService, "Received a null pointer as service");
+		userService = checkNotNull(service, "Received a null pointer as service");
 	}
 
 	public UserEntity getLoggedUser(final ModelMap model) {
@@ -102,6 +102,14 @@ public class AdEntityListViewController {
 		return AdEntityViewConstants.VIEW_ENTITY_LIST;
 	}
 
+	@GetMapping(path = "/followed")
+	public String showFollowedAdEntityList(final ModelMap model) {
+		// Loads required data into the model
+		loadViewModel(model);
+
+		return AdEntityViewConstants.VIEW_FOLLOWED_ENTITY_LIST;
+	}
+
 	/**
 	 * Loads the model data required for the entities listing view.
 	 * <p>
@@ -115,11 +123,23 @@ public class AdEntityListViewController {
 		Iterable<AdEntity> likedAds = likedAdService.getAdsLikedByUser(getLoggedUser(model));
 		List<Integer> likesList = new ArrayList<>();
 
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		final UserEntity userEntity = userService.findByUsername(username);
+
 		likedAds.forEach(likedAd -> {
 			likesList.add(likedAd.getId());
 		});
 		model.addAttribute("likesList", likesList);
+
 		model.put(AdEntityViewConstants.PARAM_ENTITIES, adEntityService.getAllEntities());
+		model.put("user", userEntity);
+		model.put("follows", userEntity.getFollowed());
 	}
 
 	private final void loadViewModelByUser(final ModelMap model, UserEntity user) {

@@ -6,19 +6,27 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.google.common.collect.Sets;
 
 import es.udc.fi.dc.fd.model.User;
 
 @Entity(name = "User")
 @Table(name = "user")
+@SecondaryTable(name = "userFollowed")
 
 public class UserEntity implements User {
 
@@ -57,15 +65,20 @@ public class UserEntity implements User {
 	@Column(name = "city", nullable = false, unique = true)
 	private String city = "";
 
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "userFollowed", joinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"))
+	@Column(name = "followedUser", nullable = false)
+	private Set<String> followedUser = Sets.newHashSet();
+
 	@OneToMany(mappedBy = "userA")
 	private Set<AdEntity> ads = new HashSet<AdEntity>(0);
 
 	public UserEntity() {
-
+		super();
 	}
 
 	public UserEntity(String username, String password, String name, String firstLastname, String secondLastname,
-			String city, Set<AdEntity> ads) {
+			String city, Set<AdEntity> ads, Set<String> followed) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -74,6 +87,7 @@ public class UserEntity implements User {
 		this.secondLastname = secondLastname;
 		this.city = city;
 		this.ads = ads;
+		this.followedUser = followed;
 	}
 
 	public UserEntity(String username, String password, String name, String firstLastname, String secondLastname,
@@ -155,6 +169,16 @@ public class UserEntity implements User {
 	@Override
 	public void setCity(final String value) {
 		city = checkNotNull(value, "Received a null pointer as city");
+	}
+
+	@Override
+	public Set<String> getFollowed() {
+		return followedUser;
+	}
+
+	@Override
+	public void setFollowed(final Set<String> value) {
+		followedUser = value;
 	}
 
 	@Override
