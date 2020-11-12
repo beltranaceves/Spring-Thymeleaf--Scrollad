@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,12 +43,18 @@ public class AdEntity implements Ad {
 	@Column(name = "date", nullable = false, unique = true)
 	private LocalDateTime date;
 
+	@Column(name = "price", nullable = false, unique = true)
+	private Double price;
+
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "userA", nullable = false)
 	private UserEntity userA;
 
-	@OneToMany(mappedBy = "ad", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "ad", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<ImageEntity> images;
+	
+	@Column(name = "isOnHold", nullable = false)
+	private Boolean isOnHold;
 
 	public AdEntity() {
 		super();
@@ -55,26 +62,6 @@ public class AdEntity implements Ad {
 
 	public Integer getId() {
 		return id;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj)
-			return true;
-
-		if (obj == null)
-			return false;
-
-		if (getClass() != obj.getClass())
-			return false;
-
-		final AdEntity other = (AdEntity) obj;
-		return Objects.equals(id, other.id);
 	}
 
 	public void setId(final Integer id) {
@@ -93,6 +80,10 @@ public class AdEntity implements Ad {
 		return description;
 	}
 
+	public Boolean getIsOnHold() {
+		return isOnHold;
+	}
+	
 	public void setDescription(final String description) {
 		this.description = checkNotNull(description, "Received a null pointer as description");
 	}
@@ -103,6 +94,14 @@ public class AdEntity implements Ad {
 
 	public void setDate(final LocalDateTime date) {
 		this.date = checkNotNull(date, "Received a null pointer as date");
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	public UserEntity getUserA() {
@@ -119,6 +118,30 @@ public class AdEntity implements Ad {
 
 	public void setImages(List<ImageEntity> images) {
 		this.images = images;
+	}
+
+	public void setIsOnHold(final Boolean isOnHold) {
+		this.isOnHold = isOnHold;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj)
+			return true;
+
+		if (obj == null)
+			return false;
+
+		if (getClass() != obj.getClass())
+			return false;
+
+		final AdEntity other = (AdEntity) obj;
+		return Objects.equals(id, other.id);
 	}
 
 	@Override

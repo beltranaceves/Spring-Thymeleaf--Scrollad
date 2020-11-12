@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.udc.fi.dc.fd.controller.ad.AdEntityViewConstants;
-import es.udc.fi.dc.fd.controller.entity.ExampleEntityViewConstants;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
-import es.udc.fi.dc.fd.repository.UserRepository;
+import es.udc.fi.dc.fd.repository.UserEntityRepository;
 import es.udc.fi.dc.fd.service.ad.AdEntityService;
 import es.udc.fi.dc.fd.service.user.UserService;
 
@@ -30,7 +29,7 @@ public class UserFollowAndUnfollowController {
 
 	private final UserService userService;
 
-	private final UserRepository userRepository;
+	private final UserEntityRepository userRepository;
 
 	private final AdEntityService adEntityService;
 
@@ -43,7 +42,7 @@ public class UserFollowAndUnfollowController {
 	 * @param service example entity service
 	 */
 	@Autowired
-	public UserFollowAndUnfollowController(final UserService service, final UserRepository repo,
+	public UserFollowAndUnfollowController(final UserService service, final UserEntityRepository repo,
 			final AdEntityService adService) {
 		super();
 
@@ -84,8 +83,8 @@ public class UserFollowAndUnfollowController {
 		}
 		model.put("user", userEntity);
 		model.put("follows", userEntity.getFollowed());
-		model.put(ExampleEntityViewConstants.PARAM_ENTITIES, adEntityService.getAllEntities());
-		if (returnstring.contains("/list")) {
+		model.put(AdEntityViewConstants.PARAM_ENTITIES, adEntityService.getAllEntities());
+		if (returnstring.contains("list")) {
 			return AdEntityViewConstants.VIEW_ENTITY_LIST;
 		} else if (returnstring.contains("followed")) {
 			return AdEntityViewConstants.VIEW_FOLLOWED_ENTITY_LIST;

@@ -33,5 +33,6 @@ public interface UserService {
 	
 	public UserEntity findByUsername(final String username);
 	
+	public UserEntity findById(final Integer id);
 
 }

@@ -9,7 +9,7 @@
 			to this site.</p>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4" th:each="advertisement, iter : ${entities}">
+				<div class="col-md-4" th:each="advertisement, iter : ${advertisements}">
 					<!--  basicamente a partir de aqui filtrar todo por si se esta en followed o no -->
 					<div th:with="follows=${follows}">
 						<div th:with="username=${advertisement?.userA.username}">
