@@ -13,7 +13,6 @@
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 
 	<bean id="userDetailsService" class="es.udc.fi.dc.fd.service.user.UserDetailsServiceImpl"></bean>
-	<bean id="imageEntityService" class="es.udc.fi.dc.fd.service.image.ImageEntityServiceImpl"></bean>
 
 	<!-- Properties -->
 	<context:property-placeholder
