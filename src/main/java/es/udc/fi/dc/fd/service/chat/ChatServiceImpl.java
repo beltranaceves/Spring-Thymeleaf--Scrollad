@@ -83,7 +83,7 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public Iterable<MessageEntity> getAllMessagesBetween(User user1, User user2) {
 
-		return messageRepository.findBySenderAndReceiverOrReceiverAndSenderOrderByDateAsc(user1, user2, user2, user1);
+		return messageRepository.findBySenderAndReceiverOrReceiverAndSenderOrderByDateAsc(user1, user2, user1, user2);
 	}
 
 }

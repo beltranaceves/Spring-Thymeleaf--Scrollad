@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+	<header class="header" th:include="fragments/menu :: menu" />
+	<div>
+		<a th:href="@{/advertisement/list}" th:text="#{label.advertisement}">Advertisements</a>
+	</div>
+	<div class="col-sm-6 col-sm-offset-3 text-center">
+		<div class="panel panel-primary" style="height: 100%; width: 900px;">
+			<div class="panel-heading">
+				<h3 class="panel-title" style="font-size:30px;" th:text="${vendor}"></h3>
+			</div>
+			<div class="panel-body" style="overflow-y: scroll; height: 500px;">
+				<div th:each="message : ${messages}" class="alert alert-primary" style="background-color: aliceblue;" role="alert">
+					<div class="row">
+						<div class="col-lg-2"> <strong style="font-size:20px;" th:text="${message?.sender.username}  + ':'"></strong></div>
+						<div class="col-lg-2"><p style="font-size:20px; width: 600px;" th:text="${message?.text}"></p></div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<form class="form-inline my-2 my-lg-0" action="#" th:action="@{/chat}" th:object="${form}" method="post" role="form">
+					<input type="hidden" id="vendor" name="vendor" th:value="${vendor}"></input>
+					<div><textarea class="form-control mr-sm-2" style="resize:none" rows="3" cols="100"
+						onsubmit="this.value=''" th:field="*{text}" placeholder="Type a message"></textarea></div>
+					<div><button class="btn btn-primary" type="submit">Send</button></div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div th:include="fragments/scripts :: general" />
+	</footer>
+</body>
+
+</html>
