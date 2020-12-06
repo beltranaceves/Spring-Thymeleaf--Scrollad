@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +27,8 @@ import es.udc.fi.dc.fd.service.like.LikeService;
 import es.udc.fi.dc.fd.service.user.UserService;
 
 @Controller
-@RequestMapping("/followAndUnfollow")
-public class UserFollowAndUnfollowController {
+@RequestMapping("/user")
+public class UserRateController {
 
 	private final UserService userService;
 
@@ -38,17 +37,9 @@ public class UserFollowAndUnfollowController {
 	private final AdEntityService adEntityService;
 
 	private final LikeService likedAdService;
-
-	@Autowired
-	public UserDetailsService userDetailsService;
 	
-	/**
-	 * Constructs a controller with the specified dependencies.
-	 * 
-	 * @param service example entity service
-	 */
 	@Autowired
-	public UserFollowAndUnfollowController(final UserService service, final UserEntityRepository repo,
+	public UserRateController(final UserService service, final UserEntityRepository repo,
 			final AdEntityService adService, final LikeService likeService) {
 		super();
 
@@ -57,52 +48,72 @@ public class UserFollowAndUnfollowController {
 		adEntityService = checkNotNull(adService, "received a null pointer as repo");
 		likedAdService = checkNotNull(likeService, "Received a null pointer as service");
 	}
-
-	@PostMapping(path = "/follow")
-	public String saveFollow(final ModelMap model, @RequestParam(value = "followed", required = true) String followed,
-			@RequestParam(value = "returnUri", required = true) String returnstring, final HttpServletRequest request,
-			final HttpServletResponse response) {
-
-		// Get current user info from SecurityContextHolder
+	
+	@PostMapping(path = "/score")
+	public String saveScore(final ModelMap model, @RequestParam(value = "rated", required = true) String rated,
+			@RequestParam(value = "score", required = true) Integer score,
+			@RequestParam(value = "returnUri", required = true) String returnstring,
+			final HttpServletRequest request, final HttpServletResponse response) {
+		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
+		Integer count;
+		Integer sumScore;
+		Double average;
+		
+		
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails) principal).getUsername();
 		} else {
 			username = principal.toString();
 		}
-		final UserEntity userEntity = userService.findByUsername(username);
-
-		// If no user bad request, else follow or unfollow accordingly.
-		if (userEntity.getName().equals("")) {
+		
+		final UserEntity userLoged = userService.findByUsername(username);
+		final UserEntity ratedUser = userService.findByUsername(rated);
+		
+		
+		if (userLoged.getName().equals("")) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		} else {
-			Set<String> followers = userEntity.getFollowed();
-			if (followers.contains(followed)) {
-				followers.remove(followed);
-				userEntity.setFollowed(followers);
-				userRepository.save(userEntity);
-			} else if (!followers.contains(followed)) {
-				followers.add(followed);
-				userEntity.setFollowed(followers);
-				userRepository.save(userEntity);
+			Set<String> scoredUserList = userLoged.getScored();
+			if (!scoredUserList.contains(rated)) {
+				scoredUserList.add(rated);
+				userLoged.setScored(scoredUserList);
+				userRepository.save(userLoged);
+				
+				count= ratedUser.getScoreCount();
+				count = count + 1;
+				ratedUser.setScoreCount(count);
+				userRepository.save(ratedUser);
+				
+				sumScore= ratedUser.getSumScore();
+				sumScore= sumScore + score;
+				ratedUser.setSumScore(sumScore);
+				userRepository.save(ratedUser);
+				
+				average= ratedUser.getAverageScore();
+				average= Double.valueOf(sumScore)/count;
+				ratedUser.setAverageScore(average);
+				userRepository.save(ratedUser);
 			}
+			
 		}
-		Iterable<AdEntity> likedAds = likedAdService.getAdsLikedByUser(userEntity);
+		Iterable<AdEntity> likedAds = likedAdService.getAdsLikedByUser(userLoged);
 		List<Integer> likesList = new ArrayList<>();
 		likedAds.forEach(likedAd -> {
 			likesList.add(likedAd.getId());
 		});
 		model.addAttribute("likesList", likesList);
-		model.put("user", userEntity);
-		model.put("scoredUsers", userEntity.getScored());
-		model.put("follows", userEntity.getFollowed());
+		model.put("user", userLoged);
+		model.put("scoredUsers", userLoged.getScored());
+		model.put("follows", userLoged.getFollowed());
 		model.put(AdEntityViewConstants.PARAM_ENTITIES, adEntityService.getAllEntities());
 		if (returnstring.contains("list")) {
 			return AdEntityViewConstants.VIEW_ENTITY_LIST;
-		} else if (returnstring.contains("followed")) {
-			return AdEntityViewConstants.VIEW_FOLLOWED_ENTITY_LIST;
 		}
+		
 		return AdEntityViewConstants.VIEW_ENTITY_LIST;
 	}
+	
+	
 }

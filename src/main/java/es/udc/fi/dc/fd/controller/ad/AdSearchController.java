@@ -73,6 +73,8 @@ public class AdSearchController {
 		model.addAttribute("likesList", likesList);
 		model.addAttribute("cities", adEntityService.getCities());
 		model.put("user", getLoggedUser(model));
+		model.put("scoreCount", getLoggedUser(model).getScoreCount());
+		model.put("scoredUsers",getLoggedUser(model).getScored());
 		model.put("follows", getLoggedUser(model).getFollowed());
 		model.put(AdEntityViewConstants.PARAM_ENTITIES, adList);
 	}
