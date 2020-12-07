@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+	<header class="header" th:include="fragments/menu :: menu" />
+
+	<section id="main-section" class="container-fluid">
+		<h1 th:text="#{title.order.form}">Purchase form</h1>
+		<p>This view allows purchasing ads through an HTML form.</p>
+		<section id="form" class="form-well">
+			<form action="#" th:action="@{/order}" th:object="${form}"
+				method="post" role="form" class="form">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading" th:text="#{title.order.form.data}">Purchase Order</div>
+						<div class="panel-body">
+							<!-- Name input -->
+							<div class="form-group">
+								
+								<label class="control-label" for="creditCard" th:text="#{label.creditCard}">Credit Card</label>
+								<div class="controls">
+									<input type="text" th:field="*{creditCard}" class="form-control"
+										placeholder="Credit Card">
+									<!-- Validation errors -->
+									<p th:if="${#fields.hasErrors('creditCard')}"
+										class="label label-danger" th:errors="*{creditCard}">Error</p>
+								</div>
+								
+								<label class="control-label" for="address" th:text="#{label.address}">Address</label>
+								<div class="controls">
+									<input type="text" th:field="*{address}" class="form-control"
+										placeholder="Address">
+									<!-- Validation errors -->
+									<p th:if="${#fields.hasErrors('address')}"
+										class="label label-danger" th:errors="*{address}">Error</p>
+								</div>
+								
+								<input type="hidden" id="adId" name="adId"
+											th:value="${advertisement.id}"></input>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="submit" class="row">
+					<div class="col-md-12">
+						<button type="submit" value="Upload" th:text="#{button.submit}">Submit</button>
+					</div>
+				</div>
+			</form>
+		</section>
+	</section>
+
+	<footer>
+		<div th:include="fragments/scripts :: general" />
+	</footer>
+</body>
+
+</html>

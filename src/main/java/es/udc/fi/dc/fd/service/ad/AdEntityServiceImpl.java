@@ -140,6 +140,15 @@ public class AdEntityServiceImpl implements AdEntityService {
 			adEntityRepository.save(adEntity.get());
 		}
 	}
+	
+	@Override
+	public final void updateIsSoldById(final Integer adEntityId) {
+		Optional<AdEntity> adEntity = adEntityRepository.findById(adEntityId);
+		if (adEntity.isPresent()) {
+			adEntity.get().setIsSold(!adEntity.get().getIsSold());
+			adEntityRepository.save(adEntity.get());
+		}
+	}
 
 	@Override
 	public final void remove(final AdEntity entity) {

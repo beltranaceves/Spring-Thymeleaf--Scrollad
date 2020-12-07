@@ -28,6 +28,8 @@ public interface AdEntityService {
 	public boolean checkForm(final AdForm adForm);
 
 	public void updateIsOnHoldById(final Integer adEntityId);
+	
+	public void updateIsSoldById(final Integer adEntityId);
 
 	public Iterable<AdEntity> findAds(String city, String keywords, String interval, Double minPrice, Double maxPrice);
 
