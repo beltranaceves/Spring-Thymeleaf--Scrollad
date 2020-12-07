@@ -42,8 +42,7 @@ public class ChatController {
 	}
 
 	@GetMapping
-	public String showMessagesList(final ModelMap model,
-			@RequestParam(value = "vendor", required = true) String username) {
+	public String startChat(final ModelMap model, @RequestParam(value = "vendor", required = true) String username) {
 
 		UserEntity vendor = userService.findByUsername(username);
 		loadViewModelByVendor(model, vendor);
@@ -52,7 +51,7 @@ public class ChatController {
 	}
 
 	@PostMapping
-	public String saveEntity(final ModelMap model,
+	public String sendMessage(final ModelMap model,
 			@ModelAttribute(ChatViewConstants.BEAN_FORM) @Valid final MessageForm form,
 			final BindingResult bindingResult, final HttpServletResponse response) {
 		final String path;
@@ -71,6 +70,7 @@ public class ChatController {
 			chatService.send(form.getText(), getLoggedUser(), vendor);
 			loadViewModelByVendor(model, vendor);
 			path = ChatViewConstants.VIEW_MESSAGES_LIST;
+			form.setText("");
 		}
 
 		return path;

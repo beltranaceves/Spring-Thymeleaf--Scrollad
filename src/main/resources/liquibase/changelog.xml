@@ -97,7 +97,7 @@
 			<column autoIncrement="true" name="id" type="BIGINT">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="text" type="VARCHAR(30)">
+			<column name="text" type="VARCHAR(200)">
 				<constraints nullable="false" unique="false" />
 			</column>
 			<column name="sender" type="BIGINT">
