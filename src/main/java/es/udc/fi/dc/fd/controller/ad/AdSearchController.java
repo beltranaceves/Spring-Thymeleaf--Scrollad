@@ -51,19 +51,20 @@ public class AdSearchController {
 	public String findAds(@RequestParam(required = false, value = "city") String city,
 			@RequestParam(required = false, value = "keywords") String keywords,
 			@RequestParam(required = false, value = "interval") String interval,
+			@RequestParam(required = false, value = "averageScore" ) Double averageScore,
 			@RequestParam(required = false, value = "minPrice") Double minPrice,
 			@RequestParam(required = false, value = "maxPrice") Double maxPrice, final ModelMap model) {
 
-		loadViewModel(model, city, keywords, interval, minPrice, maxPrice);
+		loadViewModel(model, city, keywords, interval, averageScore, minPrice, maxPrice);
 
 		return AdEntityViewConstants.SEARCH;
 	}
 
 	private final void loadViewModel(final ModelMap model, String city, String keywords, String interval,
-			Double minPrice, Double maxPrice) {
+			Double averageScore,Double minPrice, Double maxPrice) {
 
 		Iterable<AdEntity> adList = adEntityService.findAds(city, keywords != null ? keywords.trim() : null, interval,
-				minPrice, maxPrice);
+				averageScore,minPrice, maxPrice);
 		Iterable<AdEntity> likedAds = likedAdService.getAdsLikedByUser(getLoggedUser(model));
 		List<Integer> likesList = new ArrayList<>();
 

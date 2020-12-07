@@ -2,37 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/header :: header" />
 <style>
-	.donate label {
-	  float: left;
-	  width: 30px;
-	  height: 32px;
-	  margin: 4px;
-	  background-color: #EFEFEF;
-	  border-radius: 4px;
-	  border: 1px solid #D0D0D0;
-	  overflow: hidden;
-	  cursor: pointer;
-	}
-	
-	.button {
-	  float: left;
-	  width: 30px;
-	  height: 40px;
-	  margin: 8px;
-	}
-	  
-	.donate label span {
-	  text-align: center;
-	  font-size: 20px;
-	  padding: 2px 0px;
-	  display: block;
-	}
-
-	.donate label input {
-	  position: absolute;
-	  opacity: 0;
-	}
-	
 	.donate input:checked+span {
 	  background-color: #404040;
 	  color: #F7F7F7;
@@ -88,11 +57,11 @@
 									th:value="list"></input>		
 							<div class="col-md-9 text-center">
 								<p class="donate">	
-									<label><input id="score" type="radio"  name="score" th:value="1"><span><strong>★</strong></span></label>
-									<label><input id="score" type="radio"  name="score" th:value="2"><span><strong>★</strong></span></label>
-									<label><input id="score" type="radio"  name="score" th:value="3"><span><strong>★</strong></span></label>
-									<label><input id="score" type="radio"  name="score" th:value="4"><span><strong>★</strong></span></label>
-									<label><input id="score" type="radio"  name="score" th:value="5"><span><strong>★</strong></span></label>
+									<label style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input id="score" type="radio"  name="score" th:value="1" style="position: absolute; opacity: 0;"><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
+									<label style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input id="score" type="radio"  name="score" th:value="2" style="position: absolute; opacity: 0;"><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
+									<label style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input id="score" type="radio"  name="score" th:value="3" style="position: absolute; opacity: 0;"><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
+									<label style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input id="score" type="radio"  name="score" th:value="4" style="position: absolute; opacity: 0;"><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
+									<label style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input id="score" type="radio"  name="score" th:value="5" style="position: absolute; opacity: 0;"><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
 								</p>	
 							</div>	
 							<div class="col-md-1 text-center" style="margin: 4px;">
@@ -100,7 +69,8 @@
 									<span th:remove="tag" th:text="${advertisement?.userA.averageScore}">AverageScore</span>
 								</h6>	
 							</div>	
-							<div class="button col-md-1 text-center" th:with="scoredUsers=${scoredUsers}">
+							<div class="button col-md-1 text-center" th:with="scoredUsers=${scoredUsers}"
+									style="float: left; width: 30px; height: 40px; margin: 8px;">
 								<div th:with="username=${advertisement?.userA.username}">							
 									<div th:unless="${#sets.contains(scoredUsers,username)}">
 										<button type="submit" class="btn btn-success btn-xs">★</button>		
