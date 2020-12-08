@@ -13,8 +13,10 @@ public interface ChatService {
 
 	public MessageEntity findById(final Integer identifier);
 
-	public Iterable<MessageEntity> getAllMessagesBetween(final User user1, final User user2);
+	public Iterable<MessageEntity> getAllMessagesBetween(final User loggedUser, final User vendor);
 
 	public List<UserEntity> getChats(User user);
+
+	public Integer getUnseenMessages(User receiver, User sender);
 
 }

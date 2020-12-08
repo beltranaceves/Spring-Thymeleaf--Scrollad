@@ -19,6 +19,6 @@ public interface MessageEntityRepository extends JpaRepository<MessageEntity, In
 	@Query("SELECT m.sender FROM Message AS m WHERE m.receiver = :user GROUP BY m.sender ORDER BY m.sender ASC")
 	public Iterable<UserEntity> getSenders(@Param("user") User user);
 
-	public Iterable<MessageEntity> findByReceiver(User receiver);
+	public Integer countByReceiverAndSenderAndSeenFalse(User receiver, User sender);
 
 }

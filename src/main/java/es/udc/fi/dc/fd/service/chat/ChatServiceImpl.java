@@ -84,9 +84,18 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public Iterable<MessageEntity> getAllMessagesBetween(User user1, User user2) {
+	public Iterable<MessageEntity> getAllMessagesBetween(User loggedUser, User vendor) {
 
-		return messageRepository.findBySenderAndReceiverOrReceiverAndSenderOrderByDateAsc(user1, user2, user1, user2);
+		Iterable<MessageEntity> messages = messageRepository
+				.findBySenderAndReceiverOrReceiverAndSenderOrderByDateAsc(loggedUser, vendor, loggedUser, vendor);
+
+		messages.forEach(m -> {
+			if (m.getReceiver().getId() == loggedUser.getId()) {
+				m.setSeen(true);
+			}
+		});
+		messageRepository.saveAll(messages);
+		return messages;
 	}
 
 	@Override
@@ -105,6 +114,11 @@ public class ChatServiceImpl implements ChatService {
 		});
 
 		return users.stream().distinct().collect(Collectors.toList());
+	}
+
+	@Override
+	public Integer getUnseenMessages(User receiver, User sender) {
+		return messageRepository.countByReceiverAndSenderAndSeenFalse(receiver, sender);
 	}
 
 }

@@ -17,6 +17,8 @@ public interface Message extends Serializable {
 
 	public LocalDateTime getDate();
 
+	public boolean isSeen();
+
 	public void setText(String text);
 
 	public void setSender(UserEntity sender);
@@ -24,5 +26,7 @@ public interface Message extends Serializable {
 	public void setReceiver(UserEntity receiver);
 
 	public void setDate(LocalDateTime date);
+
+	public void setSeen(boolean seen);
 
 }

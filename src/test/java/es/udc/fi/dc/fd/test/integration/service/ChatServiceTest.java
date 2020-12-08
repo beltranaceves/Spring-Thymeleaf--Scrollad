@@ -144,6 +144,29 @@ public class ChatServiceTest {
 		}
 	}
 
+	@Test
+	public void testGetUnseenMessages() {
+
+		User user1 = createUser("username1");
+		User user2 = createUser("username2");
+		User user3 = createUser("username3");
+
+		service.send("text message 1", user1, user2);
+		service.send("text message 2", user2, user1);
+
+		service.getAllMessagesBetween(user1, user2);
+
+		service.send("text message 3", user2, user1);
+		service.send("text message 4", user2, user1);
+		service.send("text message 5", user3, user1);
+
+		int unseenSenderIsUser2 = service.getUnseenMessages(user1, user2);
+		int unseenSenderIsUser3 = service.getUnseenMessages(user1, user3);
+
+		assertEquals(2, unseenSenderIsUser2);
+		assertEquals(1, unseenSenderIsUser3);
+	}
+
 	private User createUser(String username) {
 
 		UserEntity user = new UserEntity();

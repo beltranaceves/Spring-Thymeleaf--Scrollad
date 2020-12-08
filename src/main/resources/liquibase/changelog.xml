@@ -111,6 +111,9 @@
 			<column name="date" type="DATETIME">
 				<constraints nullable="false" unique="false" />
 			</column>
+			<column name="seen" type="BOOLEAN" defaultValue="false">
+				<constraints nullable="false" />
+			</column>
 		</createTable>
 
 	</changeSet>

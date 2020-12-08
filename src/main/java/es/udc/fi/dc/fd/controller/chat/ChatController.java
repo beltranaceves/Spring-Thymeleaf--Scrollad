@@ -2,6 +2,9 @@ package es.udc.fi.dc.fd.controller.chat;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.udc.fi.dc.fd.model.form.ChatDto;
 import es.udc.fi.dc.fd.model.form.MessageForm;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.service.chat.ChatService;
@@ -78,9 +82,7 @@ public class ChatController {
 
 	@GetMapping(path = "/list")
 	public String getChatList(final ModelMap model) {
-
 		loadViewModel(model);
-
 		return ChatViewConstants.VIEW_CHATS_LIST;
 	}
 
@@ -91,15 +93,24 @@ public class ChatController {
 		return user;
 	}
 
-	private final void loadViewModelByVendor(final ModelMap model, final UserEntity user2) {
+	private final void loadViewModelByVendor(final ModelMap model, final UserEntity vendor) {
 
-		UserEntity user1 = getLoggedUser();
-		model.put(ChatViewConstants.MESSAGES, chatService.getAllMessagesBetween(user1, user2));
-		model.put(ChatViewConstants.VENDOR, user2.getUsername());
+		model.put(ChatViewConstants.MESSAGES, chatService.getAllMessagesBetween(getLoggedUser(), vendor));
+		model.put(ChatViewConstants.VENDOR, vendor.getUsername());
 	}
 
 	private final void loadViewModel(final ModelMap model) {
-		model.put(ChatViewConstants.USER_LIST, chatService.getChats(getLoggedUser()));
+
+		List<UserEntity> users = chatService.getChats(getLoggedUser());
+		List<ChatDto> chats = new ArrayList<ChatDto>();
+
+		users.forEach(user -> {
+			ChatDto chat = new ChatDto();
+			chat.setUser(user);
+			chat.setUnseenMessages(chatService.getUnseenMessages(getLoggedUser(), user));
+			chats.add(chat);
+		});
+		model.put(ChatViewConstants.CHATS, chats);
 	}
 
 }

@@ -23,9 +23,9 @@ public final class ChatViewConstants {
 	 */
 	public static final String VIEW_CHATS_LIST = "chat/list";
 	/**
-	 * Name for the chat list view.
+	 * Name for the user list.
 	 */
-	public static final String USER_LIST = "users";
+	public static final String CHATS = "chats";
 
 	private ChatViewConstants() {
 		super();

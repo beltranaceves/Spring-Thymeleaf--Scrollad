@@ -43,6 +43,9 @@ public class MessageEntity implements Message {
 	@Column(name = "date", nullable = false, unique = true)
 	private LocalDateTime date;
 
+	@Column(name = "seen", nullable = false)
+	private boolean seen;
+
 	public MessageEntity() {
 		super();
 	}
@@ -67,6 +70,10 @@ public class MessageEntity implements Message {
 		return date;
 	}
 
+	public boolean isSeen() {
+		return seen;
+	}
+
 	public void setText(String text) {
 		this.text = checkNotNull(text, "Received a null pointer as text");
 	}
@@ -81,6 +88,10 @@ public class MessageEntity implements Message {
 
 	public void setDate(LocalDateTime date) {
 		this.date = checkNotNull(date, "Received a null pointer as date");
+	}
+
+	public void setSeen(boolean seen) {
+		this.seen = seen;
 	}
 
 	@Override
@@ -110,7 +121,8 @@ public class MessageEntity implements Message {
 
 	@Override
 	public String toString() {
-		return "MessageEntity [text=" + text + ", sender=" + sender + ", receiver=" + receiver + ", date=" + date + "]";
+		return "MessageEntity [id=" + id + ", text=" + text + ", sender=" + sender + ", receiver=" + receiver
+				+ ", date=" + date + ", seen=" + seen + "]";
 	}
 
 }
