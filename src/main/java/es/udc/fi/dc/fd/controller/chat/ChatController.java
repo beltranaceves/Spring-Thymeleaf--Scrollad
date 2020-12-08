@@ -76,6 +76,14 @@ public class ChatController {
 		return path;
 	}
 
+	@GetMapping(path = "/list")
+	public String getChatList(final ModelMap model) {
+
+		loadViewModel(model);
+
+		return ChatViewConstants.VIEW_CHATS_LIST;
+	}
+
 	private UserEntity getLoggedUser() {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -88,6 +96,10 @@ public class ChatController {
 		UserEntity user1 = getLoggedUser();
 		model.put(ChatViewConstants.MESSAGES, chatService.getAllMessagesBetween(user1, user2));
 		model.put(ChatViewConstants.VENDOR, user2.getUsername());
+	}
+
+	private final void loadViewModel(final ModelMap model) {
+		model.put(ChatViewConstants.USER_LIST, chatService.getChats(getLoggedUser()));
 	}
 
 }

@@ -85,6 +85,8 @@ public class ChatServiceTest {
 
 		final List<MessageEntity> list = new ArrayList<MessageEntity>();
 
+		int count = 0;
+
 		User user1 = createUser("username1");
 		User user2 = createUser("username2");
 
@@ -102,6 +104,43 @@ public class ChatServiceTest {
 
 		for (MessageEntity messageEntity : messages) {
 			assertTrue(list.contains(messageEntity));
+			count++;
+		}
+		assertEquals(list.size(), count);
+	}
+
+	@Test
+	public void testGetChats() {
+
+		final Message message;
+		final Message message2;
+		final Message message3;
+		final Message message4;
+		final Message message5;
+
+		final List<UserEntity> list = new ArrayList<UserEntity>();
+
+		User user1 = createUser("username1");
+		User user2 = createUser("username2");
+		User user3 = createUser("username3");
+		User user4 = createUser("username4");
+
+		message = service.send("text message 1", user1, user2);
+		message2 = service.send("text message 2", user2, user1);
+		message3 = service.send("text message 3", user1, user2);
+		message4 = service.send("text message 4", user1, user3);
+		message5 = service.send("text message 5", user4, user1);
+
+		list.add(messageRepository.findById(message.getId()).get().getReceiver());
+		list.add(messageRepository.findById(message4.getId()).get().getReceiver());
+		list.add(messageRepository.findById(message5.getId()).get().getSender());
+
+		List<UserEntity> users = service.getChats(user1);
+
+		assertEquals(list.size(), users.size());
+
+		for (int i = 0; i < users.size(); i++) {
+			assertEquals(list.get(i), users.get(i));
 		}
 	}
 

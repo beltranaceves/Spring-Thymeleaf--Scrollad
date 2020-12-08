@@ -18,6 +18,14 @@ public final class ChatViewConstants {
 	 * Name for the entities view.
 	 */
 	public static final String VIEW_MESSAGES_LIST = "chat/messages";
+	/**
+	 * Name for the chat list view.
+	 */
+	public static final String VIEW_CHATS_LIST = "chat/list";
+	/**
+	 * Name for the chat list view.
+	 */
+	public static final String USER_LIST = "users";
 
 	private ChatViewConstants() {
 		super();

@@ -3,7 +3,10 @@ package es.udc.fi.dc.fd.service.chat;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +87,24 @@ public class ChatServiceImpl implements ChatService {
 	public Iterable<MessageEntity> getAllMessagesBetween(User user1, User user2) {
 
 		return messageRepository.findBySenderAndReceiverOrReceiverAndSenderOrderByDateAsc(user1, user2, user1, user2);
+	}
+
+	@Override
+	public List<UserEntity> getChats(User user) {
+
+		final List<UserEntity> users = new ArrayList<UserEntity>();
+
+		Iterable<UserEntity> receivers = messageRepository.getReceivers(user);
+		receivers.forEach(r -> {
+			users.add(r);
+		});
+
+		Iterable<UserEntity> senders = messageRepository.getSenders(user);
+		senders.forEach(s -> {
+			users.add(s);
+		});
+
+		return users.stream().distinct().collect(Collectors.toList());
 	}
 
 }
