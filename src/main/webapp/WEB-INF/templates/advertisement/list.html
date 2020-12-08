@@ -47,11 +47,14 @@
 					<div class="info">
 						<div class="row">
 							<div class="price col-md-6">
-								<h5>
-									<a th:href="@{/order/edit/{id}(id=${advertisement?.id})}"
-										th:text="${advertisement?.title}">Purchase</a>
+								<h5 th:if="${advertisement?.isSold == false}">>
+									<a th:href="@{/order/edit/{id}(id=${advertisement?.id})}" 
+									th:text="${advertisement?.title}">Purchase</a>
 								</h5>
-								<p>
+								<h5 th:if="${advertisement?.isSold == true}">>
+									<a th:remove="tag" th:text="${advertisement?.title}">Purchase</a>
+								</h5>
+								<p >
 									<span th:remove="tag" th:text="${advertisement?.description}">Description</span>
 								</p>
 								<p>
@@ -66,61 +69,68 @@
 									<span th:remove="tag"
 										th:text="${#numbers.formatCurrency(advertisement?.price)}"></span>
 								</p>
-								<div>
-									<form th:id="${advertisement?.id}+form" action="#"
-										th:action="@{/followAndUnfollow/follow}" method="post"
-										role="form">
-										<input type="hidden" id="followed" name="followed"
-											th:value="${advertisement?.userA.username}"></input><input
-											type="hidden" id="returnUri" name="returnUri" value="list"></input>
-										<div th:with="follows=${follows}">
-											<div th:with="username=${advertisement?.userA.username}">
-												<div th:if="${#sets.contains(follows, username)}">
-													<button type="submit" th:id="${advertisement?.id}+follow"
-														class="btn btn-danger">Unfollow</button>
-												</div>
-												<div th:unless="${#sets.contains(follows, username)}">
-													<button type="submit" class="btn btn-primary"
-														th:id="${advertisement?.id}+follow">Follow</button>
+								<h5 th:if="${advertisement?.isSold == true}">
+
+									<span th:remove="tag" th:text="sold">sold</span>
+
+								</h5>
+								<div th:if="${advertisement?.isSold == false}">
+									<div>
+										<form th:id="${advertisement?.id}+form" action="#"
+											th:action="@{/followAndUnfollow/follow}" method="post"
+											role="form">
+											<input type="hidden" id="followed" name="followed"
+												th:value="${advertisement?.userA.username}"></input><input
+												type="hidden" id="returnUri" name="returnUri" value="list"></input>
+											<div th:with="follows=${follows}">
+												<div th:with="username=${advertisement?.userA.username}">
+													<div th:if="${#sets.contains(follows, username)}">
+														<button type="submit" th:id="${advertisement?.id}+follow"
+															class="btn btn-danger">Unfollow</button>
+													</div>
+													<div th:unless="${#sets.contains(follows, username)}">
+														<button type="submit" class="btn btn-primary"
+															th:id="${advertisement?.id}+follow">Follow</button>
+													</div>
 												</div>
 											</div>
+										</form>
+									</div>
+									<div th:unless="${likesList.isEmpty()}">
+										<div th:if="${likesList.contains(advertisement?.id)}">
+											<form th:action="@{/advertisement/deleteLike}"
+												th:object="${advertisement}" method="post">
+												<input type="hidden" name="advertisement"
+													th:value="${advertisement?.id}">
+												<button type="submit">Dislike</button>
+											</form>
 										</div>
-									</form>
-								</div>
-								<div th:unless="${likesList.isEmpty()}">
-									<div th:if="${likesList.contains(advertisement?.id)}">
-										<form th:action="@{/advertisement/deleteLike}"
-											th:object="${advertisement}" method="post">
-											<input type="hidden" name="advertisement"
-												th:value="${advertisement?.id}">
-											<button type="submit">Dislike</button>
-										</form>
+										<div th:unless="${likesList.contains(advertisement?.id)}">
+											<form th:action="@{/advertisement/addLike}"
+												th:object="${advertisement}" method="post">
+												<input type="hidden" name="advertisement"
+													th:value="${advertisement?.id}">
+												<button type="submit">Like</button>
+											</form>
+										</div>
 									</div>
-									<div th:unless="${likesList.contains(advertisement?.id)}">
-										<form th:action="@{/advertisement/addLike}"
-											th:object="${advertisement}" method="post">
-											<input type="hidden" name="advertisement"
-												th:value="${advertisement?.id}">
-											<button type="submit">Like</button>
-										</form>
-									</div>
-								</div>
-								<div th:if="${likesList.isEmpty()}">
-									<div>
-										<form th:action="@{/advertisement/addLike}"
-											th:object="${advertisement}" method="post">
-											<input type="hidden" name="advertisement"
-												th:value="${advertisement?.id}">
-											<button type="submit">Like</button>
-										</form>
-									</div>
-									<div>
-										<form th:action="@{/advertisement/addLike}"
-											th:object="${advertisement}" method="post">
-											<input type="hidden" name="advertisement"
-												th:value="${advertisement?.id}">
-											<button type="submit">Like</button>
-										</form>
+									<div th:if="${likesList.isEmpty()}">
+										<div>
+											<form th:action="@{/advertisement/addLike}"
+												th:object="${advertisement}" method="post">
+												<input type="hidden" name="advertisement"
+													th:value="${advertisement?.id}">
+												<button type="submit">Like</button>
+											</form>
+										</div>
+										<div>
+											<form th:action="@{/advertisement/addLike}"
+												th:object="${advertisement}" method="post">
+												<input type="hidden" name="advertisement"
+													th:value="${advertisement?.id}">
+												<button type="submit">Like</button>
+											</form>
+										</div>
 									</div>
 								</div>
 							</div>
