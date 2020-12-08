@@ -32,11 +32,6 @@ public class OrderViewConstants {
 	public static final String VIEW_ENTITY_LIST = "order/list";
 
 	/**
-	 * Name for the ad upload success.
-	 */
-	public static final String VIEW_ORDER_SUCCESS = "order/list";	
-
-	/**
 	 * Name for the exception view.
 	 */
 	public static final String VIEW_EXCEPTION = "exception";

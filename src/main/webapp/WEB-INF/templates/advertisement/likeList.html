@@ -53,8 +53,12 @@
 					<div class="info">
 						<div class="row">
 							<div class="price col-md-6">
-								<h5>
-									<span th:remove="tag" th:text="${advertisement?.title}"></span>
+								<h5 th:if="${advertisement?.isSold == false}">
+									> <a th:href="@{/order/edit/{id}(id=${advertisement?.id})}"
+										th:text="${advertisement?.title}">Purchase</a>
+								</h5>
+								<h5 th:if="${advertisement?.isSold == true}">
+									> <a th:remove="tag" th:text="${advertisement?.title}">Purchase</a>
 								</h5>
 								<p>
 									<span th:remove="tag" th:text="${advertisement?.description}"></span>
@@ -71,8 +75,12 @@
 									<span th:remove="tag"
 										th:text="${#numbers.formatCurrency(advertisement?.price)}"></span>
 								</p>
-								<p>
-								<div>
+								<h4 th:if="${advertisement?.isSold == true}" style="color: red">
+
+									<span th:remove="tag" th:text="SOLD">sold</span>
+
+								</h4>
+								<div th:if="${advertisement?.isSold == false}">
 									<form th:action="@{/advertisement/deleteLike}"
 										th:object="${advertisement}" method="post">
 										<input type="hidden" name="advertisement"
@@ -80,7 +88,6 @@
 										<button type="submit">Dislike</button>
 									</form>
 								</div>
-								</p>
 							</div>
 						</div>
 					</div>

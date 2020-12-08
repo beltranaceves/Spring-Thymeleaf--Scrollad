@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -52,6 +53,15 @@ public class OrderFormController {
 	@ModelAttribute(OrderViewConstants.BEAN_FORM)
 	public OrderForm getAdForm() {
 		return new OrderForm();
+	}
+	
+	public UserEntity getLoggedUser(final ModelMap model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		UserEntity user = userEntityService.findByUsername(auth.getName());
+
+		return user;
 	}
 	
 	@PostMapping
@@ -99,14 +109,14 @@ public class OrderFormController {
 
 			loadViewModel(model);
 
-			path = OrderViewConstants.VIEW_ORDER_SUCCESS;
+			path = OrderViewConstants.VIEW_ENTITY_LIST;
 		}
 
 		return path;
 	}
 	
 	private final void loadViewModel(final ModelMap model) {
-		model.put(OrderViewConstants.PARAM_ENTITIES, orderEntityService.getAllEntities());
+		model.put(OrderViewConstants.PARAM_ENTITIES, orderEntityService.getEntitiesByUser(getLoggedUser(model)));
 	}
 	
 	@GetMapping(path = "/edit/{advertisementId}")

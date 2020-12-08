@@ -65,6 +65,11 @@
 								<p>
 									<span th:remove="tag" th:text="${advertisement?.date}">User</span>
 								</p>
+								<h4 th:if="${advertisement?.isSold == true}" style="color: red">
+
+									<span th:remove="tag" th:text="SOLD">sold</span>
+
+								</h4>
 								<p>
 								<form th:action="@{/advertisement/delete}"
 									th:object="${advertisement}" method="post">

@@ -31,13 +31,13 @@ public class OrderEntity implements Order {
 	@Column(name = "price", nullable = true, unique = false)
 	private Double price;
 	
-	@Column(name = "creditCard", nullable = false, unique = true)
+	@Column(name = "creditCard", nullable = false, unique = false)
 	private String creditCard = "";
 	
-	@Column(name = "date", nullable = false, unique = true)
+	@Column(name = "date", nullable = false, unique = false)
 	private LocalDateTime date;
 	
-	@Column(name = "address", nullable = false, unique = true)
+	@Column(name = "address", nullable = false, unique = false)
 	private String address = "";
 
 	@ManyToOne(targetEntity = UserEntity.class, optional = false, fetch = FetchType.EAGER)

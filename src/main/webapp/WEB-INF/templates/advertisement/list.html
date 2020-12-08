@@ -69,11 +69,11 @@
 									<span th:remove="tag"
 										th:text="${#numbers.formatCurrency(advertisement?.price)}"></span>
 								</p>
-								<h5 th:if="${advertisement?.isSold == true}">
+								<h4 th:if="${advertisement?.isSold == true}" style="color:red">
 
-									<span th:remove="tag" th:text="sold">sold</span>
+									<span th:remove="tag" th:text="SOLD">sold</span>
 
-								</h5>
+								</h4>
 								<div th:if="${advertisement?.isSold == false}">
 									<div>
 										<form th:id="${advertisement?.id}+form" action="#"
