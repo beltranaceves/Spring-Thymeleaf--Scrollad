@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import es.udc.fi.dc.fd.controller.ad.AdEntityViewConstants;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
-import es.udc.fi.dc.fd.repository.UserEntityRepository;
 import es.udc.fi.dc.fd.service.ad.AdEntityService;
 import es.udc.fi.dc.fd.service.like.LikeService;
 import es.udc.fi.dc.fd.service.user.UserService;
@@ -32,19 +30,16 @@ public class UserRateController {
 
 	private final UserService userService;
 
-	private final UserEntityRepository userRepository;
-
 	private final AdEntityService adEntityService;
 
 	private final LikeService likedAdService;
 	
 	@Autowired
-	public UserRateController(final UserService service, final UserEntityRepository repo,
+	public UserRateController(final UserService service,
 			final AdEntityService adService, final LikeService likeService) {
 		super();
 
 		userService = checkNotNull(service, "Received a null pointer as service");
-		userRepository = checkNotNull(repo, "received a null pointer as repo");
 		adEntityService = checkNotNull(adService, "received a null pointer as repo");
 		likedAdService = checkNotNull(likeService, "Received a null pointer as service");
 	}
@@ -57,9 +52,6 @@ public class UserRateController {
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
-		Integer count;
-		Integer sumScore;
-		Double average;
 		
 		
 		if (principal instanceof UserDetails) {
@@ -68,45 +60,29 @@ public class UserRateController {
 			username = principal.toString();
 		}
 		
-		final UserEntity userLoged = userService.findByUsername(username);
+		final UserEntity userLoged = userService.rateUser(username, rated, score);
+		
 		final UserEntity ratedUser = userService.findByUsername(rated);
 		
 		
-		if (userLoged.getName().equals("")) {
+		if (userLoged.getName().equals("") || ratedUser.getName().equals("")) {
+			
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			
 		} else {
-			Set<String> scoredUserList = userLoged.getScored();
-			if (!scoredUserList.contains(rated)) {
-				scoredUserList.add(rated);
-				userLoged.setScored(scoredUserList);
-				userRepository.save(userLoged);
-				
-				count= ratedUser.getScoreCount();
-				count = count + 1;
-				ratedUser.setScoreCount(count);
-				userRepository.save(ratedUser);
-				
-				sumScore= ratedUser.getSumScore();
-				sumScore= sumScore + score;
-				ratedUser.setSumScore(sumScore);
-				userRepository.save(ratedUser);
-				
-				average= ratedUser.getAverageScore();
-				average= Double.valueOf(sumScore)/count;
-				ratedUser.setAverageScore(average);
-				userRepository.save(ratedUser);
-			}
+			
+			Iterable<AdEntity> likedAds = likedAdService.getAdsLikedByUser(userLoged);
+			List<Integer> likesList = new ArrayList<>();
+			likedAds.forEach(likedAd -> {
+				likesList.add(likedAd.getId());
+			});
+			model.addAttribute("likesList", likesList);
+			model.put("user", userLoged);
+			model.put("scoredUsers", userLoged.getScored());
+			model.put("follows", userLoged.getFollowed());
 			
 		}
-		Iterable<AdEntity> likedAds = likedAdService.getAdsLikedByUser(userLoged);
-		List<Integer> likesList = new ArrayList<>();
-		likedAds.forEach(likedAd -> {
-			likesList.add(likedAd.getId());
-		});
-		model.addAttribute("likesList", likesList);
-		model.put("user", userLoged);
-		model.put("scoredUsers", userLoged.getScored());
-		model.put("follows", userLoged.getFollowed());
+		
 		model.put(AdEntityViewConstants.PARAM_ENTITIES, adEntityService.getAllEntities());
 		if (returnstring.contains("list")) {
 			return AdEntityViewConstants.VIEW_ENTITY_LIST;
