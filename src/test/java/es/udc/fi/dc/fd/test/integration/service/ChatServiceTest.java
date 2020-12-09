@@ -113,8 +113,6 @@ public class ChatServiceTest {
 	public void testGetChats() {
 
 		final Message message;
-		final Message message2;
-		final Message message3;
 		final Message message4;
 		final Message message5;
 
@@ -126,8 +124,8 @@ public class ChatServiceTest {
 		User user4 = createUser("username4");
 
 		message = service.send("text message 1", user1, user2);
-		message2 = service.send("text message 2", user2, user1);
-		message3 = service.send("text message 3", user1, user2);
+		service.send("text message 2", user2, user1);
+		service.send("text message 3", user1, user2);
 		message4 = service.send("text message 4", user1, user3);
 		message5 = service.send("text message 5", user4, user1);
 
