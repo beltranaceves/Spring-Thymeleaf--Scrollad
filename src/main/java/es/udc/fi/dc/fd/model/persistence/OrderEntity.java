@@ -28,7 +28,7 @@ public class OrderEntity implements Order {
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
 	
-	@Column(name = "price", nullable = true, unique = false)
+	@Column(name = "price", nullable = false, unique = false)
 	private Double price;
 	
 	@Column(name = "creditCard", nullable = false, unique = false)

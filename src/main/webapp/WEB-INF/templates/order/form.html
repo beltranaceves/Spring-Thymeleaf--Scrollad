@@ -22,7 +22,7 @@
 								<label class="control-label" for="creditCard" th:text="#{label.creditCard}">Credit Card</label>
 								<div class="controls">
 									<input type="text" th:field="*{creditCard}" class="form-control"
-										placeholder="Credit Card">
+										required autofocus placeholder="Credit Card">
 									<!-- Validation errors -->
 									<p th:if="${#fields.hasErrors('creditCard')}"
 										class="label label-danger" th:errors="*{creditCard}">Error</p>
@@ -31,7 +31,7 @@
 								<label class="control-label" for="address" th:text="#{label.address}">Address</label>
 								<div class="controls">
 									<input type="text" th:field="*{address}" class="form-control"
-										placeholder="Address">
+										required autofocus placeholder="Address">
 									<!-- Validation errors -->
 									<p th:if="${#fields.hasErrors('address')}"
 										class="label label-danger" th:errors="*{address}">Error</p>
