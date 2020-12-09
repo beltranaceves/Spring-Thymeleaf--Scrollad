@@ -52,12 +52,21 @@ public class AdEntity implements Ad {
 
 	@OneToMany(mappedBy = "ad", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<ImageEntity> images;
-	
+
 	@Column(name = "isOnHold", nullable = false)
 	private Boolean isOnHold;
 
 	public AdEntity() {
 		super();
+	}
+	
+	public AdEntity(String title,String description,LocalDateTime date,Double price,UserEntity userA,Boolean isOnHold) {
+		this.title=title;
+		this.description=description;
+		this.date=date;
+		this.price=price;
+		this.userA=userA;
+		this.isOnHold=isOnHold;
 	}
 
 	public Integer getId() {
@@ -83,7 +92,7 @@ public class AdEntity implements Ad {
 	public Boolean getIsOnHold() {
 		return isOnHold;
 	}
-	
+
 	public void setDescription(final String description) {
 		this.description = checkNotNull(description, "Received a null pointer as description");
 	}
@@ -123,7 +132,7 @@ public class AdEntity implements Ad {
 	public void setIsOnHold(final Boolean isOnHold) {
 		this.isOnHold = isOnHold;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -146,8 +155,8 @@ public class AdEntity implements Ad {
 
 	@Override
 	public String toString() {
-		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", userA="
-				+ userA.getUsername() + "]";
+		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
+				+ ", price=" + price + ", userA=" + userA + ", images=" + images + ", isOnHold=" + isOnHold + "]";
 	}
 
 }

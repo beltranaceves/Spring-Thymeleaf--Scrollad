@@ -29,7 +29,7 @@ public interface AdEntityService {
 
 	public void updateIsOnHoldById(final Integer adEntityId);
 
-	public Iterable<AdEntity> findAds(String city, String keywords, String interval, Double minPrice, Double maxPrice);
+	public Iterable<AdEntity> findAds(String city, String keywords, String interval,Double averageScore, Double minPrice, Double maxPrice);
 
 	public List<String> getCities();
 
