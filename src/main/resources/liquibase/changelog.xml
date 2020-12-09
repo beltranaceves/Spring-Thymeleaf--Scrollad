@@ -93,6 +93,28 @@
 				<constraints foreignKeyName="fk_liked_ad" references="advertisement(id)" />
 			</column>
 		</createTable>
+		<createTable tableName="messages">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="text" type="VARCHAR(200)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="sender" type="BIGINT">
+				<constraints nullable="false" unique="false"
+					foreignKeyName="fk_sender_user" references="user(id)" />
+			</column>
+			<column name="receiver" type="BIGINT">
+				<constraints nullable="false" unique="false"
+					foreignKeyName="fk_receiver_user" references="user(id)" />
+			</column>
+			<column name="date" type="DATETIME">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="seen" type="BOOLEAN" defaultValue="false">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
 
 	</changeSet>
 
