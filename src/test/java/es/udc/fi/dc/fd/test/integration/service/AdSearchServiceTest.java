@@ -78,7 +78,7 @@ public class AdSearchServiceTest {
 		expected.add(ad2);
 		expected.add(ad3);
 
-		Iterable<AdEntity> result = service.findAds("city", keywords.trim(), null, 0.0, 20.0);
+		Iterable<AdEntity> result = service.findAds("city", keywords.trim(), null, 3.0, 0.0, 20.0);
 
 		for (AdEntity ad : result) {
 			assertEquals(expected.get(count), ad);
@@ -96,6 +96,9 @@ public class AdSearchServiceTest {
 		user.setFirstLastname("lastname1");
 		user.setSecondLastname("lastname2");
 		user.setCity("city");
+		user.setScoreCount(1);
+		user.setAverageScore(3.0);
+		user.setSumScore(3);
 
 		return userRepository.save(user);
 	}

@@ -26,10 +26,23 @@
                             <option value="year" th:text="#{label.advertisement.year}"></option>
                         </select>
 					</div>
-					<div class="col-lg-2"><input class="form-control mr-sm-2" style="width: 120px"type="number" th:name="minPrice" placeholder="Min. price" aria-label="Min. price" min="0" max="1000"></div>
-					<div class="col-lg-2"><input class="form-control mr-sm-2"style="width: 120px;" type="number" th:name="maxPrice" placeholder="Max. price" aria-label="Max. price" min="0" max="1000"></div>
-                    <div class="col-lg-2"><input class="form-control mr-sm-2" type="search" th:name="keywords" placeholder="Search" aria-label="Search"></div>
-                    <div class="col-lg-1"><button class="btn btn-primary" type="submit">Search</button></div>
+					
+					<div th:with="scoreCount=${scoreCount}">							
+						<div th:if="${scoreCount==0}">
+							<div class="col-lg-2"><input class="form-control mr-sm-2" style="width: 120px;" type="number" th:name="minPrice" placeholder="Min. price" aria-label="Min. price" min="0" max="1000"></div>
+							<div class="col-lg-2"><input class="form-control mr-sm-2" style="width: 120px;" type="number" th:name="maxPrice" placeholder="Max. price" aria-label="Max. price" min="0" max="1000"></div>
+			                <div class="col-lg-2"><input class="form-control mr-sm-2" type="search" th:name="keywords" placeholder="Search" aria-label="Search"></div>
+			                <div class="col-lg-1"><button class="btn btn-primary" type="submit">Search</button></div>		
+						</div>
+						<div th:unless="${scoreCount==0}">
+							<div class="col-lg-2"><input class="form-control mr-sm-2" style="width: 100px" type="number" step="0.01" th:name="averageScore" placeholder="aScore" aria-label="AScore" min="0" max="5"></div>
+							<div class="col-lg-1"><input class="form-control mr-sm-1" style="width: 110px" type="number" th:name="minPrice" placeholder="Min.price" aria-label="Min.price" min="0" max="1000"></div>
+							<div class="col-lg-2"><input class="form-control mr-sm-2" style="width: 110px" type="number" th:name="maxPrice" placeholder="Max.price" aria-label="Max.price" min="0" max="1000"></div>
+	                    	<div class="col-lg-1"><input class="form-control mr-sm-1" type="search" style="width: 120px" th:name="keywords" placeholder="Search" aria-label="Search"></div>
+	                    	<div class="col-lg-1"><button class="btn btn-primary" type="submit">Search</button></div>		
+						</div>
+					</div>
+					
                 </div>
             </form>
         </div>

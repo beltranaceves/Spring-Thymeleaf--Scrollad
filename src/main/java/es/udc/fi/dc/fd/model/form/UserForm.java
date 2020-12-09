@@ -69,10 +69,18 @@ public final class UserForm implements Serializable {
 	private String firstLastname;
 
 	private String secondLastname;
+	
+	private Double averageScore;
+	
+	private Integer scoreCount;
+	
+	private Integer sumScore;
 
 	@NotEmpty
 	private String city;
 
+	private Set<String> scored;
+	
 	private Set<String> followed;
 
 	/**
@@ -106,6 +114,22 @@ public final class UserForm implements Serializable {
 		return city;
 	}
 
+	public final Double getAverageScore() {
+		return averageScore;
+	}
+	
+	public final Integer getScoreCount() {
+		return scoreCount;
+	}
+	
+	public final Integer getSumScore() {
+		return sumScore;
+	}
+
+	public final Set<String> getScored() {
+		return scored;
+	}
+	
 	public final Set<String> getFollowed() {
 		return followed;
 	}
@@ -139,6 +163,22 @@ public final class UserForm implements Serializable {
 		city = checkNotNull(value, "Received a null pointer as city");
 	}
 
+	public final void setAverageScore(final Double value) {
+		averageScore = checkNotNull(value, "Received a null pointer as averageScore");
+	}
+	
+	public final void setScoreCount(final Integer value) {
+		scoreCount = checkNotNull(value, "Received a null pointer as scoreCount");
+	}
+	
+	public final void setSumScore(final Integer value) {
+		sumScore = checkNotNull(value, "Received a null pointer as sumScore");
+	}
+
+	public final void setScored(final Set<String> value) {
+		scored = value;
+	}
+	
 	public final void setFollowed(final Set<String> value) {
 		followed = value;
 	}

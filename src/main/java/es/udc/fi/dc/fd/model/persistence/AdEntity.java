@@ -59,6 +59,15 @@ public class AdEntity implements Ad {
 	public AdEntity() {
 		super();
 	}
+	
+	public AdEntity(String title,String description,LocalDateTime date,Double price,UserEntity userA,Boolean isOnHold) {
+		this.title=title;
+		this.description=description;
+		this.date=date;
+		this.price=price;
+		this.userA=userA;
+		this.isOnHold=isOnHold;
+	}
 
 	public Integer getId() {
 		return id;

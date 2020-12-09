@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/header :: header" />
+<style>
+	.donate input:checked+span {
+	  background-color: #404040;
+	  color: #F7F7F7;
+	}
+</style> 	
 <body>
 	<header class="header" th:include="fragments/menu :: menu" />
+
+	
 	<section id="main-section" class="container-fluid">
 		<h1 th:text="#{title.advertisement.list}">Advertisement list</h1>
 		<p>This view allows you to visualize all the advertisements added to this
@@ -39,12 +47,47 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="row m-0 justify-content-center align-items-center vh-100" >
+						<form class="col-md-12 text-center"  
+							 th:id="frm" action="#" th:action="@{/user/score}" method="post" role="form">								
+							<input type="hidden" id="rated" name="rated"
+									th:value="${advertisement?.userA.username}"></input>	
+							<input type="hidden" id="returnUri" name="returnUri" 
+									th:value="list"></input>		
+							<div class="col-md-9 text-center">
+								<p class="donate">	
+									<label style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input id="score" type="radio"  name="score" th:value="1" style="position: absolute; opacity: 0;"><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
+									<label style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input id="score" type="radio"  name="score" th:value="2" style="position: absolute; opacity: 0;"><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
+									<label style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input id="score" type="radio"  name="score" th:value="3" style="position: absolute; opacity: 0;"><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
+									<label style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input id="score" type="radio"  name="score" th:value="4" style="position: absolute; opacity: 0;"><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
+									<label style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input id="score" type="radio"  name="score" th:value="5" style="position: absolute; opacity: 0;"><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
+								</p>	
+							</div>	
+							<div class="col-md-1 text-center" style="margin: 4px;">
+								<h6>
+									<span th:remove="tag" th:text="${advertisement?.userA.averageScore}">AverageScore</span>
+								</h6>	
+							</div>	
+							<div class="button col-md-1 text-center" th:with="scoredUsers=${scoredUsers}"
+									style="float: left; width: 30px; height: 40px; margin: 8px;">
+								<div th:with="username=${advertisement?.userA.username}">							
+									<div th:unless="${#sets.contains(scoredUsers,username)}">
+										<button type="submit" class="btn btn-success btn-xs">★</button>		
+									</div>
+								</div>
+							</div>
+						</form>
+						
+					</div>
+					
 					<div class="info">
 						<div class="row">
 							<div class="price col-md-6">
 								<h5>
 									<span th:remove="tag" th:text="${advertisement?.title}">Title</span>
 								</h5>
+									
 								<p>
 									<span th:remove="tag" th:text="${advertisement?.description}">Description</span>
 								</p>
@@ -60,6 +103,8 @@
 									<span th:remove="tag"
 										th:text="${#numbers.formatCurrency(advertisement?.price)}"></span>
 								</p>
+								
+								
 								<div>
 									<form th:id="${advertisement?.id}+form" action="#"
 										th:action="@{/followAndUnfollow/follow}" method="post" role="form">
@@ -114,13 +159,15 @@
 											<button type="submit">Like</button>
 										</form>
 									</div>
-								<div>
-									<form th:action="@{/advertisement/addLike}"
-										th:object="${advertisement}" method="post">
-										<input type="hidden" name="advertisement"
-											th:value="${advertisement?.id}">
-										<button type="submit">Like</button>
-									</form>
+									<div>
+										<form th:action="@{/advertisement/addLike}"
+											th:object="${advertisement}" method="post">
+											<input type="hidden" name="advertisement"
+												th:value="${advertisement?.id}">
+											<button type="submit">Like</button>
+										</form>
+									</div>
+								
 								</div>
 							</div>
 						</div>

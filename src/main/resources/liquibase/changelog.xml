@@ -32,7 +32,32 @@
 			<column name="city" type="VARCHAR(30)">
 				<constraints nullable="false" unique="false" />
 			</column>
+			<column name="scoreCount" type="INTEGER">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="averageScore" type="DECIMAL(4,2)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="sumScore" type="INTEGER">
+				<constraints nullable="false" unique="false" />
+			</column>
 		</createTable>
+		
+		<createTable tableName="userScored">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="userId" type="BIGINT">
+				<constraints nullable="false" unique="false"
+					foreignKeyName="fk_userscored_user" references="user(id)" />
+			</column>
+			<column name="scoredUser" type="VARCHAR(30)">
+				<constraints nullable="false" unique="false"
+					foreignKeyName="fk_userscored_scored"
+					references="user(username)" />
+			</column>
+		</createTable>
+			
 		<createTable tableName="userFollowed">
 			<column autoIncrement="true" name="id" type="BIGINT">
 				<constraints primaryKey="true" />

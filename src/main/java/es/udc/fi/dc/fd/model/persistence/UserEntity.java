@@ -26,6 +26,7 @@ import es.udc.fi.dc.fd.model.User;
 
 @Entity(name = "User")
 @Table(name = "user")
+@SecondaryTable(name = "userScored")
 @SecondaryTable(name = "userFollowed")
 
 public class UserEntity implements User {
@@ -65,6 +66,20 @@ public class UserEntity implements User {
 	@Column(name = "city", nullable = false, unique = true)
 	private String city = "";
 
+	@Column(name = "scoreCount", nullable = false, unique = true)
+	private Integer scoreCount = 0;
+	
+	@Column(name = "sumScore", nullable = false, unique = true)
+	private Integer sumScore = 0;
+	
+	@Column(name = "averageScore", nullable = false, unique = true)
+	private Double averageScore = 0.0;
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "userScored", joinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"))
+	@Column(name = "scoredUser", nullable = false)
+	private Set<String> scoredUser = Sets.newHashSet();
+	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "userFollowed", joinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"))
 	@Column(name = "followedUser", nullable = false)
@@ -78,7 +93,7 @@ public class UserEntity implements User {
 	}
 
 	public UserEntity(String username, String password, String name, String firstLastname, String secondLastname,
-			String city, Set<AdEntity> ads, Set<String> followed) {
+			String city,Integer scoreCount,Double averageScore,Set<String> scoredUser, Set<AdEntity> ads, Set<String> followed) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -86,12 +101,15 @@ public class UserEntity implements User {
 		this.firstLastname = firstLastname;
 		this.secondLastname = secondLastname;
 		this.city = city;
+		this.scoreCount=scoreCount;
+		this.averageScore=averageScore;
+		this.scoredUser=scoredUser;
 		this.ads = ads;
 		this.followedUser = followed;
 	}
 
 	public UserEntity(String username, String password, String name, String firstLastname, String secondLastname,
-			String city) {
+			String city,Integer scoreCount,Double averageScore,Integer sumScore) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -99,6 +117,9 @@ public class UserEntity implements User {
 		this.firstLastname = firstLastname;
 		this.secondLastname = secondLastname;
 		this.city = city;
+		this.scoreCount=scoreCount;
+		this.averageScore=averageScore;
+		this.sumScore=sumScore;
 	}
 
 	@Override
@@ -172,6 +193,36 @@ public class UserEntity implements User {
 	}
 
 	@Override
+	public Double getAverageScore() {
+		return averageScore;
+	}
+
+	@Override
+	public void setAverageScore(final Double value) {
+		averageScore = checkNotNull(value, "Received a null pointer as averageScore");
+	}
+	
+	@Override
+	public Integer getSumScore() {
+		return sumScore;
+	}
+
+	@Override
+	public void setSumScore(final Integer value) {
+		sumScore = checkNotNull(value, "Received a null pointer as sumScore");
+	}
+	
+	@Override
+	public Integer getScoreCount() {
+		return scoreCount;
+	}
+
+	@Override
+	public void setScoreCount(final Integer value) {
+		scoreCount = checkNotNull(value, "Received a null pointer as scoreCount");
+	}
+	
+	@Override
 	public Set<String> getFollowed() {
 		return followedUser;
 	}
@@ -181,6 +232,16 @@ public class UserEntity implements User {
 		followedUser = value;
 	}
 
+	@Override
+	public Set<String> getScored() {
+		return scoredUser;
+	}
+
+	@Override
+	public void setScored(final Set<String> value) {
+		scoredUser = value;
+	}
+	
 	@Override
 	public Set<AdEntity> getAds() {
 		return ads;

@@ -23,7 +23,7 @@
 			<div class="panel-footer" style="background-color: aliceblue;">
 				<form class="form-inline my-2 my-lg-0" th:action="@{/chat}" th:object="${form}" method="post" role="form">
 					<input type="hidden" id="vendor" name="vendor" th:value="${vendor}"></input>
-					<textarea class="form-control mr-sm-2" style="resize:none" rows="3" cols="100" maxlength="200"
+					<textarea class="form-control mr-sm-2" style="resize:none" rows="3" cols="80" maxlength="200"
 						th:field="*{text}" placeholder="Type a message"></textarea>
 					<div><button class="btn btn-primary" style="margin-top: 1%;" type="submit">Send</button></div>
 				</form>
