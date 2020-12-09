@@ -34,7 +34,9 @@
 								th:text="#{title.login}">Log in</a></li>
 							<li sec:authorize="isAuthenticated()"><a
 								th:href="@{/advertisement/list/myAdvertisements}"
-								th:text="#{title.advertisement.listById}">Log out</a></li>
+								th:text="#{title.advertisement.listById}">Advertisement List</a></li>
+							<li sec:authorize="isAuthenticated()">
+								<a th:href="@{/chat/list}" th:text="#{title.chat.list}">My conversations</a></li>
 							<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"
 								th:text="#{title.logout}">Log out</a></li>
 						</ul></li>

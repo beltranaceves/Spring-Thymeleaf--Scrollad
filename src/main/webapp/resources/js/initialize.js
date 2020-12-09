@@ -9,4 +9,5 @@
 /**
  * Initializes scripts when the document loads.
  */
-$(document).ready(function() {});
+$(document).ready(function() {
+});

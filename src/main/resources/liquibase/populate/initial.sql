@@ -52,3 +52,8 @@ INSERT INTO userFollowed(userId, followedUser) VALUES
 	(1, 'viewer3'),
 	(3, 'viewer');
 
+INSERT INTO messages(text, sender, receiver, date, seen) VALUES
+	('hola', 1, 2, parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), true),
+	('hola, que tal?', 2, 1, parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), true),
+	('bien y tu?', 1, 2, parsedatetime('15-09-2020 20:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), true),
+	('bien', 2, 1, parsedatetime('15-09-2020 21:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), true);

@@ -125,6 +125,13 @@
 										</div>
 									</form>
 								</div>
+								<div>
+									<form th:action="@{/chat}">
+										<input type="hidden" id="vendor" name="vendor"
+											th:value="${advertisement?.userA.username}"></input>
+										<button type="submit" class="btn btn-primary">Chat</button>
+									</form>
+								</div>
 								<div th:unless="${likesList.isEmpty()}">
 									<div th:if="${likesList.contains(advertisement?.id)}">
 										<form th:action="@{/advertisement/deleteLike}"
