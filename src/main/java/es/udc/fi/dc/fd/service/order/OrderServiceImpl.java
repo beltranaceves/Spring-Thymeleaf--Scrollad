@@ -2,18 +2,14 @@ package es.udc.fi.dc.fd.service.order;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import es.udc.fi.dc.fd.model.Order;
 import es.udc.fi.dc.fd.model.User;
-import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.model.form.OrderForm;
 import es.udc.fi.dc.fd.model.persistence.OrderEntity;
 import es.udc.fi.dc.fd.repository.OrderRepository;
@@ -50,38 +46,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void deleteById(Integer identifier) {
-		orderRepository.deleteById(identifier);		
-	}
-
-	@Override
-	public List<OrderEntity> getAllEntities() {
-		Iterable<OrderEntity> orderEntities = orderRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
-		List<OrderEntity> orderEntitiesList = new ArrayList<OrderEntity>();
-		orderEntities.forEach((orderEntity) -> 
-			orderEntitiesList.add(orderEntity)
-		);
-		return orderEntitiesList;
-	}
-
-	@Override
-	public List<OrderEntity> getEntities(Pageable page) {
-		Iterable<OrderEntity> orderEntities = orderRepository.findAll(page);
-		List<OrderEntity> orderEntitiesList = new ArrayList<OrderEntity>();
-		orderEntities.forEach((orderEntity) -> 
-			orderEntitiesList.add(orderEntity)
-		);
-		return orderEntitiesList;
-	}
-
-	@Override
 	public Iterable<OrderEntity> getEntitiesByUser(User user) {
 		return orderRepository.findByUser(user, Sort.by(Sort.Direction.DESC, "date"));
-	}
-
-	@Override
-	public void remove(final OrderEntity order) {
-		orderRepository.delete(order);
 	}
 	
 	@Override
