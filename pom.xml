@@ -472,11 +472,11 @@
 		<springsecurity.version>5.0.3.RELEASE</springsecurity.version>
 		<reactor.version>3.1.2.RELEASE</reactor.version>
 		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
-		<webjars.bootstrap.version>3.4.1</webjars.bootstrap.version>
+		<webjars.bootstrap.version>4.5.3</webjars.bootstrap.version>
 		<webjars.bootswatch.version>3.3.7</webjars.bootswatch.version>
-		<webjars.fontAwesome.version>5.7.2</webjars.fontAwesome.version>
+		<webjars.fontAwesome.version>5.15.1</webjars.fontAwesome.version>
 		<webjars.html5shiv.version>3.7.3-1</webjars.html5shiv.version>
-		<webjars.jquery.version>3.3.1-2</webjars.jquery.version>
+		<webjars.jquery.version>3.5.1</webjars.jquery.version>
 		<webjars.locator.version>0.34</webjars.locator.version>
 		<javassist.version>3.27.0-GA</javassist.version>
 		<!-- ============================================== -->
@@ -758,9 +758,9 @@
 			<version>${webjars.bootstrap.version}</version>
 		</dependency>
 		<dependency>
-			<!-- Bootswatch Readable -->
+			<!-- Bootswatch Darkly -->
 			<groupId>org.webjars</groupId>
-			<artifactId>bootswatch-readable</artifactId>
+			<artifactId>bootswatch-united</artifactId>
 			<version>${webjars.bootswatch.version}</version>
 		</dependency>
 		<dependency>
