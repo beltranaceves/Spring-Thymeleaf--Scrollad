@@ -94,6 +94,8 @@
 			</column>
 			<column name="isOnHold" type="BOOLEAN">
 			</column>
+			<column name="isSold" type="BOOLEAN">
+			</column>
 		</createTable>
 		<createTable tableName="images">
 			<column autoIncrement="true" name="id" type="BIGINT">
@@ -116,6 +118,29 @@
 			</column>
 			<column name="adLiked" type="BIGINT">
 				<constraints foreignKeyName="fk_liked_ad" references="advertisement(id)" />
+			</column>
+		</createTable>
+		<createTable tableName="orders">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="price" type="DOUBLE">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="creditCard" type="VARCHAR(16)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="date" type="DATETIME">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="address" type="VARCHAR(60)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="user" type="BIGINT">
+				<constraints foreignKeyName="fk_ordering_user" references="user(id)" />
+			</column>
+			<column name="ad" type="BIGINT">
+				<constraints foreignKeyName="fk_ordering_ad" references="advertisement(id)" />
 			</column>
 		</createTable>
 		<createTable tableName="messages">

@@ -55,18 +55,23 @@ public class AdEntity implements Ad {
 
 	@Column(name = "isOnHold", nullable = false)
 	private Boolean isOnHold;
+	
+	@Column(name = "isSold", nullable = false)
+	private Boolean isSold;
 
 	public AdEntity() {
 		super();
 	}
-	
-	public AdEntity(String title,String description,LocalDateTime date,Double price,UserEntity userA,Boolean isOnHold) {
-		this.title=title;
-		this.description=description;
-		this.date=date;
-		this.price=price;
-		this.userA=userA;
-		this.isOnHold=isOnHold;
+
+	public AdEntity(String title, String description, LocalDateTime date, Double price, UserEntity userA, Boolean isOnHold, Boolean isSold) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.date = date;
+		this.price = price;
+		this.userA = userA;
+		this.isOnHold = isOnHold;
+		this.isSold = isSold;
 	}
 
 	public Integer getId() {
@@ -91,6 +96,10 @@ public class AdEntity implements Ad {
 
 	public Boolean getIsOnHold() {
 		return isOnHold;
+	}
+		
+	public Boolean getIsSold() {
+		return isSold;
 	}
 
 	public void setDescription(final String description) {
@@ -131,6 +140,10 @@ public class AdEntity implements Ad {
 
 	public void setIsOnHold(final Boolean isOnHold) {
 		this.isOnHold = isOnHold;
+	}
+
+	public void setIsSold(Boolean isSold) {
+		this.isSold = isSold;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package es.udc.fi.dc.fd.service.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +16,10 @@ import es.udc.fi.dc.fd.model.Ad;
 import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.form.AdForm;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
+import es.udc.fi.dc.fd.model.persistence.OrderEntity;
 import es.udc.fi.dc.fd.repository.AdEntityRepository;
 import es.udc.fi.dc.fd.repository.ImageEntityRepository;
+import es.udc.fi.dc.fd.repository.OrderRepository;
 
 @Service
 public class AdEntityServiceImpl implements AdEntityService {
@@ -25,14 +28,18 @@ public class AdEntityServiceImpl implements AdEntityService {
 
 	private final ImageEntityRepository imageEntityRepository;
 
+	private final OrderRepository orderEntityRepository;
+
 	@Autowired
-	public AdEntityServiceImpl(final AdEntityRepository repository, final ImageEntityRepository imageRepository) {
+	public AdEntityServiceImpl(final AdEntityRepository repository, final ImageEntityRepository imageRepository,
+			final OrderRepository orderRepository) {
 		super();
 
 		adEntityRepository = checkNotNull(repository, "Received a null pointer as repository");
 
 		imageEntityRepository = checkNotNull(imageRepository, "Received a null pointer as repository");
 
+		orderEntityRepository = checkNotNull(orderRepository, "Received a null pointer as repository");
 	}
 
 	@Override
@@ -65,7 +72,19 @@ public class AdEntityServiceImpl implements AdEntityService {
 		List<AdEntity> adEntitiesList = new ArrayList<AdEntity>();
 
 		adEntities.forEach((adEntity) -> {
-			if (!adEntity.getIsOnHold()) {
+
+			OrderEntity order = orderEntityRepository.findByAd(adEntity);
+
+			if (order != null) {
+				if (!adEntity.getIsOnHold()) {
+					if (order.getDate().plusDays(1).compareTo(LocalDateTime.now()) >= 0) {
+						adEntity.getImages().forEach((image) -> {
+							image.convertAndLoadImageBase64();
+						});
+						adEntitiesList.add(adEntity);
+					}
+				}
+			} else if (!adEntity.getIsOnHold()) {
 				adEntity.getImages().forEach((image) -> {
 					image.convertAndLoadImageBase64();
 				});
@@ -96,7 +115,19 @@ public class AdEntityServiceImpl implements AdEntityService {
 		Iterable<AdEntity> adEntities = adEntityRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
 		List<AdEntity> adEntitiesList = new ArrayList<AdEntity>();
 		adEntities.forEach((adEntity) -> {
-			if (!adEntity.getIsOnHold()) {
+
+			OrderEntity order = orderEntityRepository.findByAd(adEntity);
+
+			if (order != null) {
+				if (!adEntity.getIsOnHold()) {
+					if (order.getDate().plusDays(1).compareTo(LocalDateTime.now()) >= 0) {
+						adEntity.getImages().forEach((image) -> {
+							image.convertAndLoadImageBase64();
+						});
+						adEntitiesList.add(adEntity);
+					}
+				}
+			} else if (!adEntity.getIsOnHold()) {
 				adEntity.getImages().forEach((image) -> {
 					image.convertAndLoadImageBase64();
 				});
@@ -121,8 +152,21 @@ public class AdEntityServiceImpl implements AdEntityService {
 	public final List<AdEntity> getEntities(final Pageable page) {
 		Iterable<AdEntity> adEntities = adEntityRepository.findAll(page);
 		List<AdEntity> adEntitiesList = new ArrayList<AdEntity>();
+
 		adEntities.forEach((adEntity) -> {
-			if (!adEntity.getIsOnHold()) {
+
+			OrderEntity order = orderEntityRepository.findByAd(adEntity);
+
+			if (order != null) {
+				if (!adEntity.getIsOnHold()) {
+					if (order.getDate().plusDays(1).compareTo(LocalDateTime.now()) >= 0) {
+						adEntity.getImages().forEach((image) -> {
+							image.convertAndLoadImageBase64();
+						});
+						adEntitiesList.add(adEntity);
+					}
+				}
+			} else if (!adEntity.getIsOnHold()) {
 				adEntity.getImages().forEach((image) -> {
 					image.convertAndLoadImageBase64();
 				});
@@ -137,6 +181,15 @@ public class AdEntityServiceImpl implements AdEntityService {
 		Optional<AdEntity> adEntity = adEntityRepository.findById(adEntityId);
 		if (adEntity.isPresent()) {
 			adEntity.get().setIsOnHold(!adEntity.get().getIsOnHold());
+			adEntityRepository.save(adEntity.get());
+		}
+	}
+
+	@Override
+	public final void updateIsSoldById(final Integer adEntityId) {
+		Optional<AdEntity> adEntity = adEntityRepository.findById(adEntityId);
+		if (adEntity.isPresent()) {
+			adEntity.get().setIsSold(!adEntity.get().getIsSold());
 			adEntityRepository.save(adEntity.get());
 		}
 	}

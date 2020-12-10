@@ -31,13 +31,13 @@ INSERT INTO user (username, password, name, first_lastname, second_lastname, cit
    ('viewer2', '$2a$10$OazefPSDK0KyGuosq/0PoeFwyuraVQyewMbWNmxYAwU1k25h5gsGe', 'viewer2', 'viewer2', 'viewer2', 'city2', 1, 2.0, 2),
    ('viewer3', '$2a$10$TI0OXicCwUpWeYZ7yrE9AOHZUdAtdVGd97p1z/bcXnnNqPuCm4O5u', 'viewer3', 'viewer3', 'viewer3', 'city3', 1, 3.0, 3);
 
-INSERT INTO advertisement (title, description, date, price, userA, isOnHold) VALUES
-   ('anuncio1' ,'primer anuncio', parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 5.00, 1, 1),
-   ('anuncio2' ,'segundo anuncio', parsedatetime('16-09-2020 17:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 10.00, 1, 0),
-   ('anuncio3' ,'tercer anuncio', parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 100.00, 1, 0),
-   ('anuncio4' ,'cuarto anuncio', parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 50.00, 2, 0),
-   ('anuncio5' ,'quinto anuncio', parsedatetime('16-09-2020 17:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 15.00, 2, 0),
-   ('anuncio6' ,'sexto anuncio', parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 20.00, 3, 0);
+INSERT INTO advertisement (title, description, date, price, userA, isOnHold, isSold) VALUES
+   ('anuncio1' ,'primer anuncio', parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 5.00, 1, 1, 1),
+   ('anuncio2' ,'segundo anuncio', parsedatetime('16-09-2020 17:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 10.00, 1, 0, 1),
+   ('anuncio3' ,'tercer anuncio', parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 100.00, 1, 0, 0),
+   ('anuncio4' ,'cuarto anuncio', parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 50.00, 2, 0, 0),
+   ('anuncio5' ,'quinto anuncio', parsedatetime('16-09-2020 17:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 15.00, 2, 0, 0),
+   ('anuncio6' ,'sexto anuncio', parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 20.00, 3, 0, 0);
 
 INSERT INTO likes (user, adLiked) VALUES
 	(1,1);
@@ -52,6 +52,10 @@ INSERT INTO userFollowed(userId, followedUser) VALUES
 	(1, 'viewer3'),
 	(3, 'viewer');
 
+INSERT INTO orders(price, creditCard, date, address, user, ad) VALUES
+	(5.00, '231323123123', parsedatetime('6-12-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 'Ronda de Outeiro, 188', 1, 1),
+	(5.00, '545476567887', parsedatetime('7-12-2020 12:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), 'Ronda de Outeiro, 19', 1, 2);
+	
 INSERT INTO messages(text, sender, receiver, date, seen) VALUES
 	('hola', 1, 2, parsedatetime('15-09-2020 18:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), true),
 	('hola, que tal?', 2, 1, parsedatetime('15-09-2020 19:47:52.69', 'dd-MM-yyyy hh:mm:ss.SS'), true),

@@ -22,6 +22,8 @@ public interface Ad extends Serializable {
 	public List<ImageEntity> getImages();
 	
 	public Boolean getIsOnHold();
+	
+	public Boolean getIsSold();
 
 	public void setId(final Integer value);
 
@@ -36,5 +38,7 @@ public interface Ad extends Serializable {
 	public void setImages(List<ImageEntity> images);
 	
 	public void setIsOnHold(final Boolean isOnHold);
+	
+	public void setIsSold(final Boolean isSold);
 
 }
