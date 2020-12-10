@@ -67,16 +67,37 @@ public class AdSearchController {
 				averageScore,minPrice, maxPrice);
 		Iterable<AdEntity> likedAds = likedAdService.getAdsLikedByUser(getLoggedUser(model));
 		List<Integer> likesList = new ArrayList<>();
-
+		List<AdEntity> premiumAdList= new ArrayList<>();
+		List<AdEntity> randomPremiumAdList= new ArrayList<>();
+		List<AdEntity> normalAdList= new ArrayList<>();
+		
 		likedAds.forEach(likedAd -> {
 			likesList.add(likedAd.getId());
 		});
+		
+		adList.forEach(ad -> {
+			if(ad.getUserA().getIsPremium()) {
+				premiumAdList.add(ad);
+			} else {
+				normalAdList.add(ad);
+			}
+		});
+		int size = premiumAdList.size();
+		if (size < 5) {
+			randomPremiumAdList = premiumAdList;
+		} else {
+			for(int i = 0; i < 5; i++) {
+				randomPremiumAdList.add(premiumAdList.get((int)Math.floor(Math.random()*size)));
+			}
+		}
+		
 		model.addAttribute("likesList", likesList);
 		model.addAttribute("cities", adEntityService.getCities());
 		model.put("user", getLoggedUser(model));
 		model.put("scoreCount", getLoggedUser(model).getScoreCount());
 		model.put("scoredUsers",getLoggedUser(model).getScored());
 		model.put("follows", getLoggedUser(model).getFollowed());
-		model.put(AdEntityViewConstants.PARAM_ENTITIES, adList);
+		model.put(AdEntityViewConstants.PARAM_ENTITIES, normalAdList);
+		model.put(AdEntityViewConstants.PARAM_PREMIUM_ENTITIES, randomPremiumAdList);
 	}
 }
