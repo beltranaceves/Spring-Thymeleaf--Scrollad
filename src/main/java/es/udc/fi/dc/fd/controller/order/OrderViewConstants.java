@@ -22,6 +22,16 @@ public class OrderViewConstants {
 	public static final String VIEW_ENTITY_FORM = "order/form";
 
 	/**
+	 * Name for the premium form.
+	 */
+	public static final String VIEW_ENTITY_FORM_PREMIUM = "order/premiumForm";
+	
+	/**
+	 * Name for the already premium message.
+	 */
+	public static final String VIEW_ENTITY_ALREADY_PREMIUM = "order/alreadyPremium";
+	
+	/**
 	 * Name for the entities view using AJAX.
 	 */
 	public static final String VIEW_ENTITY_LIST_AJAX = "order/listAjax";

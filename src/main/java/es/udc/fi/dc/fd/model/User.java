@@ -35,6 +35,9 @@ public interface User extends Serializable {
 
 	void setCity(final String value);
 	
+	Boolean getIsPremium();
+
+	void setIsPremium(final Boolean value);
 	
 	Double getAverageScore();
 	

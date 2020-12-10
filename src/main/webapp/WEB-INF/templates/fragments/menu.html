@@ -26,7 +26,7 @@
 							</span>
 							<span aria-hidden="true"></span>
 						</a>
-						<form id="logout_form" th:action="@{/logout}" method="POST">
+							<form id="logout_form" th:action="@{/logout}" method="POST"></form>
 							<ul class="dropdown-menu" role="menu">
 								<li sec:authorize="!isAuthenticated()"><a th:href="@{/signup}"
 										th:text="#{title.signup}">Sign up</a></li>
@@ -43,13 +43,14 @@
 									</a>
 								</li>
 							</ul>
-						</form>
 					</li>
 					<li sec:authorize="isAuthenticated()" class="dropdown"><a href="#" class="dropdown-toggle" s
 							data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span
 								th:remove="tag" th:text="#{title.data}">Data</span> <span aria-hidden="true"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
+							<li><a th:href="@{/order/premiumForm}"
+								th:text="#{label.premium}">Premium</a></li>
 							<li><a th:href="@{/advertisement/edit}"
 									th:text="#{label.advertisement.add}">Advertisement</a></li>
 							<li><a th:href="@{/advertisement/search}" th:text="#{label.advertisement.search}">Search</a>

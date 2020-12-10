@@ -65,6 +65,9 @@ public class UserEntity implements User {
 
 	@Column(name = "city", nullable = false, unique = true)
 	private String city = "";
+	
+	@Column(name = "isPremium", nullable = false)
+	private Boolean isPremium = false;
 
 	@Column(name = "scoreCount", nullable = false, unique = true)
 	private Integer scoreCount = 0;
@@ -117,6 +120,21 @@ public class UserEntity implements User {
 		this.firstLastname = firstLastname;
 		this.secondLastname = secondLastname;
 		this.city = city;
+		this.scoreCount=scoreCount;
+		this.averageScore=averageScore;
+		this.sumScore=sumScore;
+	}
+	
+	public UserEntity(String username, String password, String name, String firstLastname, String secondLastname,
+			String city,Boolean isPremium, Integer scoreCount,Double averageScore,Integer sumScore) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.firstLastname = firstLastname;
+		this.secondLastname = secondLastname;
+		this.city = city;
+		this.isPremium = isPremium;
 		this.scoreCount=scoreCount;
 		this.averageScore=averageScore;
 		this.sumScore=sumScore;
@@ -192,6 +210,16 @@ public class UserEntity implements User {
 		city = checkNotNull(value, "Received a null pointer as city");
 	}
 
+	@Override
+	public Boolean getIsPremium() {
+		return isPremium;
+	}
+
+	@Override
+	public void setIsPremium(final Boolean value) {
+		isPremium = checkNotNull(value, "Received a null pointer as city");
+	}
+	
 	@Override
 	public Double getAverageScore() {
 		return averageScore;
