@@ -1,75 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head th:include="fragments/header :: header" />
-    <style>
-        .donate input:checked + span {
-            background-color: #404040;
-            color: #f7f7f7;
-        }
-    </style>
 
-    <body>
-        <header class="header" th:include="fragments/menu :: menu" />
+<head th:include="fragments/header :: header" />
+<style>
+	.donate input:checked+span {
+		background-color: #404040;
+		color: #f7f7f7;
+	}
+</style>
 
-        <section id="main-section" class="container-fluid">
-            <h1 th:text="#{title.advertisement.list}">Advertisement list</h1>
-            <p>This view allows you to visualize all the advertisements added to this site.</p>
-            <div class="container" th:fragment="list">
-                <div class="row">
-                    <div class="col-md-4" style="padding-bottom: 10px" th:each="advertisement, iter : ${advertisements}">
-                        <div class="photo image-background">
-                            <div th:id="'carousel' + ${iter.index}" class="carousel slide" data-interval="false">
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-                                    <!-- Resto de imagenes -->
-                                    <div th:if="${advertisement?.images.isEmpty()}">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="d-block user-select-none"
-                                            width="100%"
-                                            height="200"
-                                            aria-label="Placeholder: Image cap"
-                                            focusable="false"
-                                            role="img"
-                                            preserveAspectRatio="xMidYMid slice"
-                                            viewBox="0 0 318 180"
-                                            style="font-size: 1.5rem; text-anchor: middle"
-                                        >
-                                            <rect width="100%" height="100%" fill="#868e96"></rect>
-                                            <text x="50%" y="50%" fill="#dee2e6" dy=".3em">This ad has no images</text>
-                                        </svg>
-                                    </div>
-                                    <div
-                                        th:each="image, iterstat : ${advertisement?.images}"
-                                        style="height: 350px; width: 100%"
-                                        th:class="${iterstat.index}== 0  ? 'carousel-item item active':'carousel-item item'"
-                                    >
-                                        <img
-                                            th:src="@{'data:image/jpeg;base64,'+${image?.imageBase64}}"
-                                            class="img-responsive"
-                                            alt=""
-                                            style="margin: auto; max-height: -webkit-fill-available"
-                                        />
-                                    </div>
-                                    <!-- Left and right controls -->
-                                    <a class="left carousel-control" th:href="@{'#carousel' + ${iter.index}}" data-slide="prev">
-                                        <span class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="right carousel-control" th:href="@{'#carousel' + ${iter.index}}" data-slide="next">
-                                        <span class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+<body>
+	<header class="header" th:include="fragments/menu :: menu" />
 
-                        <div class="row m-0 justify-content-center align-items-center vh-100">
-                            <form class="col-md-12 text-center" th:id="frm" action="#" th:action="@{/user/score}" method="post" role="form">
-                                <input type="hidden" id="rated" name="rated" th:value="${advertisement?.userA.username}" />
-                                <input type="hidden" id="returnUri" name="returnUri" th:value="list" />
-                                <div class="col-md-9 text-center">
-                                    <p class="donate">
-                                        <label
-                                            style="
+	<section id="main-section" class="container-fluid">
+		<h1 th:text="#{title.advertisement.list}">Advertisement list</h1>
+		<p>This view allows you to visualize all the advertisements added to this site.</p>
+		<div class="container" th:fragment="list">
+			<div class="row">
+				<div class="col-md-4" style="padding-bottom: 10px" th:each="advertisement, iter : ${advertisements}">
+					<div class="photo image-background">
+						<div th:id="'carousel' + ${iter.index}" class="carousel slide" data-interval="false">
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner">
+								<!-- Resto de imagenes -->
+								<div th:if="${advertisement?.images.isEmpty()}">
+									<svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none"
+										width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false"
+										role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180"
+										style="font-size: 1.5rem; text-anchor: middle">
+										<rect width="100%" height="100%" fill="#868e96"></rect>
+										<text x="50%" y="50%" fill="#dee2e6" dy=".3em">This ad has no images</text>
+									</svg>
+								</div>
+								<div th:each="image, iterstat : ${advertisement?.images}"
+									style="height: 350px; width: 100%"
+									th:class="${iterstat.index}== 0  ? 'carousel-item item active':'carousel-item item'">
+									<img th:src="@{'data:image/jpeg;base64,'+${image?.imageBase64}}"
+										class="img-responsive" alt=""
+										style="margin: auto; max-height: -webkit-fill-available" />
+								</div>
+								<!-- Left and right controls -->
+								<a class="left carousel-control" th:href="@{'#carousel' + ${iter.index}}"
+									data-slide="prev">
+									<span class="glyphicon glyphicon-chevron-left"></span> <span
+										class="sr-only">Previous</span>
+								</a>
+								<a class="right carousel-control" th:href="@{'#carousel' + ${iter.index}}"
+									data-slide="next">
+									<span class="glyphicon glyphicon-chevron-right"></span> <span
+										class="sr-only">Next</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="row m-0 justify-content-center align-items-center vh-100">
+						<form class="col-md-12 text-center" th:id="frm" action="#" th:action="@{/user/score}"
+							method="post" role="form">
+							<input type="hidden" id="rated" name="rated" th:value="${advertisement?.userA.username}" />
+							<input type="hidden" id="returnUri" name="returnUri" th:value="list" />
+							<div class="col-md-9 text-center">
+								<p class="donate">
+									<label style="
                                                 float: left;
                                                 width: 30px;
                                                 height: 32px;
@@ -79,19 +71,10 @@
                                                 border: 1px solid #d0d0d0;
                                                 overflow: hidden;
                                                 cursor: pointer;
-                                            "
-                                            ><input
-                                                id="score"
-                                                type="radio"
-                                                name="score"
-                                                th:value="1"
-                                                style="position: absolute; opacity: 0"
-                                            /><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"
-                                                ><strong>★</strong></span
-                                            ></label
-                                        >
-                                        <label
-                                            style="
+                                            "><input id="score" type="radio" name="score" th:value="1"
+											style="position: absolute; opacity: 0" /><span
+											style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"><strong>★</strong></span></label>
+									<label style="
                                                 float: left;
                                                 width: 30px;
                                                 height: 32px;
@@ -101,19 +84,10 @@
                                                 border: 1px solid #d0d0d0;
                                                 overflow: hidden;
                                                 cursor: pointer;
-                                            "
-                                            ><input
-                                                id="score"
-                                                type="radio"
-                                                name="score"
-                                                th:value="2"
-                                                style="position: absolute; opacity: 0"
-                                            /><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"
-                                                ><strong>★</strong></span
-                                            ></label
-                                        >
-                                        <label
-                                            style="
+                                            "><input id="score" type="radio" name="score" th:value="2"
+											style="position: absolute; opacity: 0" /><span
+											style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"><strong>★</strong></span></label>
+									<label style="
                                                 float: left;
                                                 width: 30px;
                                                 height: 32px;
@@ -123,19 +97,10 @@
                                                 border: 1px solid #d0d0d0;
                                                 overflow: hidden;
                                                 cursor: pointer;
-                                            "
-                                            ><input
-                                                id="score"
-                                                type="radio"
-                                                name="score"
-                                                th:value="3"
-                                                style="position: absolute; opacity: 0"
-                                            /><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"
-                                                ><strong>★</strong></span
-                                            ></label
-                                        >
-                                        <label
-                                            style="
+                                            "><input id="score" type="radio" name="score" th:value="3"
+											style="position: absolute; opacity: 0" /><span
+											style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"><strong>★</strong></span></label>
+									<label style="
                                                 float: left;
                                                 width: 30px;
                                                 height: 32px;
@@ -145,19 +110,10 @@
                                                 border: 1px solid #d0d0d0;
                                                 overflow: hidden;
                                                 cursor: pointer;
-                                            "
-                                            ><input
-                                                id="score"
-                                                type="radio"
-                                                name="score"
-                                                th:value="4"
-                                                style="position: absolute; opacity: 0"
-                                            /><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"
-                                                ><strong>★</strong></span
-                                            ></label
-                                        >
-                                        <label
-                                            style="
+                                            "><input id="score" type="radio" name="score" th:value="4"
+											style="position: absolute; opacity: 0" /><span
+											style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"><strong>★</strong></span></label>
+									<label style="
                                                 float: left;
                                                 width: 30px;
                                                 height: 32px;
@@ -167,31 +123,21 @@
                                                 border: 1px solid #d0d0d0;
                                                 overflow: hidden;
                                                 cursor: pointer;
-                                            "
-                                            ><input
-                                                id="score"
-                                                type="radio"
-                                                name="score"
-                                                th:value="5"
-                                                style="position: absolute; opacity: 0"
-                                            /><span style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"
-                                                ><strong>★</strong></span
-                                            ></label
-                                        >
-                                    </p>
-                                </div>
-                                <div class="col-md-1 text-center" style="margin: 4px">
-                                    <h6>
-                                        <span th:remove="tag" th:text="${advertisement?.userA.averageScore}">AverageScore</span>
-                                    </h6>
-                                </div>
-                                <div
-                                    class="button col-md-1 text-center"
-                                    th:with="scoredUsers=${scoredUsers}"
-                                    style="float: left; width: 30px; height: 40px; margin: 8px"
-                                >
-                                    <div th:with="username=${advertisement?.userA.username}">
-                                        <div th:unless="${#sets.contains(scoredUsers,username)}">
+                                            "><input id="score" type="radio" name="score" th:value="5"
+											style="position: absolute; opacity: 0" /><span
+											style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"><strong>★</strong></span></label>
+								</p>
+							</div>
+							<div class="col-md-1 text-center" style="margin: 4px">
+								<h6>
+									<span th:remove="tag"
+										th:text="${advertisement?.userA.averageScore}">AverageScore</span>
+								</h6>
+							</div>
+							<div class="button col-md-1 text-center" th:with="scoredUsers=${scoredUsers}"
+								style="float: left; width: 30px; height: 40px; margin: 8px">
+								<div th:with="username=${advertisement?.userA.username}">
+									<div th:unless="${#sets.contains(scoredUsers,username)}">
                                             <button type="submit" class="btn btn-success btn-xs">★</button>
                                         </div>
                                     </div>
@@ -202,13 +148,25 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-4">
+                                <h5 th:if="${advertisement?.isSold == false}">
+									> <a th:href="@{/order/edit/{id}(id=${advertisement?.id})}"
+										th:text="${advertisement?.title}">Purchase</a>
+								</h5>
+								<h5 th:if="${advertisement?.isSold == true}">
+									> <a th:remove="tag" th:text="${advertisement?.title}">Purchase</a>
+								</h5>
                                     <h4 th:text="${advertisement?.title}" />
                                     <h5 th:text="${advertisement?.description}" />
                                     <h5 th:text="${advertisement?.userA.username} + '-' + ${advertisement?.userA.city}" />
                                     <h5 th:text="${#temporals.format(advertisement?.date,'dd/MMM/yyyy HH:mm')}" />
                                     <h5 th:text="${#numbers.formatCurrency(advertisement?.price)}" />
+                                    <h4 th:if="${advertisement?.isSold == true}" style="color: red">
+
+									<span th:remove="tag" th:text="SOLD">sold</span>
+
+								</h4>
                                     <div class="row justify-content-md-center">
-                                        <div class="col col-lg-3">
+                                        <div class="col col-lg-3" th:if="${advertisement?.isSold == false}>
                                             <form
                                                 th:id="${advertisement?.id}+form"
                                                 action="#"

@@ -65,7 +65,11 @@
                                     <h5 th:text="${advertisement?.userA.username} + '-' + ${advertisement?.userA.city}" />
                                     <h5 th:text="${#temporals.format(advertisement?.date,'dd/MMM/yyyy HH:mm')}" />
                                     <h5 th:text="${#numbers.formatCurrency(advertisement?.price)}" />
+									<h4 th:if="${advertisement?.isSold == true}" style="color: red">
 
+									<span th:remove="tag" th:text="SOLD">sold</span>
+
+									</h4>
                                     <div class="row justify-content-md-center">
                                         <div class="col col-lg-3">
                                             <form th:action="@{/advertisement/delete}" th:object="${advertisement}" method="post">
