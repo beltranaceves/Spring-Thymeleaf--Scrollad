@@ -121,32 +121,29 @@ public class OrderServiceTest {
 	}
 	
 	@Test
-	public void testGetEntitiesByUser() {
-		
-		int count = 0;
-		
-		UserEntity user = createUser("username1");
+    public void testGetEntitiesByUser() {
 
-		AdEntity ad1 = createAd(userRepository.getOne(user.getId()), "title1");
-		AdEntity ad2 = createAd(userRepository.getOne(user.getId()), "title2");
-		
-		List<OrderEntity> expected = new ArrayList<OrderEntity>();
-		
-		OrderEntity order1 = createOrder(user, ad1);
-		OrderEntity order2 = createOrder(user, ad2);
-		expected.add(order1);
-		expected.add(order2);
-		
-		orderService.addOrder(order1);
-		orderService.addOrder(order2);
-		
-		Iterable<OrderEntity> result = orderService.getEntitiesByUser(user);
-		
-		for (OrderEntity order : result) {
-			assertEquals(expected.get(count), order);
-			count++;
-		}
-	}
+        int count = 0;
+
+        UserEntity user = createUser("username1");
+
+        AdEntity ad1 = createAd(userRepository.getOne(user.getId()), "title1");
+
+        List<OrderEntity> expected = new ArrayList<OrderEntity>();
+
+        OrderEntity order1 = createOrder(user, ad1);
+
+        expected.add(order1);
+
+        orderService.addOrder(order1);
+
+        Iterable<OrderEntity> result = orderService.getEntitiesByUser(user);
+
+        for (OrderEntity order : result) {
+            assertEquals(expected.get(count), order);
+            count++;
+        }
+    }
 	
 	
 }

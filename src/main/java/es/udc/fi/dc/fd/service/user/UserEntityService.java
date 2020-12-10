@@ -176,18 +176,8 @@ public class UserEntityService implements UserService {
 		return userLoged;
 	}
 	
-	public Boolean isPremiumUser() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		String username;
-
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-
-		UserEntity user = findByUsername(username);
+	public Boolean isPremiumUser(final Integer id) {
+		UserEntity user = findById(id);
 		
 		return user.getIsPremium();
 	}
