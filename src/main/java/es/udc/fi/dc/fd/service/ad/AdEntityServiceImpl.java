@@ -65,10 +65,10 @@ public class AdEntityServiceImpl implements AdEntityService {
 		adEntityRepository.deleteById(identifier);
 	}
 
-	public final Iterable<AdEntity> findAds(String city, String keywords, String interval, Double minPrice,
+	public final Iterable<AdEntity> findAds(String city, String keywords, String interval,Double averageScore, Double minPrice,
 			Double maxPrice) {
 
-		Iterable<AdEntity> adEntities = adEntityRepository.find(city, keywords, interval, minPrice, maxPrice);
+		Iterable<AdEntity> adEntities = adEntityRepository.find(city, keywords, interval,averageScore, minPrice, maxPrice);
 		List<AdEntity> adEntitiesList = new ArrayList<AdEntity>();
 
 		adEntities.forEach((adEntity) -> {

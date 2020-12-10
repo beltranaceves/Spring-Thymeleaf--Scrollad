@@ -34,5 +34,9 @@ public interface UserService {
 	public UserEntity findByUsername(final String username);
 	
 	public UserEntity findById(final Integer id);
+	
+	public UserEntity followAndUnfollow(final String entity, final String followed);
+	
+	public UserEntity rateUser(final String entity,final String rated, final Integer score);
 
 }

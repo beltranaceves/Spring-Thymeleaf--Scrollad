@@ -52,7 +52,7 @@ public class AdEntity implements Ad {
 
 	@OneToMany(mappedBy = "ad", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<ImageEntity> images;
-	
+
 	@Column(name = "isOnHold", nullable = false)
 	private Boolean isOnHold;
 	
@@ -62,7 +62,7 @@ public class AdEntity implements Ad {
 	public AdEntity() {
 		super();
 	}
-	
+
 	public AdEntity(String title, String description, LocalDateTime date, Double price, UserEntity userA, Boolean isOnHold, Boolean isSold) {
 		super();
 		this.title = title;
@@ -101,7 +101,7 @@ public class AdEntity implements Ad {
 	public Boolean getIsSold() {
 		return isSold;
 	}
-	
+
 	public void setDescription(final String description) {
 		this.description = checkNotNull(description, "Received a null pointer as description");
 	}
@@ -168,8 +168,8 @@ public class AdEntity implements Ad {
 
 	@Override
 	public String toString() {
-		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", userA="
-				+ userA.getUsername() + "]";
+		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
+				+ ", price=" + price + ", userA=" + userA + ", images=" + images + ", isOnHold=" + isOnHold + "]";
 	}
 
 }
