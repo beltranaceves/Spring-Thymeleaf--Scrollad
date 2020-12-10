@@ -32,7 +32,35 @@
 			<column name="city" type="VARCHAR(30)">
 				<constraints nullable="false" unique="false" />
 			</column>
+			<column name="isPremium" type="BOOLEAN">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="scoreCount" type="INTEGER">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="averageScore" type="DECIMAL(4,2)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="sumScore" type="INTEGER">
+				<constraints nullable="false" unique="false" />
+			</column>
 		</createTable>
+		
+		<createTable tableName="userScored">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="userId" type="BIGINT">
+				<constraints nullable="false" unique="false"
+					foreignKeyName="fk_userscored_user" references="user(id)" />
+			</column>
+			<column name="scoredUser" type="VARCHAR(30)">
+				<constraints nullable="false" unique="false"
+					foreignKeyName="fk_userscored_scored"
+					references="user(username)" />
+			</column>
+		</createTable>
+			
 		<createTable tableName="userFollowed">
 			<column autoIncrement="true" name="id" type="BIGINT">
 				<constraints primaryKey="true" />
@@ -52,7 +80,7 @@
 				<constraints primaryKey="true" />
 			</column>
 			<column name="title" type="VARCHAR(30)">
-				<constraints nullable="false" unique="true" />
+				<constraints nullable="false" unique="false" />
 			</column>
 			<column name="description" type="VARCHAR(30)">
 				<constraints nullable="false" unique="false" />
@@ -68,6 +96,8 @@
 				<constraints nullable="false" unique="false" />
 			</column>
 			<column name="isOnHold" type="BOOLEAN">
+			</column>
+			<column name="isSold" type="BOOLEAN">
 			</column>
 		</createTable>
 		<createTable tableName="images">
@@ -91,6 +121,51 @@
 			</column>
 			<column name="adLiked" type="BIGINT">
 				<constraints foreignKeyName="fk_liked_ad" references="advertisement(id)" />
+			</column>
+		</createTable>
+		<createTable tableName="orders">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="price" type="DOUBLE">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="creditCard" type="VARCHAR(16)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="date" type="DATETIME">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="address" type="VARCHAR(60)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="user" type="BIGINT">
+				<constraints foreignKeyName="fk_ordering_user" references="user(id)" />
+			</column>
+			<column name="ad" type="BIGINT">
+				<constraints foreignKeyName="fk_ordering_ad" references="advertisement(id)" />
+			</column>
+		</createTable>
+		<createTable tableName="messages">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="text" type="VARCHAR(200)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="sender" type="BIGINT">
+				<constraints nullable="false" unique="false"
+					foreignKeyName="fk_sender_user" references="user(id)" />
+			</column>
+			<column name="receiver" type="BIGINT">
+				<constraints nullable="false" unique="false"
+					foreignKeyName="fk_receiver_user" references="user(id)" />
+			</column>
+			<column name="date" type="DATETIME">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="seen" type="BOOLEAN" defaultValue="false">
+				<constraints nullable="false" />
 			</column>
 		</createTable>
 

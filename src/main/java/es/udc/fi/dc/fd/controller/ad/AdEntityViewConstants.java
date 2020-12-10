@@ -13,6 +13,11 @@ public final class AdEntityViewConstants {
 	public static final String PARAM_ENTITIES = "advertisements";
 
 	/**
+	 * Premium entities parameter name.
+	 */
+	public static final String PARAM_PREMIUM_ENTITIES = "premiumAdvertisements";
+	
+	/**
 	 * Entity parameter name.
 	 */
 	public static final String PARAM_ENTITY = "advertisement";

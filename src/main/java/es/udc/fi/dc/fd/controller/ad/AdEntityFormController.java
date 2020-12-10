@@ -86,6 +86,7 @@ public class AdEntityFormController {
 			entity.setDescription(form.getDescription());
 			entity.setDate(LocalDateTime.now());
 			entity.setIsOnHold(false);
+			entity.setIsSold(false);
 			entity.setPrice(price);
 
 			imageEntityList = new ArrayList<ImageEntity>();

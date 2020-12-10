@@ -34,7 +34,7 @@ public class AdEntity implements Ad {
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
 
-	@Column(name = "title", nullable = false, unique = true)
+	@Column(name = "title", nullable = false, unique = false)
 	private String title = "";
 
 	@Column(name = "description", nullable = false, unique = true)
@@ -52,12 +52,26 @@ public class AdEntity implements Ad {
 
 	@OneToMany(mappedBy = "ad", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<ImageEntity> images;
-	
+
 	@Column(name = "isOnHold", nullable = false)
 	private Boolean isOnHold;
+	
+	@Column(name = "isSold", nullable = false)
+	private Boolean isSold;
 
 	public AdEntity() {
 		super();
+	}
+
+	public AdEntity(String title, String description, LocalDateTime date, Double price, UserEntity userA, Boolean isOnHold, Boolean isSold) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.date = date;
+		this.price = price;
+		this.userA = userA;
+		this.isOnHold = isOnHold;
+		this.isSold = isSold;
 	}
 
 	public Integer getId() {
@@ -83,7 +97,11 @@ public class AdEntity implements Ad {
 	public Boolean getIsOnHold() {
 		return isOnHold;
 	}
-	
+		
+	public Boolean getIsSold() {
+		return isSold;
+	}
+
 	public void setDescription(final String description) {
 		this.description = checkNotNull(description, "Received a null pointer as description");
 	}
@@ -123,7 +141,11 @@ public class AdEntity implements Ad {
 	public void setIsOnHold(final Boolean isOnHold) {
 		this.isOnHold = isOnHold;
 	}
-	
+
+	public void setIsSold(Boolean isSold) {
+		this.isSold = isSold;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -146,8 +168,8 @@ public class AdEntity implements Ad {
 
 	@Override
 	public String toString() {
-		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", userA="
-				+ userA.getUsername() + "]";
+		return "AdEntity [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
+				+ ", price=" + price + ", userA=" + userA + ", images=" + images + ", isOnHold=" + isOnHold + "]";
 	}
 
 }

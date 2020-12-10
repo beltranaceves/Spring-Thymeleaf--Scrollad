@@ -140,6 +140,7 @@ public class AdEntityListViewController {
 		model.put(AdEntityViewConstants.PARAM_ENTITIES, adEntityService.getAllEntities());
 		model.put("user", userEntity);
 		model.put("follows", userEntity.getFollowed());
+		model.put("scoredUsers", userEntity.getScored());
 	}
 
 	private final void loadViewModelByUser(final ModelMap model, UserEntity user) {

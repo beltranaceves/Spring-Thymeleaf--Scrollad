@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: header" />
+<body>
+	<header class="header" th:include="fragments/menu :: menu" />
+
+	<section id="main-section" class="container-fluid">
+		<h1 th:text="#{title.order.list}">My Order's List</h1>
+		<p>This view shows the orders purchased by an user.</p>
+		<div class="container" th:fragment="list">
+			<div class="row">
+				<div class="container p-3 my-3 border" style="border:1px solid #cecece;"
+					th:each="order, iter : ${orders}">
+					<h5>
+						<span th:remove="tag" th:text="${order?.ad.title}">Title</span>
+					</h5>
+					<p>
+						<span th:remove="tag" th:text="${order?.creditCard}">Description</span>
+					</p>
+					<p>
+						<span th:remove="tag"
+							th:text="${#temporals.format(order?.date,'dd/MMM/yyyy HH:mm')}">Date</span>
+					</p>
+					<p>
+						<span th:remove="tag"
+							th:text="${#numbers.formatCurrency(order?.price)}">Price</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<div th:include="fragments/scripts :: general" />
+	</footer>
+</body>
+
+</html>
