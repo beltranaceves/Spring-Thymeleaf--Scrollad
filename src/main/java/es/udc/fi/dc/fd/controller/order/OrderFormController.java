@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import es.udc.fi.dc.fd.model.Ad;
 import es.udc.fi.dc.fd.model.form.OrderForm;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.OrderEntity;
@@ -113,6 +114,101 @@ public class OrderFormController {
 		}
 
 		return path;
+	}
+	
+	@PostMapping(path = "/buyPremium")
+	public String buyPremium(final ModelMap model,
+			@ModelAttribute(OrderViewConstants.BEAN_FORM) @Valid final OrderForm form,
+			final BindingResult bindingResult, final HttpServletResponse response){
+		final String path;
+		final OrderEntity entity;
+		final AdEntity adEntity;
+		
+		
+		if (orderEntityService.checkForm(form)) {
+			// Invalid form data
+
+			// Returns to the form view
+			path = OrderViewConstants.VIEW_ENTITY_FORM;
+
+			// Marks the response as a bad request
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		} else {
+			adEntity = new AdEntity();
+			adEntity.setTitle("Premium");
+			adEntity.setDescription("Premium Subscription");
+			adEntity.setDate(LocalDateTime.now());
+			adEntity.setIsOnHold(true);
+			adEntity.setIsSold(false);
+			adEntity.setPrice(20.0);
+			
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+			String username;
+
+			if (principal instanceof UserDetails) {
+				username = ((UserDetails) principal).getUsername();
+			} else {
+				username = principal.toString();
+			}
+
+			UserEntity user = userEntityService.findById(0);
+			adEntity.setUserA(user);
+
+			
+			Ad ad = adEntityService.add(adEntity);
+			
+			form.setAdId(ad.getId());
+			
+			entity = new OrderEntity();
+			entity.setAddress(form.getAddress());
+			entity.setCreditCard(form.getCreditCard());
+			entity.setDate(LocalDateTime.now());
+			entity.setAd(adEntityService.findById(form.getAdId()));
+			entity.setPrice(adEntityService.findById(form.getAdId()).getPrice());
+			
+			
+			user = userEntityService.findByUsername(username);
+			
+			entity.setUser(user);
+
+			orderEntityService.addOrder(entity);
+			
+			adEntityService.updateIsSoldById(form.getAdId());
+
+			user.setIsPremium(true);
+			
+			userEntityService.updateIsPremiumUserByUserId(user.getId(), true);
+			
+			loadViewModel(model);
+
+			path = OrderViewConstants.VIEW_ENTITY_LIST;
+		}
+
+		return path;
+	}
+	
+	@GetMapping(path = "/premiumForm")
+	public String showPremiumForm(final ModelMap model) {
+		String path = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String username;
+
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+
+		UserEntity user = userEntityService.findByUsername(username);
+		
+		if(user.getIsPremium()) {
+			path = OrderViewConstants.VIEW_ENTITY_ALREADY_PREMIUM;
+		} else {
+			path = OrderViewConstants.VIEW_ENTITY_FORM_PREMIUM;	
+		}
+		return path;	
 	}
 	
 	private final void loadViewModel(final ModelMap model) {
