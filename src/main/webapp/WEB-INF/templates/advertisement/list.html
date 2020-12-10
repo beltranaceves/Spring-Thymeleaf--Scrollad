@@ -1,216 +1,256 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head th:include="fragments/header :: header" />
 <style>
-.donate input:checked+span {
-	background-color: #404040;
-	color: #F7F7F7;
-}
+	.donate input:checked+span {
+		background-color: #404040;
+		color: #f7f7f7;
+	}
 </style>
+
 <body>
 	<header class="header" th:include="fragments/menu :: menu" />
 
-
 	<section id="main-section" class="container-fluid">
 		<h1 th:text="#{title.advertisement.list}">Advertisement list</h1>
-		<p>This view allows you to visualize all the advertisements added
-			to this site.</p>
+		<p>This view allows you to visualize all the advertisements added to this site.</p>
 		<div class="container" th:fragment="list">
 			<div class="row">
-				<div class="col-md-4"
-					th:each="advertisement, iter : ${advertisements}">
+				<div class="col-md-4" style="padding-bottom: 10px" th:each="advertisement, iter : ${advertisements}">
 					<div class="photo image-background">
-						<div th:id="'carousel' + ${iter.index}" class="carousel slide"
-							data-interval="false">
+						<div th:id="'carousel' + ${iter.index}" class="carousel slide" data-interval="false">
 							<!-- Wrapper for slides -->
 							<div class="carousel-inner">
 								<!-- Resto de imagenes -->
 								<div th:if="${advertisement?.images.isEmpty()}">
-									<img
-										src="https://safetyaustraliagroup.com.au/wp-content/uploads/2019/05/image-not-found.png"
-										alt=""
-										style="margin: auto; max-height: -webkit-fill-available;" />
+									<svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none"
+										width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false"
+										role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180"
+										style="font-size: 1.5rem; text-anchor: middle">
+										<rect width="100%" height="100%" fill="#868e96"></rect>
+										<text x="50%" y="50%" fill="#dee2e6" dy=".3em">This ad has no images</text>
+									</svg>
 								</div>
 								<div th:each="image, iterstat : ${advertisement?.images}"
-									style="height: 350px; width: 100%;"
+									style="height: 350px; width: 100%"
 									th:class="${iterstat.index}== 0  ? 'carousel-item item active':'carousel-item item'">
-									<img
-										th:src="@{'data:image/jpeg;base64,'+${image?.imageBase64}}"
+									<img th:src="@{'data:image/jpeg;base64,'+${image?.imageBase64}}"
 										class="img-responsive" alt=""
-										style="margin: auto; max-height: -webkit-fill-available;" />
+										style="margin: auto; max-height: -webkit-fill-available" />
 								</div>
 								<!-- Left and right controls -->
-								<a class="left carousel-control"
-									th:href="@{'#carousel' + ${iter.index}}" data-slide="prev">
+								<a class="left carousel-control" th:href="@{'#carousel' + ${iter.index}}"
+									data-slide="prev">
 									<span class="glyphicon glyphicon-chevron-left"></span> <span
-									class="sr-only">Previous</span>
-								</a> <a class="right carousel-control"
-									th:href="@{'#carousel' + ${iter.index}}" data-slide="next">
+										class="sr-only">Previous</span>
+								</a>
+								<a class="right carousel-control" th:href="@{'#carousel' + ${iter.index}}"
+									data-slide="next">
 									<span class="glyphicon glyphicon-chevron-right"></span> <span
-									class="sr-only">Next</span>
+										class="sr-only">Next</span>
 								</a>
 							</div>
 						</div>
 					</div>
 
-					<div
-						class="row m-0 justify-content-center align-items-center vh-100">
-						<form class="col-md-12 text-center" th:id="frm" action="#"
-							th:action="@{/user/score}" method="post" role="form">
-							<input type="hidden" id="rated" name="rated"
-								th:value="${advertisement?.userA.username}"></input> <input
-								type="hidden" id="returnUri" name="returnUri" th:value="list"></input>
+					<div class="row m-0 justify-content-center align-items-center vh-100">
+						<form class="col-md-12 text-center" th:id="frm" action="#" th:action="@{/user/score}"
+							method="post" role="form">
+							<input type="hidden" id="rated" name="rated" th:value="${advertisement?.userA.username}" />
+							<input type="hidden" id="returnUri" name="returnUri" th:value="list" />
 							<div class="col-md-9 text-center">
 								<p class="donate">
-									<label
-										style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input
-										id="score" type="radio" name="score" th:value="1"
-										style="position: absolute; opacity: 0;"><span
-										style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
-									<label
-										style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input
-										id="score" type="radio" name="score" th:value="2"
-										style="position: absolute; opacity: 0;"><span
-										style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
-									<label
-										style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input
-										id="score" type="radio" name="score" th:value="3"
-										style="position: absolute; opacity: 0;"><span
-										style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
-									<label
-										style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input
-										id="score" type="radio" name="score" th:value="4"
-										style="position: absolute; opacity: 0;"><span
-										style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
-									<label
-										style="float: left; width: 30px; height: 32px; margin: 4px; background-color: #EFEFEF; border-radius: 4px; border: 1px solid #D0D0D0; overflow: hidden; cursor: pointer;"><input
-										id="score" type="radio" name="score" th:value="5"
-										style="position: absolute; opacity: 0;"><span
-										style="text-align: center; font-size: 20px; padding: 2px 0px; display: block;"><strong>★</strong></span></label>
+									<label style="
+                                                float: left;
+                                                width: 30px;
+                                                height: 32px;
+                                                margin: 4px;
+                                                background-color: #efefef;
+                                                border-radius: 4px;
+                                                border: 1px solid #d0d0d0;
+                                                overflow: hidden;
+                                                cursor: pointer;
+                                            "><input id="score" type="radio" name="score" th:value="1"
+											style="position: absolute; opacity: 0" /><span
+											style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"><strong>★</strong></span></label>
+									<label style="
+                                                float: left;
+                                                width: 30px;
+                                                height: 32px;
+                                                margin: 4px;
+                                                background-color: #efefef;
+                                                border-radius: 4px;
+                                                border: 1px solid #d0d0d0;
+                                                overflow: hidden;
+                                                cursor: pointer;
+                                            "><input id="score" type="radio" name="score" th:value="2"
+											style="position: absolute; opacity: 0" /><span
+											style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"><strong>★</strong></span></label>
+									<label style="
+                                                float: left;
+                                                width: 30px;
+                                                height: 32px;
+                                                margin: 4px;
+                                                background-color: #efefef;
+                                                border-radius: 4px;
+                                                border: 1px solid #d0d0d0;
+                                                overflow: hidden;
+                                                cursor: pointer;
+                                            "><input id="score" type="radio" name="score" th:value="3"
+											style="position: absolute; opacity: 0" /><span
+											style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"><strong>★</strong></span></label>
+									<label style="
+                                                float: left;
+                                                width: 30px;
+                                                height: 32px;
+                                                margin: 4px;
+                                                background-color: #efefef;
+                                                border-radius: 4px;
+                                                border: 1px solid #d0d0d0;
+                                                overflow: hidden;
+                                                cursor: pointer;
+                                            "><input id="score" type="radio" name="score" th:value="4"
+											style="position: absolute; opacity: 0" /><span
+											style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"><strong>★</strong></span></label>
+									<label style="
+                                                float: left;
+                                                width: 30px;
+                                                height: 32px;
+                                                margin: 4px;
+                                                background-color: #efefef;
+                                                border-radius: 4px;
+                                                border: 1px solid #d0d0d0;
+                                                overflow: hidden;
+                                                cursor: pointer;
+                                            "><input id="score" type="radio" name="score" th:value="5"
+											style="position: absolute; opacity: 0" /><span
+											style="text-align: center; font-size: 20px; padding: 2px 0px; display: block"><strong>★</strong></span></label>
 								</p>
 							</div>
-							<div class="col-md-1 text-center" style="margin: 4px;">
+							<div class="col-md-1 text-center" style="margin: 4px">
 								<h6>
 									<span th:remove="tag"
 										th:text="${advertisement?.userA.averageScore}">AverageScore</span>
 								</h6>
 							</div>
-							<div class="button col-md-1 text-center"
-								th:with="scoredUsers=${scoredUsers}"
-								style="float: left; width: 30px; height: 40px; margin: 8px;">
+							<div class="button col-md-1 text-center" th:with="scoredUsers=${scoredUsers}"
+								style="float: left; width: 30px; height: 40px; margin: 8px">
 								<div th:with="username=${advertisement?.userA.username}">
 									<div th:unless="${#sets.contains(scoredUsers,username)}">
-										<button type="submit" class="btn btn-success btn-xs">★</button>
-									</div>
-								</div>
-							</div>
-						</form>
+                                            <button type="submit" class="btn btn-success btn-xs">★</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
 
-					</div>
-
-					<div class="info">
-						<div class="row">
-							<div class="price col-md-6">
-								<h5 th:if="${advertisement?.isSold == false}">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-4">
+                                <h5 th:if="${advertisement?.isSold == false}">
 									> <a th:href="@{/order/edit/{id}(id=${advertisement?.id})}"
 										th:text="${advertisement?.title}">Purchase</a>
 								</h5>
 								<h5 th:if="${advertisement?.isSold == true}">
 									> <a th:remove="tag" th:text="${advertisement?.title}">Purchase</a>
 								</h5>
-								<p>
-									<span th:remove="tag" th:text="${advertisement?.description}">Description</span>
-								</p>
-								<p>
-									<span th:remove="tag"
-										th:text="${advertisement?.userA.username} + '-' + ${advertisement?.userA.city}">User</span>
-								</p>
-								<p>
-									<span th:remove="tag"
-										th:text="${#temporals.format(advertisement?.date,'dd/MMM/yyyy HH:mm')}"></span>
-								</p>
-								<p>
-									<span th:remove="tag"
-										th:text="${#numbers.formatCurrency(advertisement?.price)}"></span>
-								</p>
-								<h4 th:if="${advertisement?.isSold == true}" style="color: red">
+                                    <h4 th:text="${advertisement?.title}" />
+                                    <h5 th:text="${advertisement?.description}" />
+                                    <h5 th:text="${advertisement?.userA.username} + '-' + ${advertisement?.userA.city}" />
+                                    <h5 th:text="${#temporals.format(advertisement?.date,'dd/MMM/yyyy HH:mm')}" />
+                                    <h5 th:text="${#numbers.formatCurrency(advertisement?.price)}" />
+                                    <h4 th:if="${advertisement?.isSold == true}" style="color: red">
 
 									<span th:remove="tag" th:text="SOLD">sold</span>
 
 								</h4>
-								<div th:if="${advertisement?.isSold == false}">
-
-									<form th:id="${advertisement?.id}+form" action="#"
-										th:action="@{/followAndUnfollow/follow}" method="post"
-										role="form">
-										<input type="hidden" id="followed" name="followed"
-											th:value="${advertisement?.userA.username}"></input><input
-											type="hidden" id="returnUri" name="returnUri" value="list"></input>
-										<div th:with="follows=${follows}">
-											<div th:with="username=${advertisement?.userA.username}">
-												<div th:if="${#sets.contains(follows, username)}">
-													<button type="submit" th:id="${advertisement?.id}+follow"
-														class="btn btn-danger">Unfollow</button>
-												</div>
-												<div th:unless="${#sets.contains(follows, username)}">
-													<button type="submit" class="btn btn-primary"
-														th:id="${advertisement?.id}+follow">Follow</button>
-												</div>
-											</div>
-										</div>
-									</form>
-								</div>
-								<div>
-									<form th:action="@{/chat}">
-										<input type="hidden" id="vendor" name="vendor"
-											th:value="${advertisement?.userA.username}"></input>
-										<button type="submit" class="btn btn-primary">Chat</button>
-									</form>
-								</div>
-								<div th:unless="${likesList.isEmpty()}">
-									<div th:if="${likesList.contains(advertisement?.id)}">
-										<form th:action="@{/advertisement/deleteLike}"
-											th:object="${advertisement}" method="post">
-											<input type="hidden" name="advertisement"
-												th:value="${advertisement?.id}">
-											<button type="submit">Dislike</button>
-										</form>
-									</div>
-									<div th:unless="${likesList.contains(advertisement?.id)}">
-										<form th:action="@{/advertisement/addLike}"
-											th:object="${advertisement}" method="post">
-											<input type="hidden" name="advertisement"
-												th:value="${advertisement?.id}">
-											<button type="submit">Like</button>
-										</form>
-									</div>
-								</div>
-								<div th:if="${likesList.isEmpty()}">
-									<div>
-										<form th:action="@{/advertisement/addLike}"
-											th:object="${advertisement}" method="post">
-											<input type="hidden" name="advertisement"
-												th:value="${advertisement?.id}">
-											<button type="submit">Like</button>
-										</form>
-									</div>
-									<div>
-										<form th:action="@{/advertisement/addLike}"
-											th:object="${advertisement}" method="post">
-											<input type="hidden" name="advertisement"
-												th:value="${advertisement?.id}">
-											<button type="submit">Like</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</section>
-	<footer>
-		<div th:include="fragments/scripts :: general" />
-	</footer>
-</body>
+                                    <div class="row justify-content-md-center">
+                                        <div class="col col-lg-3" th:if="${advertisement?.isSold == false}>
+                                            <form
+                                                th:id="${advertisement?.id}+form"
+                                                action="#"
+                                                th:action="@{/followAndUnfollow/follow}"
+                                                method="post"
+                                                role="form"
+                                            >
+                                                <input
+                                                    type="hidden"
+                                                    id="followed"
+                                                    name="followed"
+                                                    th:value="${advertisement?.userA.username}"
+                                                /><input type="hidden" id="returnUri" name="returnUri" value="list" />
+                                                <div th:with="follows=${follows}">
+                                                    <div th:with="username=${advertisement?.userA.username}">
+                                                        <div th:if="${#sets.contains(follows, username)}">
+                                                            <button
+                                                                type="submit"
+                                                                th:id="${advertisement?.id}+follow"
+                                                                class="btn btn-danger"
+                                                            >
+                                                                Unfollow
+                                                            </button>
+                                                        </div>
+                                                        <div th:unless="${#sets.contains(follows, username)}">
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-success"
+                                                                th:id="${advertisement?.id}+follow"
+                                                            >
+                                                                Follow
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col col-lg-2">
+                                            <form th:action="@{/chat}">
+                                                <input
+                                                    type="hidden"
+                                                    id="vendor"
+                                                    name="vendor"
+                                                    th:value="${advertisement?.userA.username}"
+                                                />
+                                                <button type="submit" class="btn btn-info">🗪</button>
+                                            </form>
+                                        </div>
+                                        <div class="col col-lg-2">
+                                            <div th:unless="${likesList.isEmpty()}">
+                                                <div th:if="${likesList.contains(advertisement?.id)}">
+                                                    <form
+                                                        th:action="@{/advertisement/deleteLike}"
+                                                        th:object="${advertisement}"
+                                                        method="post"
+                                                    >
+                                                        <input type="hidden" name="advertisement" th:value="${advertisement?.id}" />
+                                                        <button type="submit" class="btn btn-danger">🖓</button>
+                                                    </form>
+                                                </div>
+                                                <div th:unless="${likesList.contains(advertisement?.id)}">
+                                                    <form th:action="@{/advertisement/addLike}" th:object="${advertisement}" method="post">
+                                                        <input type="hidden" name="advertisement" th:value="${advertisement?.id}" />
+                                                        <button type="submit" class="btn btn-success">🖒</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div th:if="${likesList.isEmpty()}">
+                                                <form th:action="@{/advertisement/addLike}" th:object="${advertisement}" method="post">
+                                                    <input type="hidden" name="advertisement" th:value="${advertisement?.id}" />
+                                                    <button type="submit" class="btn btn-success">🖒</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div th:include="fragments/scripts :: general" />
+        </footer>
+    </body>
 </html>
