@@ -60,38 +60,27 @@
 							</div>
 						</div>
 					</div>
+					 
 
-					<div class="info">
+
+					<div class="container-fluid">
 						<div class="row">
-							<div class="price col-md-6">
-								<h5>
-									<span th:remove="tag" th:text="${advertisement?.title}"></span>
-								</h5>
-								<p>
-									<span th:remove="tag" th:text="${advertisement?.description}"></span>
-								</p>
-								<p>
-									<span th:remove="tag"
-										th:text="${advertisement?.userA.username} + '-' + ${advertisement?.userA.city}">User</span>
-								</p>
-								<p>
-									<span th:remove="tag"
-										th:text="${#temporals.format(advertisement?.date,'dd/MMM/yyyy HH:mm')}"></span>
-								</p>
-								<p>
-									<span th:remove="tag"
-										th:text="${#numbers.formatCurrency(advertisement?.price)}"></span>
-								</p>
-								<p>
-								<div>
+							<div class="col-4">
+								<h4 th:text="${advertisement?.title}" />
+                                    <h5 th:text="${advertisement?.description}" />
+                                    <h5 th:text="${advertisement?.userA.username} + '-' + ${advertisement?.userA.city}" />
+                                    <h5 th:text="${#temporals.format(advertisement?.date,'dd/MMM/yyyy HH:mm')}" />
+                                    <h5 th:text="${#numbers.formatCurrency(advertisement?.price)}" />
+								
+								<div class="col col-lg-4">
 									<form th:action="@{/advertisement/deleteLike}"
 										th:object="${advertisement}" method="post">
 										<input type="hidden" name="advertisement"
 											th:value="${advertisement?.id}">
-										<button type="submit">Dislike</button>
+										<button type="submit" class="btn btn-danger">Dislike</button>
 									</form>
 								</div>
-								</p>
+								
 							</div>
 						</div>
 					</div>
