@@ -30,6 +30,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -172,6 +174,30 @@ public class UserEntityService implements UserService {
 		}	
 		
 		return userLoged;
+	}
+	
+	public Boolean isPremiumUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String username;
+
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+
+		UserEntity user = findByUsername(username);
+		
+		return user.getIsPremium();
+	}
+	
+	public void updateIsPremiumUserByUserId(final Integer id, final Boolean value) {
+		Optional<UserEntity> userEntity = userRepository.findById(id);
+		if (userEntity.isPresent()) {
+			userEntity.get().setIsPremium(value);;
+			userRepository.save(userEntity.get());
+		}
 	}
 
 }

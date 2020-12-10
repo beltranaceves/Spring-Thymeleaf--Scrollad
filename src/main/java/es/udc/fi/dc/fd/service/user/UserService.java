@@ -38,5 +38,9 @@ public interface UserService {
 	public UserEntity followAndUnfollow(final String entity, final String followed);
 	
 	public UserEntity rateUser(final String entity,final String rated, final Integer score);
+	
+	public Boolean isPremiumUser();
+	
+	public void updateIsPremiumUserByUserId(final Integer id, final Boolean value);
 
 }
