@@ -124,5 +124,48 @@
         <footer>
             <div th:include="fragments/scripts :: general" />
         </footer>
+        
+        
+        <input id="username" type="hidden" th:value="${#authentication.getPrincipal().getUsername()}"/>
+        <input type="button"  th:onclick="'javascript:submitForm();'" />
     </body>
+    
+    <script th:inline="javascript">
+		/*<![CDATA[*/
+		
+		function submitForm() {
+			userName = document.getElementById("username");
+		    console.log(userName);
+		    var http = new XMLHttpRequest();
+		    city ="";
+		    interval ="";
+		    minPrice ="";
+		    maxPrice ="";
+		    keywords ="";
+		    
+		    username = userName.value;
+		    var url = "http://localhost:8080/rest/search?city=" + city + "&interval=" + interval + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice + 
+		    		"&keywords=" + keywords + "&userName=" + username;
+		    
+		    
+		    http.open("GET", url, true);
+		    http.setRequestHeader("Content-Type", "application/text;charset=UTF-8");
+		
+		    http.onreadystatechange = function() {
+		        if(http.readyState == 4 && http.status == 200) {
+		            //aqui obtienes la respuesta de tu peticion
+		            if (http.responseText != null) {
+		                alert(http.responseText);
+		            }
+		        } else {
+		            if (http.readyState == 4 && http.status == 0) {
+		                alert("Conexion perdida con el servidor");
+		            }
+		        }
+		    }
+		    http.send();
+		}
+		
+		/*]]>*/
+	</script>
 </html>
