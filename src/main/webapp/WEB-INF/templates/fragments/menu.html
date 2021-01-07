@@ -55,6 +55,7 @@
 									th:text="#{label.advertisement.add}">Advertisement</a></li>
 							<li><a th:href="@{/advertisement/search}" th:text="#{label.advertisement.search}">Search</a>
 							</li>
+							<span th:text="${#authentication.getPrincipal().getUsername()}"></span>
 							<li><a th:href="@{/advertisement/list}" th:text="#{label.advertisement}"> Ad List</a></li>
 							<li><a th:href="@{/advertisement/list/likes}" th:text="#{label.advertisement.like}"> Liked
 									Advertisements</a></li>

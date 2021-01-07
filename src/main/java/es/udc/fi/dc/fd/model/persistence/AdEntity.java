@@ -46,8 +46,8 @@ public class AdEntity implements Ad {
 	@Column(name = "price", nullable = false, unique = true)
 	private Double price;
 
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "userA", nullable = false)
+	@ManyToOne(optional = true, fetch = FetchType.EAGER)
+	@JoinColumn(name = "userA", nullable = true)
 	private UserEntity userA;
 
 	@OneToMany(mappedBy = "ad", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
