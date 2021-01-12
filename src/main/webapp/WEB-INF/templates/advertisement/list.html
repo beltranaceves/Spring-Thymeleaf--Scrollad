@@ -158,10 +158,6 @@
 									> <a th:remove="tag" th:text="Premium">Premium</a>
 								</h5>
                                     <h5 th:text="${advertisement?.description}" />
-                                    <h5 th:text="${advertisement?.description}" />
-                                    <h5 th:text="${advertisement?.description}" />
-                                    <h5 th:text="${advertisement?.description}" />
-                                    <h5 th:text="${advertisement?.description}" />
                                     <h5 th:text="${advertisement?.userA.username} + '-' + ${advertisement?.userA.city}" />
                                     <h5 th:text="${#temporals.format(advertisement?.date,'dd/MMM/yyyy HH:mm')}" />
                                     <h5 th:text="${#numbers.formatCurrency(advertisement?.price)}" />
