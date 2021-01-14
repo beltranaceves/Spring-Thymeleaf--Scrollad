@@ -44,9 +44,6 @@ local.properties
 /src/main/resources/rebel.xml
 .springBeans
 
-# Visual Studio files #
-/src/main/webapp/.vs/
-
 # IntelliJ Idea files #
 .idea
 *.iml

@@ -20,6 +20,7 @@ import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
 
 import es.udc.fi.dc.fd.model.User;
@@ -89,6 +90,8 @@ public class UserEntity implements User {
 	private Set<String> followedUser = Sets.newHashSet();
 
 	@OneToMany(mappedBy = "userA")
+	@ElementCollection(fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Set<AdEntity> ads = new HashSet<AdEntity>(0);
 
 	public UserEntity() {
