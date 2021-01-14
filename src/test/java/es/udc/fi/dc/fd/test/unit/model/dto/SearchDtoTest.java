@@ -1,6 +1,7 @@
 package es.udc.fi.dc.fd.test.unit.model.dto;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
