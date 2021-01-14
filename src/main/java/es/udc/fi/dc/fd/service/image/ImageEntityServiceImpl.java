@@ -40,16 +40,6 @@ public class ImageEntityServiceImpl implements ImageEntityService {
 		return entity;
 	}
 
-	/*
-	 * @Override public Image findByAd(AdEntity adEntity) { final Image entity;
-	 * 
-	 * checkNotNull(adEntity, "Received a null pointer as identifier");
-	 * Optional<ImageEntity> imageEntity = imageEntityRepository.findByAd(adEntity);
-	 * if (imageEntity.isPresent()) { entity = imageEntity.get(); } else { entity =
-	 * new ImageEntity(); }
-	 * 
-	 * return entity; }
-	 */
 	@Override
 	public Iterable<ImageEntity> getAllEntities() {
 		return imageEntityRepository.findAll();

@@ -30,8 +30,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,8 +48,6 @@ import es.udc.fi.dc.fd.repository.UserEntityRepository;
 public class UserEntityService implements UserService {
 
 	private final UserEntityRepository userRepository;
-	
-
 
 	@Autowired
 	public UserEntityService(final UserEntityRepository repository) {
@@ -82,7 +78,6 @@ public class UserEntityService implements UserService {
 		if (!result.isPresent()) {
 
 			user = new UserEntity();
-			System.out.println("No se ha encontrado ningun usuario");
 
 		} else {
 
@@ -91,27 +86,24 @@ public class UserEntityService implements UserService {
 
 		return user;
 	}
-	
-	
+
 	public UserEntity findById(final Integer id) {
 		return userRepository.findById(id).get();
 	}
 
 	@Override
-	public UserEntity followAndUnfollow(final String entity,final String followed) {
-		
+	public UserEntity followAndUnfollow(final String entity, final String followed) {
+
 		final UserEntity userEntity;
-		
+
 		Optional<UserEntity> result = userRepository.findByUsername(entity);
-		
+
 		if (!result.isPresent()) {
 			userEntity = new UserEntity();
-			System.out.println("No se ha encontrado el usuario logeado");
-			
 		} else {
-			
+
 			userEntity = findByUsername(entity);
-			
+
 			Set<String> followers = userEntity.getFollowed();
 			if (followers.contains(followed)) {
 				followers.remove(followed);
@@ -122,70 +114,69 @@ public class UserEntityService implements UserService {
 				userEntity.setFollowed(followers);
 				userRepository.save(userEntity);
 			}
-		}	
-		
+		}
+
 		return userEntity;
 	}
 
 	@Override
-	public UserEntity rateUser(final String entity,final String rated,final Integer score) {
-		
+	public UserEntity rateUser(final String entity, final String rated, final Integer score) {
+
 		final UserEntity userLoged;
 		final UserEntity ratedUser;
 		Integer count;
 		Integer sumScore;
 		Double average;
-		
-		
+
 		Optional<UserEntity> resultUserEntity = userRepository.findByUsername(entity);
 		Optional<UserEntity> resultRatedUser = userRepository.findByUsername(rated);
-		
+
 		if (!resultUserEntity.isPresent() || !resultRatedUser.isPresent()) {
-			
+
 			userLoged = new UserEntity();
-			System.out.println("No se ha encontrado el usuario logeado o el usuario a quien puntuar");
-			
+
 		} else {
-			
+
 			userLoged = findByUsername(entity);
 			ratedUser = findByUsername(rated);
-			
+
 			Set<String> scoredUserList = userLoged.getScored();
 			if (!scoredUserList.contains(rated)) {
 				scoredUserList.add(rated);
 				userLoged.setScored(scoredUserList);
 				userRepository.save(userLoged);
-				
-				count= ratedUser.getScoreCount();
+
+				count = ratedUser.getScoreCount();
 				count = count + 1;
 				ratedUser.setScoreCount(count);
 				userRepository.save(ratedUser);
-				
-				sumScore= ratedUser.getSumScore();
-				sumScore= sumScore + score;
+
+				sumScore = ratedUser.getSumScore();
+				sumScore = sumScore + score;
 				ratedUser.setSumScore(sumScore);
 				userRepository.save(ratedUser);
-				
-				average= ratedUser.getAverageScore();
-				average= Double.valueOf(sumScore)/count;
+
+				average = ratedUser.getAverageScore();
+				average = Double.valueOf(sumScore) / count;
 				ratedUser.setAverageScore(average);
 				userRepository.save(ratedUser);
 			}
-		}	
-		
+		}
+
 		return userLoged;
 	}
-	
+
 	public Boolean isPremiumUser(final Integer id) {
 		UserEntity user = findById(id);
-		
+
 		return user.getIsPremium();
 	}
-	
+
 	public void updateIsPremiumUserByUserId(final Integer id, final Boolean value) {
 		Optional<UserEntity> userEntity = userRepository.findById(id);
 		if (userEntity.isPresent()) {
-			userEntity.get().setIsPremium(value);;
+			userEntity.get().setIsPremium(value);
+			;
 			userRepository.save(userEntity.get());
 		}
 	}

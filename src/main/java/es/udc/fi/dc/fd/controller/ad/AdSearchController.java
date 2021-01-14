@@ -2,8 +2,18 @@ package es.udc.fi.dc.fd.controller.ad;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
+import java.time.Duration;
 import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,30 +24,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import es.udc.fi.dc.fd.model.dto.AdEntityDto;
+import es.udc.fi.dc.fd.model.dto.SearchDto;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.service.ad.AdEntityService;
 import es.udc.fi.dc.fd.service.like.LikeService;
 import es.udc.fi.dc.fd.service.user.UserService;
 
+
+
 @Controller
 @RequestMapping("/advertisement")
 public class AdSearchController {
 
-	private final AdEntityService adEntityService;
-	private final LikeService likedAdService;
+	
 	private final UserService userEntityService;
 
 	@Autowired
-	public AdSearchController(final LikeService likeService, final AdEntityService service,
-			final UserService userService) {
+	public AdSearchController(final UserService userService) {
 		super();
-		likedAdService = checkNotNull(likeService, "Received a null pointer as service");
-		adEntityService = checkNotNull(service, "Received a null pointer as service");
 		userEntityService = checkNotNull(userService, "Received a null pointer as service");
 
 	}
-
+	
 	public UserEntity getLoggedUser(final ModelMap model) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -46,58 +58,71 @@ public class AdSearchController {
 
 		return user;
 	}
-
+	
 	@GetMapping(path = "/search")
-	public String findAds(@RequestParam(required = false, value = "city") String city,
-			@RequestParam(required = false, value = "keywords") String keywords,
-			@RequestParam(required = false, value = "interval") String interval,
-			@RequestParam(required = false, value = "averageScore" ) Double averageScore,
+	public String findAds(@RequestParam(defaultValue = "", required = false, value = "city") String city,
+			@RequestParam(defaultValue = "",required = false, value = "keywords") String keywords,
+			@RequestParam(defaultValue = "", required = false, value = "interval") String interval,
+			@RequestParam(required = false, value = "averageScore") Double averageScore,
 			@RequestParam(required = false, value = "minPrice") Double minPrice,
-			@RequestParam(required = false, value = "maxPrice") Double maxPrice, final ModelMap model) {
-
-		loadViewModel(model, city, keywords, interval, averageScore, minPrice, maxPrice);
-
-		return AdEntityViewConstants.SEARCH;
-	}
-
-	private final void loadViewModel(final ModelMap model, String city, String keywords, String interval,
-			Double averageScore,Double minPrice, Double maxPrice) {
-
-		Iterable<AdEntity> adList = adEntityService.findAds(city, keywords != null ? keywords.trim() : null, interval,
-				averageScore,minPrice, maxPrice);
-		Iterable<AdEntity> likedAds = likedAdService.getAdsLikedByUser(getLoggedUser(model));
-		List<Integer> likesList = new ArrayList<>();
-		List<AdEntity> premiumAdList= new ArrayList<>();
-		List<AdEntity> randomPremiumAdList= new ArrayList<>();
-		List<AdEntity> normalAdList= new ArrayList<>();
+			@RequestParam(defaultValue = "", required = false, value = "userName") String userName,
+			@RequestParam(required = false, value = "maxPrice") Double maxPrice, final ModelMap model,
+			HttpServletRequest request, final HttpServletResponse response) {
 		
-		likedAds.forEach(likedAd -> {
-			likesList.add(likedAd.getId());
-		});
-		
-		adList.forEach(ad -> {
-			if(ad.getUserA().getIsPremium()) {
-				premiumAdList.add(ad);
-			} else {
-				normalAdList.add(ad);
-			}
-		});
-		int size = premiumAdList.size();
-		if (size < 5) {
-			randomPremiumAdList = premiumAdList;
-		} else {
-			for(int i = 0; i < 5; i++) {
-				randomPremiumAdList.add(premiumAdList.get((int)Math.floor(Math.random()*size)));
-			}
+		SearchDto searchDto = new SearchDto(null, null, null, null, null, null, null, null);
+		String averageScoreParam = "";
+		String minPriceParam = "";
+		String maxPriceParam = "";
+		if (averageScore != null) {
+			averageScoreParam = averageScore.toString();
+		}
+		if (minPrice != null) {
+			minPriceParam = minPrice.toString();
+		}
+		if (maxPrice != null) {
+			maxPriceParam = maxPrice.toString();
 		}
 		
-		model.addAttribute("likesList", likesList);
-		model.addAttribute("cities", adEntityService.getCities());
-		model.put("user", getLoggedUser(model));
-		model.put("scoreCount", getLoggedUser(model).getScoreCount());
-		model.put("scoredUsers",getLoggedUser(model).getScored());
-		model.put("follows", getLoggedUser(model).getFollowed());
-		model.put(AdEntityViewConstants.PARAM_ENTITIES, normalAdList);
-		model.put(AdEntityViewConstants.PARAM_PREMIUM_ENTITIES, randomPremiumAdList);
+		String uri= "http://deploy.fic.udc.es/scrollad-0.1-SNAPSHOT/rest/search?city=" + city + "&keywords=" + keywords +
+				"&interval=" + interval + "&averageScore=" + averageScoreParam + "&minPrice=" + minPriceParam +
+				"&userName=" + getLoggedUser(model).getUsername() + "&maxPrice" + maxPriceParam;
+		
+		HttpClient client = HttpClient.newHttpClient();
+	    HttpRequest request1 = HttpRequest.newBuilder()
+	          .uri(URI.create(uri))
+	          .build();
+	    HttpResponse<String> response1;
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    try {
+			response1 =
+			      client.send(request1, BodyHandlers.ofString());
+			searchDto = objectMapper.readValue(response1.body(), SearchDto.class);
+		} catch (IOException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	    loadViewModel(model, searchDto.getLikesList(), searchDto.getCities(), searchDto.getUser(), searchDto.getScoreCount(), 
+				searchDto.getScoredUsers(), searchDto.getFollows(), searchDto.getAdvertisements(), searchDto.getPremiumAdvertisements());
+		
+		
+		return AdEntityViewConstants.SEARCH;
 	}
+	
+	
+	private final void loadViewModel(final ModelMap model, List<Integer> likesList, List<String> cities, UserEntity user, Integer scoredCount,
+			Set<String> scoredUsers, Set<String> follows, List<AdEntityDto> advertisements, List<AdEntityDto> premiumAdvertisements) {
+
+		
+		model.addAttribute("likesList", likesList);
+		model.addAttribute("cities", cities);
+		model.put("user", user);
+		model.put("scoreCount", scoredCount);
+		model.put("scoredUsers", scoredUsers);
+		model.put("follows", follows);
+		model.put(AdEntityViewConstants.PARAM_ENTITIES, advertisements);
+		model.put(AdEntityViewConstants.PARAM_PREMIUM_ENTITIES, premiumAdvertisements);
+	}
+	
+
 }

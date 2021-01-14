@@ -1,4 +1,4 @@
-package es.udc.fi.dc.fd.model.persistence;
+package es.udc.fi.dc.fd.model.dto;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -6,72 +6,53 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import es.udc.fi.dc.fd.model.persistence.ImageEntity;
+import es.udc.fi.dc.fd.model.persistence.UserEntity;
 
-import es.udc.fi.dc.fd.model.Ad;
-
-@Entity(name = "Ad")
-@Table(name = "advertisement")
-
-public class AdEntity implements Ad {
-
-	@Transient
-	private static final long serialVersionUID = 1328776989450853491L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false, unique = true)
+public class AdEntityDto {
+	
 	private Integer id;
 
-	@Column(name = "title", nullable = false, unique = false)
 	private String title = "";
 
-	@Column(name = "description", nullable = false, unique = true)
 	private String description = "";
 
-	@Column(name = "date", nullable = false, unique = true)
-	private LocalDateTime date;
+	private String date;
 
-	@Column(name = "price", nullable = false, unique = true)
 	private Double price;
 
-	@ManyToOne(optional = true, fetch = FetchType.EAGER)
-	@JoinColumn(name = "userA", nullable = true)
 	private UserEntity userA;
 
-	@OneToMany(mappedBy = "ad", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<ImageEntity> images;
 
-	@Column(name = "isOnHold", nullable = false)
 	private Boolean isOnHold;
 	
-	@Column(name = "isSold", nullable = false)
 	private Boolean isSold;
 
-	public AdEntity() {
+	public AdEntityDto() {
 		super();
 	}
 
-	public AdEntity(String title, String description, LocalDateTime date, Double price, UserEntity userA, Boolean isOnHold, Boolean isSold) {
+	public AdEntityDto(List<ImageEntity> images, Integer id, String title, String description, LocalDateTime date, Double price, UserEntity userA, Boolean isOnHold, Boolean isSold) {
 		super();
+		this.images = images;
+		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.date = date;
+		this.date = prepareStringDate(date.toString());
 		this.price = price;
 		this.userA = userA;
 		this.isOnHold = isOnHold;
 		this.isSold = isSold;
+	}
+
+	private String prepareStringDate(String dateString) {
+		String[] separatedDate = dateString.split("T");
+		String[] separatedTime = separatedDate[1].split(":");
+		String fecha = separatedDate[0];
+		String hora = separatedTime[0];
+		String minuto = separatedTime[1];
+		return fecha+ " " + hora + ":" + minuto;
 	}
 
 	public Integer getId() {
@@ -106,12 +87,13 @@ public class AdEntity implements Ad {
 		this.description = checkNotNull(description, "Received a null pointer as description");
 	}
 
-	public LocalDateTime getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(final LocalDateTime date) {
-		this.date = checkNotNull(date, "Received a null pointer as date");
+	public void setDate(final String date) {
+		checkNotNull(date, "Received a null pointer as date");
+		this.date = prepareStringDate(date.toString());
 	}
 
 	public Double getPrice() {
@@ -162,7 +144,7 @@ public class AdEntity implements Ad {
 		if (getClass() != obj.getClass())
 			return false;
 
-		final AdEntity other = (AdEntity) obj;
+		final AdEntityDto other = (AdEntityDto) obj;
 		return Objects.equals(id, other.id);
 	}
 
