@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.dc.fd.model.Ad;
 import es.udc.fi.dc.fd.model.User;
+import es.udc.fi.dc.fd.model.dto.AdEntityDto;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.ImageEntity;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
@@ -82,6 +85,22 @@ public class AdListServiceTest {
 		expected.add(ad3);
 
 		AdEntity ad = service.findById(ad1.getId());
+		
+		AdEntityDto adEntityDto = new AdEntityDto();
+		String stringDate = "2020-10-10T18:34:34.043";
+		String description = "Esta es la descripcion";
+		Integer integer = 12;
+		List<ImageEntity>  images = new ArrayList<ImageEntity>();
+		Boolean isOnHold = false;
+		Boolean isSold = false;
+		Double price = 10.0;
+		String title = "Test";	
+		UserEntity userA = new UserEntity();
+		AdEntity adEntity = new AdEntity(title, description, LocalDateTime.now(), price, userA, isOnHold, isSold);
+		
+		service.add(adEntity);
+		service.findById(adEntity.getId());
+		service.remove(adEntity);
 		
 		assertEquals(ad1.getId(), ad.getId());
 
