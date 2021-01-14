@@ -14,7 +14,6 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.dc.fd.model.Ad;
-import es.udc.fi.dc.fd.model.User;
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.service.ad.AdEntityServiceImpl;
@@ -26,9 +25,9 @@ import es.udc.fi.dc.fd.service.ad.AdEntityServiceImpl;
 @ContextConfiguration(locations = { "classpath:context/application-context.xml" })
 @TestPropertySource({ "classpath:config/persistence-access.properties" })
 
-public final class TestAdEntity {
+public final class AdEntityTest {
 	
-	public TestAdEntity() {
+	public AdEntityTest() {
         super();
     }
 	
