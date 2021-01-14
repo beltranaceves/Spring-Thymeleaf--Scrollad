@@ -45,17 +45,9 @@ public class ChatServiceImpl implements ChatService {
 
 		Optional<UserEntity> obtainedReceiver = userRepository.findById(user2.getId());
 
-		if (obtainedSender.isPresent()) {
-			sender = obtainedSender.get();
+		sender = obtainedSender.get();
 
-		} else {
-			sender = new UserEntity();
-		}
-		if (obtainedReceiver.isPresent()) {
-			receiver = obtainedReceiver.get();
-		} else {
-			receiver = new UserEntity();
-		}
+		receiver = obtainedReceiver.get();
 
 		MessageEntity message = new MessageEntity();
 

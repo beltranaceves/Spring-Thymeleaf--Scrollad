@@ -165,6 +165,28 @@ public class ChatServiceTest {
 		assertEquals(1, unseenSenderIsUser3);
 	}
 
+	@Test
+	public void testFindById() {
+		User user1 = createUser("username1");
+		User user2 = createUser("username2");
+		User user3 = createUser("username3");
+
+		Message message = service.send("text message 1", user1, user2);
+		MessageEntity res = service.findById(message.getId());
+		assertEquals(message.getId(), res.getId());
+
+	}
+
+	@Test
+	public void testFindByIdInexistentMessage() {
+		User user1 = createUser("username1");
+		User user2 = createUser("username2");
+		User user3 = createUser("username3");
+
+		MessageEntity res = service.findById(123);
+		assertEquals(null, res.getId());
+	}
+
 	private User createUser(String username) {
 
 		UserEntity user = new UserEntity();
