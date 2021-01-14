@@ -44,7 +44,7 @@ public class TestErrorController {
 	public void test404Endpoint() throws Exception {
 		final ResultActions result;
 
-		result = mockMvc.perform(MockMvcRequestBuilders.get("404")).andExpect(status().is4xxClientError());
+		result = mockMvc.perform(MockMvcRequestBuilders.get("/404")).andExpect(status().isOk());
 
 	}
 }
