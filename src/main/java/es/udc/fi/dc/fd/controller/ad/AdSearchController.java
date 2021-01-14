@@ -82,6 +82,7 @@ public class AdSearchController {
 		if (maxPrice != null) {
 			maxPriceParam = maxPrice.toString();
 		}
+		
 		String uri= "http://deploy.fic.udc.es/scrollad-0.1-SNAPSHOT/rest/search?city=" + city + "&keywords=" + keywords +
 				"&interval=" + interval + "&averageScore=" + averageScoreParam + "&minPrice=" + minPriceParam +
 				"&userName=" + getLoggedUser(model).getUsername() + "&maxPrice" + maxPriceParam;
