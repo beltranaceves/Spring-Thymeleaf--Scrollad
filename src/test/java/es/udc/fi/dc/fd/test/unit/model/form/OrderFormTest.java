@@ -1,33 +1,18 @@
 package es.udc.fi.dc.fd.test.unit.model.form;
 
-import static org.junit.Assert.*;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.udc.fi.dc.fd.model.User;
-import es.udc.fi.dc.fd.model.dto.AdEntityDto;
 import es.udc.fi.dc.fd.model.form.OrderForm;
-import es.udc.fi.dc.fd.model.form.UserForm;
-import es.udc.fi.dc.fd.model.persistence.ImageEntity;
-import es.udc.fi.dc.fd.model.persistence.UserEntity;
-import es.udc.fi.dc.fd.service.user.UserService;
 
 @RunWith(JUnitPlatform.class)
 @SpringJUnitConfig
