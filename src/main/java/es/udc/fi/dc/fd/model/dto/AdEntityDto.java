@@ -39,7 +39,7 @@ public class AdEntityDto {
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.date = prepareStringDate(date.toString());
+		this.date = date.toString();
 		this.price = price;
 		this.userA = userA;
 		this.isOnHold = isOnHold;
