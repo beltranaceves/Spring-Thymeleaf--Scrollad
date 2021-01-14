@@ -77,7 +77,7 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 			}
 			
 			if (averageScore != null) {
-				queryString += " p.userA.averageScore <= :averageScore";
+				queryString += " p.userA.averageScore >= :averageScore";
 			}			
 		}
 		
