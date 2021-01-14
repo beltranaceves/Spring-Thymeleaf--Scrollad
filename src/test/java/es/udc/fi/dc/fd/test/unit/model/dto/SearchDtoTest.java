@@ -97,6 +97,58 @@ public final class SearchDtoTest {
 		SearchDto searchDto2 = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
 		
 		assertNotEquals(searchDto, searchDto2);
+		searchDto2.setAdvertisements(null);
+		searchDto2.setPremiumAdvertisements(null);
+		assertNotEquals(searchDto.hashCode(), searchDto2.hashCode());
+		
+		
+		assertNotEquals(searchDto, searchDto2);
+		assertEquals(searchDto, searchDto);
+		
+		searchDto.setCities(null);
+		assertNotEquals(searchDto, searchDto2);
+		
+		searchDto = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		searchDto2 = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		
+		searchDto.setCities(null);
+		assertNotEquals(searchDto, searchDto2);
+		
+		searchDto = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		searchDto2 = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		
+		searchDto.setFollows(null);
+		assertNotEquals(searchDto, searchDto2);
+		
+		searchDto = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		searchDto2 = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		
+		searchDto.setLikesList(null);
+		assertNotEquals(searchDto, searchDto2);
+		
+		searchDto = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		searchDto2 = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		
+		searchDto.setPremiumAdvertisements(null);
+		assertNotEquals(searchDto, searchDto2);
+		
+		searchDto = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		searchDto2 = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		
+		searchDto.setScoreCount(null);
+		assertNotEquals(searchDto, searchDto2);
+		
+		searchDto = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		searchDto2 = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		
+		searchDto.setScoredUsers(null);
+		assertNotEquals(searchDto, searchDto2);
+		
+		searchDto = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		searchDto2 = new SearchDto(likesList, scoreCount, user, cities, scoredUsers, follows, adEntityList, adEntityList);
+		
+		searchDto.setUser(null);
+		assertNotEquals(searchDto, searchDto2);
 	}
 
 
