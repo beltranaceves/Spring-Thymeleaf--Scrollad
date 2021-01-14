@@ -92,7 +92,8 @@ public class AdEntityDto {
 	}
 
 	public void setDate(final String date) {
-		this.date = checkNotNull(date, "Received a null pointer as date");
+		checkNotNull(date, "Received a null pointer as date");
+		this.date = prepareStringDate(date.toString());
 	}
 
 	public Double getPrice() {
