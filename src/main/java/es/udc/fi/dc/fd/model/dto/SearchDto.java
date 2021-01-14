@@ -1,17 +1,15 @@
 package es.udc.fi.dc.fd.model.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 
-@Transactional
 public class SearchDto implements Serializable {
 
 	/**
@@ -31,10 +29,14 @@ public class SearchDto implements Serializable {
 	
 	private Set<String> follows;
 	
-	private List<AdEntity> advertisements;
+	private List<AdEntityDto> advertisements;
 
-	private List<AdEntity> premiumAdvertisements;
+	private List<AdEntityDto> premiumAdvertisements;
 
+	public SearchDto() {
+		super();
+	}
+	
 	public SearchDto(List<Integer> likesList, Integer scoreCount, UserEntity user, List<String> cities,
 			Set<String> scoredUsers, Set<String> follows, List<AdEntity> advertisements,
 			List<AdEntity> premiumAdvertisements) {
@@ -45,10 +47,30 @@ public class SearchDto implements Serializable {
 		this.scoreCount = scoreCount;
 		this.scoredUsers = scoredUsers;
 		this.follows = follows;
-		this.advertisements = advertisements;
-		this.premiumAdvertisements = premiumAdvertisements;
+		this.advertisements = adEntityDtoConverter(advertisements);
+		this.premiumAdvertisements = adEntityDtoConverter(premiumAdvertisements);
 	}
 
+	private List<AdEntityDto> adEntityDtoConverter(List<AdEntity> advertisements) {
+		List<AdEntityDto> adEntityDtos = new ArrayList<AdEntityDto>();
+		if (advertisements != null) {
+			advertisements.forEach((ad) -> {
+				adEntityDtos.add(new AdEntityDto(
+						ad.getImages(),
+						ad.getId(),
+						ad.getTitle(),
+						ad.getDescription(),
+						ad.getDate(),
+						ad.getPrice(),
+						ad.getUserA(),
+						ad.getIsOnHold(),
+						ad.getIsSold()
+						));
+			});
+		}
+		return adEntityDtos;
+	}
+	
 	public List<Integer> getLikesList() {
 		return likesList;
 	}
@@ -98,19 +120,19 @@ public class SearchDto implements Serializable {
 		this.follows = follows;
 	}
 
-	public List<AdEntity> getAdvertisements() {
+	public List<AdEntityDto> getAdvertisements() {
 		return advertisements;
 	}
 
-	public void setAdvertisements(List<AdEntity> advertisements) {
+	public void setAdvertisements(List<AdEntityDto> advertisements) {
 		this.advertisements = advertisements;
 	}
 
-	public List<AdEntity> getPremiumAdvertisements() {
+	public List<AdEntityDto> getPremiumAdvertisements() {
 		return premiumAdvertisements;
 	}
 
-	public void setPremiumAdvertisements(List<AdEntity> premiumAdvertisements) {
+	public void setPremiumAdvertisements(List<AdEntityDto> premiumAdvertisements) {
 		this.premiumAdvertisements = premiumAdvertisements;
 	}
 
