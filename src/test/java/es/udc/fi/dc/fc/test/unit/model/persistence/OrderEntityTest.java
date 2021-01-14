@@ -1,5 +1,6 @@
 package es.udc.fi.dc.fc.test.unit.model.persistence;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,6 +31,7 @@ public class OrderEntityTest {
 	UserEntity user = new UserEntity();
 	UserEntity user2 = new UserEntity();
 	AdEntity ad = new AdEntity();
+	LocalDateTime date= LocalDateTime.now();
 	
 	private OrderEntity getOrderEntity() {
 		
@@ -39,7 +41,7 @@ public class OrderEntityTest {
 		order.setAd(ad);
 		order.setUser(user);
 		order.setAddress("dfw");
-		order.setDate(LocalDateTime.now());
+		order.setDate(date);
 		order.setPrice(1.1);
 		order.setCreditCard("123");		
 		return order;
@@ -54,7 +56,7 @@ public class OrderEntityTest {
 		assertEquals(1, entity.getId());
 		assertEquals(user, entity.getUser());
 		assertEquals("dfw", entity.getAddress());
-		assertEquals(LocalDateTime.now(), entity.getDate());
+		assertEquals(date, entity.getDate());
 		assertEquals(1.1, entity.getPrice());
 		assertEquals("123", entity.getCreditCard());
 		
