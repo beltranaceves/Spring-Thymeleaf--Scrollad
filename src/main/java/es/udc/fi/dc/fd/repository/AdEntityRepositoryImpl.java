@@ -25,7 +25,7 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdEntity> find(String city, String keywords, String interval, Double minPrice, Double maxPrice) {
+	public List<AdEntity> find(String city, String keywords, String interval,Double averageScore, Double minPrice, Double maxPrice) {
 
 		String[] tokens = getTokens(keywords);
 		String queryString = "SELECT p FROM Ad p";
@@ -42,7 +42,7 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 			}
 		}
 
-		if (city != null || tokens.length > 0 || interval != null || minPrice != null || maxPrice != null) {
+		if (city != null || tokens.length > 0 || interval != null || averageScore !=null || minPrice != null || maxPrice != null) {
 			queryString += " WHERE ";
 		}
 
@@ -70,9 +70,20 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 			}
 		}
 
+		if (averageScore != null) {
+			
+			if (city != null || interval != null) {
+				queryString += " AND ";
+			}
+			
+			if (averageScore != null) {
+				queryString += " p.userA.averageScore >= :averageScore";
+			}			
+		}
+		
 		if (minPrice != null || maxPrice != null) {
 
-			if (city != null || interval != null) {
+			if (city != null || interval != null || averageScore != null) {
 				queryString += " AND ";
 			}
 
@@ -89,7 +100,7 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 
 		if (tokens.length != 0) {
 
-			if (city != null || interval != null || minPrice != null || maxPrice != null) {
+			if (city != null || interval != null || averageScore != null || minPrice != null || maxPrice != null) {
 				queryString += " AND ";
 			}
 
@@ -109,6 +120,10 @@ public class AdEntityRepositoryImpl implements AdEntityRepositoryCustom {
 			query.setParameter("city", city);
 		}
 
+		if (averageScore != null) {
+			query.setParameter("averageScore", averageScore);
+		}
+		
 		if (minPrice != null) {
 			query.setParameter("minPrice", minPrice);
 		}

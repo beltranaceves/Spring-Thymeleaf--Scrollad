@@ -34,7 +34,28 @@ public interface User extends Serializable {
 	String getCity();
 
 	void setCity(final String value);
+	
+	Boolean getIsPremium();
 
+	void setIsPremium(final Boolean value);
+	
+	Double getAverageScore();
+	
+	void setAverageScore(final Double value);
+	
+	Integer getSumScore();
+	
+	void setSumScore(final Integer value);
+	
+	Set<String> getScored();
+	
+	void setScored(final Set<String> value);
+	
+	Integer getScoreCount();
+	
+	void setScoreCount(final Integer value);
+
+	
 	Set<String> getFollowed();
 
 	void setFollowed(final Set<String> value);

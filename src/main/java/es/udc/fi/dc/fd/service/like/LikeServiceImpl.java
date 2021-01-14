@@ -2,6 +2,7 @@ package es.udc.fi.dc.fd.service.like;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.dc.fd.model.persistence.AdEntity;
 import es.udc.fi.dc.fd.model.persistence.LikeEntity;
+import es.udc.fi.dc.fd.model.persistence.OrderEntity;
 import es.udc.fi.dc.fd.model.persistence.UserEntity;
 import es.udc.fi.dc.fd.repository.LikeRepository;
+import es.udc.fi.dc.fd.repository.OrderRepository;
 import es.udc.fi.dc.fd.service.ad.AdEntityService;
 
 @Service
@@ -21,14 +24,21 @@ import es.udc.fi.dc.fd.service.ad.AdEntityService;
 public class LikeServiceImpl implements LikeService {
 
 	private final LikeRepository likeRepository;
+	
+	private final OrderRepository orderEntityRepository;
 
 	@Autowired
 	AdEntityService adService;
 
 	@Autowired
-	public LikeServiceImpl(LikeRepository likeRepository) {
+	public LikeServiceImpl(LikeRepository likeRepository,
+			final OrderRepository orderRepository) {
+		
 		super();
+		
 		this.likeRepository = checkNotNull(likeRepository, "Received a null pointer as repository");
+	
+		orderEntityRepository = checkNotNull(orderRepository, "Received a null pointer as repository");
 	}
 
 	@Override
@@ -47,6 +57,7 @@ public class LikeServiceImpl implements LikeService {
 
 		Iterable<LikeEntity> likeIds = likeRepository.findByUserId(user.getId());
 		List<AdEntity> ads = new ArrayList<AdEntity>();
+		List<AdEntity> adEntitiesList = new ArrayList<AdEntity>();
 		Iterator<LikeEntity> iterator = likeIds.iterator();
 		while (iterator.hasNext()) {
 			LikeEntity like = iterator.next();
@@ -56,9 +67,24 @@ public class LikeServiceImpl implements LikeService {
 			}
 		}
 		ads.forEach((adEntity) -> {
-			adEntity.getImages().forEach((image) -> {
-				image.convertAndLoadImageBase64();
-			});
+
+			OrderEntity order = orderEntityRepository.findByAd(adEntity);
+
+			if (order != null) {
+				if (!adEntity.getIsOnHold()) {
+					if (order.getDate().plusDays(1).compareTo(LocalDateTime.now()) >= 0) {
+						adEntity.getImages().forEach((image) -> {
+							image.convertAndLoadImageBase64();
+						});
+						adEntitiesList.add(adEntity);
+					}
+				}
+			} else if (!adEntity.getIsOnHold()) {
+				adEntity.getImages().forEach((image) -> {
+					image.convertAndLoadImageBase64();
+				});
+				adEntitiesList.add(adEntity);
+			}
 		});
 
 		return ads;
