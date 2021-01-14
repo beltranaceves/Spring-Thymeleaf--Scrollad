@@ -96,7 +96,6 @@ public class AdSearchController {
 	    try {
 			response1 =
 			      client.send(request1, BodyHandlers.ofString());
-			System.out.println("respuesta");
 			searchDto = objectMapper.readValue(response1.body(), SearchDto.class);
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
