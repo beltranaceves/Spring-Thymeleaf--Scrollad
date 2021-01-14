@@ -39,11 +39,20 @@ public class AdEntityDto {
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.date = date.toString();
+		this.date = prepareStringDate(date.toString());
 		this.price = price;
 		this.userA = userA;
 		this.isOnHold = isOnHold;
 		this.isSold = isSold;
+	}
+
+	private String prepareStringDate(String dateString) {
+		String[] separatedDate = dateString.split("T");
+		String[] separatedTime = separatedDate[1].split(":");
+		String fecha = separatedDate[0];
+		String hora = separatedTime[0];
+		String minuto = separatedTime[1];
+		return fecha+ " " + hora + ":" + minuto;
 	}
 
 	public Integer getId() {
