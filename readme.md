@@ -1,4 +1,15 @@
 # FD Spring MVC scrollad app
+Craigslist-style website with:
+
+ -Ad upload, search and rating
+ 
+ -Follow users and real time chat
+ 
+ -Premium subscription for sponsored ads
+ 
+ -Exposed ad search API
+ 
+
 
 This is a [Spring MVC](https://spring.io) project using [Thymeleaf](http://www.thymeleaf.org/) templates for the views, created with the use of the [Spring MVC with Thymeleaf Maven Archetype](https://gitlab.irlab.org/irlab/spring-mvc-archetype). 
 
